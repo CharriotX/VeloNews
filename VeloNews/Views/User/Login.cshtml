@@ -1,0 +1,20 @@
+﻿@model LoginViewModel
+
+@section Styles {
+    <link href="~/css/user.css" rel="stylesheet" type="text/css" />
+}
+
+<div>
+    <form action="/User/Login" method="post">
+        <div>
+            <div>Enter username</div>
+            @Html.TextBoxFor(x => x.Name)
+        </div>
+        <div>
+            <div>Enter password</div>
+            @Html.TextBoxFor(x=>x.Password)
+        </div>
+
+        <input type="submit" value="Log In"/>
+    </form>
+</div>

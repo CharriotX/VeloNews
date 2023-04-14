@@ -1,0 +1,12 @@
+﻿@model ProfileViewModel
+
+@section Styles {
+    <link href="~/css/user.css" rel="stylesheet" type="text/css" />
+}
+
+
+<div>
+    <h2>My account</h2>
+    <div class="profile-logout-btn">You are logged in. Click <a href="/User/Logout">here</a> to logout.</div>
+    <div>@Model.Name</div>
+</div>

@@ -1,0 +1,23 @@
+﻿@model ShowNewsViewModel
+
+@section Styles {
+    <link href="~/css/news.css" rel="stylesheet" type="text/css"/>
+}
+
+<div class="show-news">
+    <div class="news-block">
+        <div class="news-content">
+            <div class="show-news-author">Created by @Model.Author, @Model.CreatedTime.AddDays(-1).ToString("dd-MM-yyyy, HH:mm")</div>
+            <div class="show-news-title">@Model.Title</div>
+            <div class="show-news-text">@Html.Raw(Model.ShortText)</div>
+            <div class="show-news-image-block">
+                @foreach(var image in Model.NewsUrlsImages)
+                {
+                    <img class="show-news-image" src="@image"/>
+                }
+            </div>
+            <div class="show-news-text">@Html.Raw(Model.Text)</div>
+        </div>
+        <div class="back-btn"><a href="/News/Index">Back to news</a></div>
+    </div> 
+</div>

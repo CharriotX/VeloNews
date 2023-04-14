@@ -1,0 +1,25 @@
+﻿@model List<NewsCardViewModel>
+
+@section Styles {
+    <link href="~/css/news.css" rel="stylesheet" type="text/css" />
+}
+
+<div class="all-news">
+    <div class="news-list">
+        @foreach (var item in Model)
+        {
+            <div class="news-item">
+                <div class="news-item-title"><a href="/News/ShowNews?newsId=@item.Id">@item.Title</a></div>
+                <div class="news-item-body">
+                    <img src="@item.PreviewImage" />
+                    <div class="news-item-text">@Html.Raw(@item.ShortText)</div>
+                </div>
+                <div class="news-item-author">Created by @item.Author, @item.CreatedTime.AddDays(-1).ToString("dd-MM-yyyy, HH:mm") </div>
+            </div>
+        }
+    </div>
+
+    <div>
+        <a href="/News/AddNews">Add news</a>
+    </div>
+</div>

@@ -1,0 +1,22 @@
+﻿@model UserViewModel
+
+
+@section Styles {
+    <link href="~/css/user.css" rel="stylesheet" type="text/css" />
+}
+
+<div class="register-block">
+    <form action="/User/Registration" method="post" class="register-form">
+        <div class="register-name">
+            <div>Enter username</div>
+            @Html.TextBoxFor(x => x.Name)
+        </div>
+        <div class="register-pass">
+            <div>Enter password</div>
+            @Html.TextBoxFor(x => x.Password)
+        </div>
+        <div class="rester-button">
+            <input type="submit" value="Registration"/>
+        </div>
+    </form>
+</div>
