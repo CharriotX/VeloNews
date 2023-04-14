@@ -56,14 +56,18 @@
     display: flex;
 }
 
+.body-image-block {
+    width: 350px;
+    padding: 5px;
+}
+
 .news-item-body img {
     max-width: 350px;
-    margin: 10px;
-        
+    max-height: 240px;        
 }
 
 .news-item-text {
-    padding: 5px 10px;
+    margin: 5px 20px;
 }
 
     .news-item-text p span {

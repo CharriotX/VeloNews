@@ -10,6 +10,8 @@ namespace Data.Sql
         public DbSet<User> Users { get; set; }
         public DbSet<Comment> Comments { get; set; }
 
+        public WebContext() { }
+
         public WebContext(DbContextOptions<WebContext> options) : base(options)
         {
         }

@@ -19,10 +19,5 @@ namespace VeloNews.Services
         {
             return _newsRepository.GetAll().ToList();
         }
-
-        public List<News> GetNewsByName(string name)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

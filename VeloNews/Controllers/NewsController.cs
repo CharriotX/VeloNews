@@ -70,7 +70,7 @@ namespace VeloNews.Controllers
         [HttpPost]
         public IActionResult AddNews(NewsViewModel viewModel)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 return View(viewModel);
             }
@@ -88,9 +88,18 @@ namespace VeloNews.Controllers
 
             _newsRepository.Save(dbModel);
 
-            var getNews = _newsRepository.Get(dbModel.Id);
+            var thisNews = _newsRepository.Get(dbModel.Id);
 
-            if (viewModel.NewsImages.Count > 0)
+            if (viewModel.NewsImages == null)
+            {
+                _imageRepository.Save(new Image()
+                {
+                    Name = "defaultImage",
+                    Url = $"/images/defaultNewsPreviewImage.jpg",
+                    News = thisNews
+                });
+            }
+            else
             {
                 var imageIndex = 1;
 
@@ -112,7 +121,7 @@ namespace VeloNews.Controllers
                         Directory.CreateDirectory(path);
                     }
 
-                    var fileName = $"{getNews.Id}-{imageIndex}{extention}";
+                    var fileName = $"{thisNews.Id}-{imageIndex}{extention}";
 
                     var fileNameWithPath = Path.Combine(path, fileName);
 
@@ -125,7 +134,7 @@ namespace VeloNews.Controllers
                     {
                         Name = fileName,
                         Url = $"/images/uploads/news/{folderName}/{fileName}",
-                        News = getNews
+                        News = thisNews
                     });
                     imageIndex++;
                 }

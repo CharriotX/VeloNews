@@ -16,18 +16,6 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         option.Cookie.Name = "VeloNewsCookie";
     });
 
-var dataSqlStartup = new Startup();
-dataSqlStartup.RegisterDbContext(builder.Services);
-
-
-builder.Services.AddScoped<INewsRepository>(x =>
-    new NewsRepository(x.GetService<WebContext>()));
-builder.Services.AddScoped<IImageRepository>(x =>
-    new ImageRepository(x.GetService<WebContext>()));
-builder.Services.AddScoped<IUserRepository>(x =>
-    new UserRepository(x.GetService<WebContext>()));
-
-
 
 builder.Services.AddScoped<IUserService>(x =>
     new UserService(
@@ -39,6 +27,17 @@ builder.Services.AddScoped<INewsService>(x =>
         x.GetService<INewsRepository>(),
         x.GetService<IImageRepository>()));
 
+
+var dataSqlStartup = new Startup();
+dataSqlStartup.RegisterDbContext(builder.Services);
+
+
+builder.Services.AddScoped<INewsRepository>(x =>
+    new NewsRepository(x.GetService<WebContext>()));
+builder.Services.AddScoped<IImageRepository>(x =>
+    new ImageRepository(x.GetService<WebContext>()));
+builder.Services.AddScoped<IUserRepository>(x =>
+    new UserRepository(x.GetService<WebContext>()));
 
 
 builder.Services.AddHttpContextAccessor();
