@@ -4,11 +4,13 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using VeloNews.Models;
 using VeloNews.Services;
+using VeloNews.Services.IServices;
 
 namespace VeloNews.Controllers
 {
     public class NewsController : Controller
     {
+        private INewsService _newsService;
         private INewsRepository _newsRepository;
         private IImageRepository _imageRepository;
         private IUserService _userService;
@@ -17,12 +19,14 @@ namespace VeloNews.Controllers
         public NewsController(INewsRepository newsRepository,
             IImageRepository imageRepository,
             IWebHostEnvironment webHostEnvironment,
-            IUserService userService)
+            IUserService userService,
+            INewsService newsService)
         {
             _newsRepository = newsRepository;
             _imageRepository = imageRepository;
             _webHostEnvironment = webHostEnvironment;
             _userService = userService;
+            _newsService = newsService;
         }
 
         public IActionResult Index()
@@ -45,15 +49,21 @@ namespace VeloNews.Controllers
 
         public IActionResult ShowNews(int newsId)
         {
-            var dbNews = _newsRepository.Get(newsId);
+            var dbNews = _newsService.GetNewsWithComments(newsId);
             var model = new ShowNewsViewModel()
             {
+                Id = dbNews.Id,
                 Title = dbNews.Title,
                 ShortText = dbNews.ShorText,
                 Text = dbNews.Text,
                 CreatedTime = dbNews.CreatedTime,
                 Author = dbNews.Author,
-                NewsUrlsImages = _imageRepository.GetUrlsForShowNewsImages(newsId)
+                NewsUrlsImages = _imageRepository.GetUrlsForShowNewsImages(newsId),
+                NewsComments = dbNews.NewsComments.Select(dbCommetns => new NewsCommentViewModel()
+                {
+                    Text = dbCommetns.Text,
+                    Author = dbCommetns.User.Name
+                }).ToList()
             };
 
             return View(model);
@@ -142,15 +152,11 @@ namespace VeloNews.Controllers
             return RedirectToAction("Index");
         }
 
+        [Authorize]
         [HttpPost]
         public IActionResult AddComment(int id, string text)
         {
-            var news = _newsRepository.Get(id);
-            var comment = new CommentViewModel()
-            {
-                Text = text
-            };
-
+            _newsService.SaveComment(id, text);
             return RedirectToAction();
         }
     }

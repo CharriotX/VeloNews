@@ -10,5 +10,6 @@
         public string Author { get; set; }
 
         public List<string> NewsUrlsImages { get; set; }
+        public List<NewsCommentViewModel> NewsComments { get; set; } 
     }
 }

@@ -1,7 +1,7 @@
 ﻿using Data.Interface.Models;
 using VeloNews.Models;
 
-namespace VeloNews.Services
+namespace VeloNews.Services.IServices
 {
     public interface IUserService
     {

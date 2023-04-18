@@ -11,5 +11,7 @@ namespace Data.Interface.Models
         public string Text { get; set; }
 
         public virtual News News { get; set; }
+
+        public virtual User User { get; set; }
     }
 }

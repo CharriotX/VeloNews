@@ -3,6 +3,7 @@ using Data.Sql;
 using Data.Sql.Repositories;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using VeloNews.Services;
+using VeloNews.Services.IServices;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,7 +26,10 @@ builder.Services.AddScoped<IUserService>(x =>
 builder.Services.AddScoped<INewsService>(x =>
     new NewsService(
         x.GetService<INewsRepository>(),
-        x.GetService<IImageRepository>()));
+        x.GetService<IImageRepository>(),
+        x.GetService<INewsCommentRepository>(),
+        x.GetService<IUserService>()
+        ));
 
 
 var dataSqlStartup = new Startup();
@@ -34,6 +38,8 @@ dataSqlStartup.RegisterDbContext(builder.Services);
 
 builder.Services.AddScoped<INewsRepository>(x =>
     new NewsRepository(x.GetService<WebContext>()));
+builder.Services.AddScoped<INewsCommentRepository>(x =>
+    new NewsCommentRepository(x.GetService<WebContext>()));
 builder.Services.AddScoped<IImageRepository>(x =>
     new ImageRepository(x.GetService<WebContext>()));
 builder.Services.AddScoped<IUserRepository>(x =>

@@ -1,6 +1,7 @@
 ﻿using Data.Interface.Models;
 using Data.Interface.Repositories;
 using VeloNews.Models;
+using VeloNews.Services.IServices;
 
 namespace VeloNews.Services
 {

@@ -20,4 +20,22 @@
         </div>
         <div class="back-btn"><a href="/News/Index">Back to news</a></div>
     </div> 
+
+    <div class="comment-block">
+        <div>
+            <form action="/News/AddComment" method="post">
+                <input type="hidden" name="id" value="@Model.Id"/>
+                add comment: <input name="text" type="text"/>
+                <input type="submit" value="Send"/>
+            </form>
+        </div>
+        <div>
+            @foreach (var comment in Model.NewsComments)
+            {
+                <div>@comment.Author</div>
+                <div>@comment.Text</div>
+            }
+        </div>
+    </div>
+    
 </div>
