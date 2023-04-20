@@ -2,6 +2,7 @@
 using Data.Interface.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using VeloNews.Models;
+using VeloNews.Services.IServices;
 
 namespace VeloNews.Controllers
 {
@@ -9,12 +10,20 @@ namespace VeloNews.Controllers
     {
         private IImageRepository _imageRepository;
         private IWebHostEnvironment _webHostEnvironment;
+        private INewsService _newsService;
 
-        public HomeController(IImageRepository imageRepository, 
-            IWebHostEnvironment webHostEnvironment)
+        public HomeController(IImageRepository imageRepository,
+            IWebHostEnvironment webHostEnvironment,
+            INewsService newsService)
         {
             _imageRepository = imageRepository;
             _webHostEnvironment = webHostEnvironment;
+            _newsService = newsService;
+        }
+
+        public IActionResult BestNews(int newsId)
+        {
+            return View();
         }
 
         public IActionResult Index()

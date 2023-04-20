@@ -5,28 +5,28 @@
 namespace Data.Sql.Migrations
 {
     /// <inheritdoc />
-    public partial class AddCommentsToUser : Migration
+    public partial class AddImageLinkToNews : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<int>(
-                name: "UserId",
-                table: "Comments",
+                name: "NewsId",
+                table: "Images",
                 type: "int",
                 nullable: false,
                 defaultValue: 0);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Comments_UserId",
-                table: "Comments",
-                column: "UserId");
+                name: "IX_Images_NewsId",
+                table: "Images",
+                column: "NewsId");
 
             migrationBuilder.AddForeignKey(
-                name: "FK_Comments_Users_UserId",
-                table: "Comments",
-                column: "UserId",
-                principalTable: "Users",
+                name: "FK_Images_News_NewsId",
+                table: "Images",
+                column: "NewsId",
+                principalTable: "News",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Cascade);
         }
@@ -35,16 +35,16 @@ namespace Data.Sql.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
-                name: "FK_Comments_Users_UserId",
-                table: "Comments");
+                name: "FK_Images_News_NewsId",
+                table: "Images");
 
             migrationBuilder.DropIndex(
-                name: "IX_Comments_UserId",
-                table: "Comments");
+                name: "IX_Images_NewsId",
+                table: "Images");
 
             migrationBuilder.DropColumn(
-                name: "UserId",
-                table: "Comments");
+                name: "NewsId",
+                table: "Images");
         }
     }
 }

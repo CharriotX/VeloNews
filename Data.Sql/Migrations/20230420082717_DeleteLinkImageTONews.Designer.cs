@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Sql.Migrations
 {
     [DbContext(typeof(WebContext))]
-    [Migration("20230414092116_InitDatabase")]
-    partial class InitDatabase
+    [Migration("20230420082717_DeleteLinkImageTONews")]
+    partial class DeleteLinkImageTONews
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -40,9 +40,14 @@ namespace Data.Sql.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("NewsId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Comments");
                 });
@@ -59,16 +64,11 @@ namespace Data.Sql.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("NewsId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Url")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("NewsId");
 
                     b.ToTable("Images");
                 });
@@ -134,25 +134,25 @@ namespace Data.Sql.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("News");
-                });
-
-            modelBuilder.Entity("Data.Interface.Models.Image", b =>
-                {
-                    b.HasOne("Data.Interface.Models.News", "News")
-                        .WithMany("NewsImages")
-                        .HasForeignKey("NewsId")
+                    b.HasOne("Data.Interface.Models.User", "User")
+                        .WithMany("NewsComments")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("News");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Data.Interface.Models.News", b =>
                 {
                     b.Navigation("NewsComments");
+                });
 
-                    b.Navigation("NewsImages");
+            modelBuilder.Entity("Data.Interface.Models.User", b =>
+                {
+                    b.Navigation("NewsComments");
                 });
 #pragma warning restore 612, 618
         }

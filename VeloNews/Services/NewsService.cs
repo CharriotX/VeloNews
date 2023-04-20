@@ -1,5 +1,7 @@
-﻿using Data.Interface.Models;
+﻿using Data.Interface.DataModels;
+using Data.Interface.Models;
 using Data.Interface.Repositories;
+using VeloNews.Models;
 using VeloNews.Services.IServices;
 
 namespace VeloNews.Services
@@ -25,6 +27,32 @@ namespace VeloNews.Services
         public List<News> GetAllNews()
         {
             return _newsRepository.GetAll().ToList();
+        }
+
+        public ShowNewsViewModel GetFullNews(int newsId)
+        {
+            var news = _newsRepository.GetNewsWithCommentsandImages(newsId);
+
+            var model = new ShowNewsViewModel()
+            {
+                Id = news.Id,
+                Title = news.Title,
+                Text = news.Text,
+                ShortText = news.ShortText,
+                CreatedTime = news.CreatedTime,
+                Author = news.Author,
+                NewsUrlsImages = news.NewsUrlsImages.Select(x=> new NewsImageViewModel()
+                {
+                    Url = x.Url
+                }).ToList(),
+                NewsComments = news.NewsComments.Select( x => new NewsCommentViewModel()
+                {
+                    Author = x.Author.Name,
+                    Text = x.Text
+                }).ToList()
+            };
+
+            return model;
         }
 
         public News GetNewsWithComments(int id)

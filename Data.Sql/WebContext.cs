@@ -22,9 +22,9 @@ namespace Data.Sql
                 .HasMany(c => c.NewsComments)
                 .WithOne(u => u.User);
 
-            modelBuilder.Entity<News>()
-                .HasMany(n => n.NewsImages)
-                .WithOne(i => i.News);
+            modelBuilder.Entity<Image>()
+                .HasOne(n => n.News)
+                .WithMany(i => i.NewsImages);
 
             modelBuilder.Entity<News>()
                 .HasMany(n => n.NewsComments)

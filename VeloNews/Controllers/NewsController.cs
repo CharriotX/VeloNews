@@ -49,23 +49,7 @@ namespace VeloNews.Controllers
 
         public IActionResult ShowNews(int newsId)
         {
-            var dbNews = _newsService.GetNewsWithComments(newsId);
-            var model = new ShowNewsViewModel()
-            {
-                Id = dbNews.Id,
-                Title = dbNews.Title,
-                ShortText = dbNews.ShorText,
-                Text = dbNews.Text,
-                CreatedTime = dbNews.CreatedTime,
-                Author = dbNews.Author,
-                NewsUrlsImages = _imageRepository.GetUrlsForShowNewsImages(newsId),
-                NewsComments = dbNews.NewsComments.Select(dbCommetns => new NewsCommentViewModel()
-                {
-                    Text = dbCommetns.Text,
-                    Author = dbCommetns.User.Name
-                }).ToList()
-            };
-
+            var model = _newsService.GetFullNews(newsId);
             return View(model);
         }
 

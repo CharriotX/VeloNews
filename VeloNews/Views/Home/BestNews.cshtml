@@ -1,0 +1,24 @@
+﻿@model ShowNewsViewModel
+
+
+<div>
+
+    Title: <div>@Model.Title</div>
+    Short Text: <div>@Model.ShortText</div>
+    Author: <div>@Model.Author</div>
+    Created time: <div>@Model.CreatedTime</div>
+    Text: <div>@Model.Text</div>
+    Commetnts:
+    <ul>
+        @foreach (var com in Model.NewsComments)
+        {
+            <li><div>@com.Author</div><div>@com.Text</div></li>
+            
+        }
+    </ul>
+    Images:
+    @foreach (var img in Model.NewsUrlsImages)
+    {
+        <div><img src="@img.Url" /></div>
+    }
+</div>

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Sql.Migrations
 {
     [DbContext(typeof(WebContext))]
-    [Migration("20230414194109_AddCommentsToUser")]
-    partial class AddCommentsToUser
+    [Migration("20230420052418_SecondLife")]
+    partial class SecondLife
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -140,7 +140,7 @@ namespace Data.Sql.Migrations
                         .IsRequired();
 
                     b.HasOne("Data.Interface.Models.User", "User")
-                        .WithMany("Comments")
+                        .WithMany("NewsComments")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -170,7 +170,7 @@ namespace Data.Sql.Migrations
 
             modelBuilder.Entity("Data.Interface.Models.User", b =>
                 {
-                    b.Navigation("Comments");
+                    b.Navigation("NewsComments");
                 });
 #pragma warning restore 612, 618
         }

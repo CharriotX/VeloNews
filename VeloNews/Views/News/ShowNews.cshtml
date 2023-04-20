@@ -13,7 +13,7 @@
             <div class="show-news-image-block">
                 @foreach(var image in Model.NewsUrlsImages)
                 {
-                    <img class="show-news-image" src="@image"/>
+                    <img class="show-news-image" src="@image.Url"/>
                 }
             </div>
             <div class="show-news-text">@Html.Raw(Model.Text)</div>
