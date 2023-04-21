@@ -1,7 +1,10 @@
-﻿@model ShowNewsViewModel
+﻿@using VeloNews.Models.NewsViewModels;
+@model ShowNewsViewModel
 
 @section Styles {
-    <link href="~/css/news.css" rel="stylesheet" type="text/css"/>
+    <link href="~/css/news.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/trix@2.0.0/dist/trix.css">
+    <script type="text/javascript" src="https://unpkg.com/trix@2.0.0/dist/trix.umd.min.js"></script>
 }
 
 <div class="show-news">
@@ -11,31 +14,41 @@
             <div class="show-news-title">@Model.Title</div>
             <div class="show-news-text">@Html.Raw(Model.ShortText)</div>
             <div class="show-news-image-block">
-                @foreach(var image in Model.NewsUrlsImages)
+                @foreach (var image in Model.NewsUrlsImages)
                 {
-                    <img class="show-news-image" src="@image.Url"/>
+                    <img class="show-news-image" src="@image.Url" />
                 }
             </div>
             <div class="show-news-text">@Html.Raw(Model.Text)</div>
         </div>
         <div class="back-btn"><a href="/News/Index">Back to news</a></div>
-    </div> 
 
-    <div class="comment-block">
-        <div>
-            <form action="/News/AddComment" method="post">
-                <input type="hidden" name="id" value="@Model.Id"/>
-                add comment: <input name="text" type="text"/>
-                <input type="submit" value="Send"/>
-            </form>
-        </div>
-        <div>
-            @foreach (var comment in Model.NewsComments)
-            {
-                <div>@comment.Author</div>
-                <div>@comment.Text</div>
-            }
+        <div class="comment-block">
+            <div class="comment-input">
+                <form action="/News/AddComment" method="post">
+                    <input type="hidden" name="id" value="@Model.Id" />
+                    <div>Add comment:</div>
+                    <div class="trix-editor">
+                        <input id="comment-field" name="text" type="hidden" />
+                        <trix-editor input="comment-field" trix-file-accept="preventDefault"></trix-editor>
+                    </div>
+                    <div class="comment-input-submit">
+                        <input type="submit" value="Send" />
+                    </div>
+                </form>
+            </div>
+            <div class="comment-list">
+                @foreach (var comment in Model.NewsComments)
+                {
+                    <div class="comment-item">
+                        <div class="comment-item-author">@comment.Author</div>
+                        <div class="comment-item-text">@Html.Raw(comment.Text)</div>
+                    </div>
+                }
+            </div>
         </div>
     </div>
-    
+
+
+
 </div>

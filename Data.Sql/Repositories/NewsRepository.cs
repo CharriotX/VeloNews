@@ -1,4 +1,4 @@
-﻿using Data.Interface.DataModels;
+﻿using Data.Interface.DataModels.NewsDataModels;
 using Data.Interface.Models;
 using Data.Interface.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -11,6 +11,20 @@ namespace Data.Sql.Repositories
         {
         }
 
+        public List<NewsCardsData> GetAllNewsCards()
+        {
+            return _dbSet.Include(x => x.NewsImages)
+                .Select(dbNews => new NewsCardsData
+                {
+                    Id = dbNews.Id,
+                    Title = dbNews.Title,
+                    ShortText = dbNews.ShorText,
+                    CreatedTime = dbNews.CreatedTime,
+                    Author = dbNews.Author,
+                    PreviewImage = dbNews.NewsImages.FirstOrDefault().Url
+                }).ToList();
+        }
+
         public News GetNewsWithComments(int newsId)
         {
             return _dbSet
@@ -19,8 +33,7 @@ namespace Data.Sql.Repositories
                  .ThenInclude(u => u.User)
                  .FirstOrDefault(x => x.Id == newsId);
         }
-
-        public NewsWithCommentsAndImagesData GetNewsWithCommentsandImages(int newsId)
+        public NewsWithCommentsAndImagesData GetNewsWithCommentsAndImages(int newsId)
         {
             var dbNews = _dbSet
                 .Include(x => x.NewsImages)
@@ -55,6 +68,10 @@ namespace Data.Sql.Repositories
             };
 
             return data;
+        }
+        public Comment SaveComment(SaveNewsCommentData data)
+        {
+            throw new NotImplementedException();
         }
     }
 }

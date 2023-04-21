@@ -2,8 +2,7 @@
 using Data.Interface.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using VeloNews.Models;
-using VeloNews.Services;
+using VeloNews.Models.NewsViewModels;
 using VeloNews.Services.IServices;
 
 namespace VeloNews.Controllers
@@ -31,20 +30,9 @@ namespace VeloNews.Controllers
 
         public IActionResult Index()
         {
-            var allNews = _newsRepository.GetAll();
+            var models = _newsService.GetAllNewsCards();
 
-            var model = allNews.Select(dbNews => new NewsCardViewModel()
-            {
-                Id = dbNews.Id,
-                Title = dbNews.Title,
-                ShortText = dbNews.ShorText,
-                CreatedTime = dbNews.CreatedTime,
-                Author = dbNews.Author,
-                PreviewImage = _imageRepository.GetUrlForPreviewImage(dbNews.Id)
-            }).Reverse()
-            .ToList();
-
-            return View(model);
+            return View(models);
         }
 
         public IActionResult ShowNews(int newsId)
@@ -141,7 +129,7 @@ namespace VeloNews.Controllers
         public IActionResult AddComment(int id, string text)
         {
             _newsService.SaveComment(id, text);
-            return RedirectToAction();
+            return RedirectToAction("ShowNews", new { @newsId = id });
         }
     }
 }

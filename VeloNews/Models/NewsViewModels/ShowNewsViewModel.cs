@@ -1,4 +1,4 @@
-﻿namespace VeloNews.Models
+﻿namespace VeloNews.Models.NewsViewModels
 {
     public class ShowNewsViewModel
     {
@@ -10,6 +10,6 @@
         public string Author { get; set; }
 
         public List<NewsImageViewModel> NewsUrlsImages { get; set; }
-        public List<NewsCommentViewModel> NewsComments { get; set; } 
+        public List<NewsCommentViewModel> NewsComments { get; set; }
     }
 }

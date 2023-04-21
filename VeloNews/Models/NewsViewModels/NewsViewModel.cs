@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace VeloNews.Models
+namespace VeloNews.Models.NewsViewModels
 {
     public class NewsViewModel
     {
@@ -12,9 +12,8 @@ namespace VeloNews.Models
         [Required]
         public string Text { get; set; }
         public DateTime CreatedTime { get; set; }
-        public string Author { get; set; } = "author";
+        public string Author { get; set; }
 
-        [Required]
         public List<IFormFile> NewsImages { get; set; }
     }
 }

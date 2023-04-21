@@ -1,4 +1,12 @@
-﻿
+﻿.trix-button-group--file-tools {
+    display: none !important;
+}
+
+.trix-button--icon-attach {
+    display: none !important;
+}
+
+/*________________________________________--*/
 
 .add-news {
     margin-top: 40px;
@@ -136,3 +144,36 @@
     padding: 5px;   
     border-bottom: 1px solid grey;
 }
+
+
+.comment-block {
+    margin-top: 140px;
+}
+
+.trix-editor {
+    margin: 10px;
+}
+
+.comment-list{
+   margin-top: 60px;
+}
+
+.comment-item {
+    display: flex;
+    height: 150px;
+    margin: 10px;
+    border: 1px solid grey;
+    border-radius: 4px;
+}
+
+.comment-item-author {
+    text-align: center;
+    border-right: 1px solid grey;
+    width: 150px;
+    padding: 7px;
+}
+
+.comment-item-text {
+    padding: 5px 8px;
+}
+

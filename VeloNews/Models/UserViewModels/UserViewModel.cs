@@ -1,4 +1,4 @@
-﻿namespace VeloNews.Models
+﻿namespace VeloNews.Models.UserViewModels
 {
     public class UserViewModel
     {

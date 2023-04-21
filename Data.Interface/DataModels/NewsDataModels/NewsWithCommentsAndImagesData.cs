@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Data.Interface.DataModels
+namespace Data.Interface.DataModels.NewsDataModels
 {
     public class NewsWithCommentsAndImagesData
     {

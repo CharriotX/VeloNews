@@ -1,4 +1,4 @@
-﻿namespace VeloNews.Models
+﻿namespace VeloNews.Models.NewsViewModels
 {
     public class CommentViewModel
     {
