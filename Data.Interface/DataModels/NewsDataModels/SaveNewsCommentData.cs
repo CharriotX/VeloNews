@@ -20,6 +20,6 @@ namespace Data.Interface.DataModels.NewsDataModels
 
     public class Creator
     {
-        public string Name { get; set; }
+        public int Id { get; set; }
     }
 }

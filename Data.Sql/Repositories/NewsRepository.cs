@@ -24,7 +24,6 @@ namespace Data.Sql.Repositories
                     PreviewImage = dbNews.NewsImages.FirstOrDefault().Url
                 }).ToList();
         }
-
         public News GetNewsWithComments(int newsId)
         {
             return _dbSet
@@ -68,10 +67,6 @@ namespace Data.Sql.Repositories
             };
 
             return data;
-        }
-        public Comment SaveComment(SaveNewsCommentData data)
-        {
-            throw new NotImplementedException();
         }
     }
 }

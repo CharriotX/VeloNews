@@ -18,6 +18,12 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
     });
 
 
+builder.Services.AddScoped<INewsCommentService>(x =>
+    new NewsCommentService(
+        x.GetService<INewsService>(),
+        x.GetService<IUserService>(),
+        x.GetService<INewsCommentRepository>()));
+
 builder.Services.AddScoped<IUserService>(x =>
     new UserService(
         x.GetService<IUserRepository>(),
@@ -39,7 +45,10 @@ dataSqlStartup.RegisterDbContext(builder.Services);
 builder.Services.AddScoped<INewsRepository>(x =>
     new NewsRepository(x.GetService<WebContext>()));
 builder.Services.AddScoped<INewsCommentRepository>(x =>
-    new NewsCommentRepository(x.GetService<WebContext>()));
+    new NewsCommentRepository(
+        x.GetService<WebContext>(),
+        x.GetService<INewsRepository>(),
+        x.GetService<IUserRepository>()));
 builder.Services.AddScoped<IImageRepository>(x =>
     new ImageRepository(x.GetService<WebContext>()));
 builder.Services.AddScoped<IUserRepository>(x =>

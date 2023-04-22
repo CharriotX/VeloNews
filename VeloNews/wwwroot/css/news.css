@@ -166,6 +166,15 @@
     border-radius: 4px;
 }
 
+
+.comment-list-sort{
+    font-weight: 600;
+    color: red;
+}
+.none-commetns{
+
+}
+
 .comment-item-author {
     text-align: center;
     border-right: 1px solid grey;

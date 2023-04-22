@@ -1,4 +1,5 @@
 ﻿using Data.Interface.DataModels;
+using Data.Interface.DataModels.NewsDataModels;
 using Data.Interface.Models;
 using Data.Interface.Repositories;
 using VeloNews.Models.NewsViewModels;
@@ -61,28 +62,10 @@ namespace VeloNews.Services
                 {
                     Author = x.Author.Name,
                     Text = x.Text
-                }).ToList()
+                }).Reverse().ToList()
             };
 
             return model;
         }
-
-        public void SaveComment(int newsId, string text)
-        {
-            throw new NotImplementedException();
-        }
-
-        //public void SaveComment(int newsId, string text)
-        //{
-        //    var news = GetNewsWithComments(newsId);
-        //    var comment = new Comment
-        //    {
-        //        News = news,
-        //        Text = text,
-        //        User = _userService.GetCurrentUser()
-        //    };
-
-        //    _newsCommentRepository.Save(comment);
-        //}
     }
 }

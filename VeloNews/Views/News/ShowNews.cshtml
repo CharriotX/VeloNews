@@ -38,12 +38,20 @@
                 </form>
             </div>
             <div class="comment-list">
+                <div сlass="comment-list-sort">Последние комментарии</div>
                 @foreach (var comment in Model.NewsComments)
                 {
-                    <div class="comment-item">
-                        <div class="comment-item-author">@comment.Author</div>
-                        <div class="comment-item-text">@Html.Raw(comment.Text)</div>
-                    </div>
+                    @if (Model.NewsComments.Count <= 0)
+                    {
+                        <div class="none-commetns">Комментариев пока нет.</div>
+                    }
+                    else
+                    {
+                        <div class="comment-item">
+                            <div class="comment-item-author">@comment.Author</div>
+                            <div class="comment-item-text">@Html.Raw(comment.Text)</div>
+                        </div>
+                    }
                 }
             </div>
         </div>

@@ -10,6 +10,7 @@ namespace VeloNews.Controllers
     public class NewsController : Controller
     {
         private INewsService _newsService;
+        private INewsCommentService _newsCommentService;
         private INewsRepository _newsRepository;
         private IImageRepository _imageRepository;
         private IUserService _userService;
@@ -19,13 +20,15 @@ namespace VeloNews.Controllers
             IImageRepository imageRepository,
             IWebHostEnvironment webHostEnvironment,
             IUserService userService,
-            INewsService newsService)
+            INewsService newsService,
+            INewsCommentService newsCommentService)
         {
             _newsRepository = newsRepository;
             _imageRepository = imageRepository;
             _webHostEnvironment = webHostEnvironment;
             _userService = userService;
             _newsService = newsService;
+            _newsCommentService = newsCommentService;
         }
 
         public IActionResult Index()
@@ -128,7 +131,7 @@ namespace VeloNews.Controllers
         [HttpPost]
         public IActionResult AddComment(int id, string text)
         {
-            _newsService.SaveComment(id, text);
+            _newsCommentService.SaveComment(id, text);
             return RedirectToAction("ShowNews", new { @newsId = id });
         }
     }

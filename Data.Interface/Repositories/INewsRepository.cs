@@ -8,6 +8,5 @@ namespace Data.Interface.Repositories
         News GetNewsWithComments(int newsId);
         NewsWithCommentsAndImagesData GetNewsWithCommentsAndImages(int newsId);
         List<NewsCardsData> GetAllNewsCards();
-        Comment SaveComment(SaveNewsCommentData data);
     }
 }
