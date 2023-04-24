@@ -68,7 +68,7 @@ namespace VeloNews.Controllers
                 Text = viewModel.Text,
                 ShorText = viewModel.ShortText,
                 CreatedTime = DateTime.Now,
-                Author = author.Name
+                Creator = author
             };
 
             _newsRepository.Save(dbModel);

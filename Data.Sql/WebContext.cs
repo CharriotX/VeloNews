@@ -19,6 +19,10 @@ namespace Data.Sql
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>()
+                .HasMany(u => u.News)
+                .WithOne(n => n.Creator);
+
+            modelBuilder.Entity<User>()
                 .HasMany(c => c.NewsComments)
                 .WithOne(u => u.User);
 

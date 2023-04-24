@@ -13,14 +13,16 @@ namespace Data.Sql.Repositories
 
         public List<NewsCardsData> GetAllNewsCards()
         {
-            return _dbSet.Include(x => x.NewsImages)
+            return _dbSet
+                .Include(x => x.NewsImages)
+                .Include(x => x.Creator)
                 .Select(dbNews => new NewsCardsData
                 {
                     Id = dbNews.Id,
                     Title = dbNews.Title,
                     ShortText = dbNews.ShorText,
                     CreatedTime = dbNews.CreatedTime,
-                    Author = dbNews.Author,
+                    Author = dbNews.Creator.Name,
                     PreviewImage = dbNews.NewsImages.FirstOrDefault().Url
                 }).ToList();
         }
@@ -36,6 +38,7 @@ namespace Data.Sql.Repositories
         {
             var dbNews = _dbSet
                 .Include(x => x.NewsImages)
+                .Include(x => x.Creator)
                 .Include(x => x.NewsComments)
                 .ThenInclude(x => x.User)
                 .SingleOrDefault(x => x.Id == newsId);
@@ -47,7 +50,7 @@ namespace Data.Sql.Repositories
                 Title = dbNews.Title,
                 ShortText = dbNews.ShorText,
                 CreatedTime = dbNews.CreatedTime,
-                Author = dbNews.Author,
+                Author = dbNews.Creator.Name,
                 NewsUrlsImages = dbNews
                     .NewsImages
                     .Select(x => new ImageUrlsForShowNews
