@@ -1,4 +1,5 @@
-﻿using Data.Interface.Models;
+﻿using Data.Interface.DataModels.UserDataModels;
+using Data.Interface.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,5 +11,6 @@ namespace Data.Interface.Repositories
     public interface IUserRepository : IBaseRepository<User>
     {
         User GetUserByNameAndPass(string name, string pass);
+        void UserRegistration(UserRegistrationData data);
     }
 }

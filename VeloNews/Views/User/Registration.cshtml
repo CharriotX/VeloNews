@@ -1,5 +1,5 @@
 ﻿@using VeloNews.Models.UserViewModels;
-@model UserViewModel
+@model RegistrationUserViewModel
 
 
 @section Styles {
@@ -10,7 +10,7 @@
     <form action="/User/Registration" method="post" class="register-form">
         <div class="register-name">
             <div>Enter username</div>
-            @Html.TextBoxFor(x => x.Name)
+            @Html.TextBoxFor(x => x.UserName)
         </div>
         <div class="register-pass">
             <div>Enter password</div>

@@ -1,6 +1,8 @@
-﻿using Data.Interface.Models;
+﻿using Data.Interface.DataModels.UserDataModels;
+using Data.Interface.Models;
 using Data.Interface.Repositories;
 using VeloNews.Models;
+using VeloNews.Models.UserViewModels;
 using VeloNews.Services.IServices;
 
 namespace VeloNews.Services
@@ -46,17 +48,15 @@ namespace VeloNews.Services
             return _userRepository.GetUserByNameAndPass(userName, userPass);
         }
 
-        public User RegistrationUser(string name, string pass)
+        public void RegistrationUser(RegistrationUserViewModel viewModel)
         {
-            var user = new User()
+            var data = new UserRegistrationData()
             {
-                Name = name,
-                Password = pass
+                UserName = viewModel.UserName,
+                Password = viewModel.Password
             };
 
-            _userRepository.Save(user);
-
-            return user;
+            _userRepository.UserRegistration(data);
         }
     }
 }
