@@ -12,5 +12,6 @@ namespace Data.Interface.Repositories
     {
         User GetUserByNameAndPass(string name, string pass);
         void UserRegistration(UserRegistrationData data);
+        bool IsUserNameExist(string userName);
     }
 }

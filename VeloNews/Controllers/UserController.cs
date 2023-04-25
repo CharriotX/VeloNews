@@ -90,6 +90,11 @@ namespace VeloNews.Controllers
         [HttpPost]
         public IActionResult Registration(RegistrationUserViewModel viewModel)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(viewModel);
+            }
+
             _userService.RegistrationUser(viewModel);
 
             return RedirectToAction("Index", "Home");

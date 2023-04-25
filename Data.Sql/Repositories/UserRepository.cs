@@ -1,6 +1,7 @@
 ﻿using Data.Interface.DataModels.UserDataModels;
 using Data.Interface.Models;
 using Data.Interface.Repositories;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Data.Sql.Repositories
 {
@@ -13,6 +14,11 @@ namespace Data.Sql.Repositories
         public User GetUserByNameAndPass(string name, string pass)
         {
             return _dbSet.SingleOrDefault(x => x.Name == name && x.Password == pass);
+        }
+
+        public bool IsUserNameExist(string userName)
+        {
+            return _dbSet.Any(x => x.Name == userName);
         }
 
         public void UserRegistration(UserRegistrationData data)

@@ -11,6 +11,7 @@
         <div class="register-name">
             <div>Enter username</div>
             @Html.TextBoxFor(x => x.UserName)
+            @Html.ValidationMessageFor(x => x.UserName)
         </div>
         <div class="register-pass">
             <div>Enter password</div>
