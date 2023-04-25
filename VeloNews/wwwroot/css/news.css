@@ -28,13 +28,12 @@
 /*-----news-card-----*/
 
 
-.all-news{
+.all-news {
     max-width: 1100px;
-    margin:0 auto;
+    margin: 0 auto;
 }
 
 .news-list {
-
 }
 
 .news-item {
@@ -56,11 +55,11 @@
     border-top-right-radius: 5px;
 }
 
-.news-item-title a {
-    color: white;
-}
+    .news-item-title a {
+        color: white;
+    }
 
-.news-item-body{
+.news-item-body {
     display: flex;
 }
 
@@ -71,7 +70,7 @@
 
 .news-item-body img {
     max-width: 350px;
-    max-height: 240px;        
+    max-height: 240px;
 }
 
 .news-item-text {
@@ -94,7 +93,6 @@
 
 
 .show-news {
-
 }
 
 .news-block {
@@ -106,24 +104,22 @@
 }
 
 .news-content {
-   
 }
 
-.show-news-author{
+.show-news-author {
     margin: 5px;
     color: grey;
     font-size: x-small;
 }
 
-.show-news-title{
+.show-news-title {
     text-align: center;
     font-size: x-large;
     font-weight: 700;
     margin: 20px 0;
-
 }
 
-.show-news-image-block{
+.show-news-image-block {
     margin: 10px 20px;
 }
 
@@ -140,10 +136,10 @@
     margin: 20px 10px;
 }
 
-.back-btn a{
-    padding: 5px;   
-    border-bottom: 1px solid grey;
-}
+    .back-btn a {
+        padding: 5px;
+        border-bottom: 1px solid grey;
+    }
 
 
 .comment-block {
@@ -154,35 +150,57 @@
     margin: 10px;
 }
 
-.comment-list{
-   margin-top: 60px;
+.comment-list {
+    margin-top: 60px;
 }
 
 .comment-item {
+    width: 945px;
     display: flex;
-    height: 150px;
+    max-height: 300px;
     margin: 10px;
     border: 1px solid grey;
     border-radius: 4px;
 }
 
 
-.comment-list-sort{
+.comment-list-sort {
     font-weight: 600;
     color: red;
 }
-.none-commetns{
 
+.none-commetns {
 }
 
-.comment-item-author {
+.comment-item-avatar {
     text-align: center;
     border-right: 1px solid grey;
-    width: 150px;
+    width: 20%;
     padding: 7px;
 }
 
 .comment-item-text {
-    padding: 5px 8px;
+    width: 100%;
+}
+
+.item-text-username {
+    padding: 5px 10px;
+    border-bottom: 1px solid grey;
+}
+
+.item-text-field {
+    min-height: 150px;
+    padding: 20px 5px;
+}
+
+.text-username-nick {
+    font-size: 18px;
+    font-weight:500;
+    color: blue;
+}
+
+.text-username-date {
+    font-size: 10px;
+    opacity: 80%;
 }
 

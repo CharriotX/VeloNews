@@ -62,6 +62,7 @@ namespace Data.Sql.Repositories
                     .Select(x => new CommentsNews
                     {
                         Text = x.Text,
+                        CreatedTime = x.CreatedTime,
                         Author = new CommentAuthor
                         {
                             Name = x.User.Name

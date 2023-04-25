@@ -26,10 +26,10 @@
         <div class="comment-block">
             <div class="comment-input">
                 <form action="/News/AddComment" method="post">
-                    <input type="hidden" name="id" value="@Model.Id" />
+                    <input type="hidden" name="NewsId" value="@Model.Id" />
                     <div>Add comment:</div>
                     <div class="trix-editor">
-                        <input id="comment-field" name="text" type="hidden" />
+                        <input id="comment-field" name="Text" type="hidden" />
                         <trix-editor input="comment-field" trix-file-accept="preventDefault"></trix-editor>
                     </div>
                     <div class="comment-input-submit">
@@ -48,8 +48,18 @@
                     else
                     {
                         <div class="comment-item">
-                            <div class="comment-item-author">@comment.Author</div>
-                            <div class="comment-item-text">@Html.Raw(comment.Text)</div>
+                            <div class="comment-item-avatar">
+                                <div>avatar will be here</div>
+                            </div>
+                            <div class="comment-item-text">
+                                <div class="item-text-username">
+                                    <div class="text-username-nick">@comment.Author</div>
+                                    <div class="text-username-date">@comment.CreatedTime.ToString("dd-MM-yyyy, HH:mm")</div>
+                                </div>
+                                <div class="item-text-field">
+                                    @Html.Raw(comment.Text)
+                                </div>
+                            </div>
                         </div>
                     }
                 }

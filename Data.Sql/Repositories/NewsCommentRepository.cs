@@ -23,6 +23,7 @@ namespace Data.Sql.Repositories
             {
                 News = _newsRepository.Get(data.NewsId.Id),
                 Text = data.Text,
+                CreatedTime = data.CreatedTime,
                 User = _userRepository.Get(data.Author.Id)
             };
 

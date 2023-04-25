@@ -27,6 +27,7 @@ namespace Data.Interface.DataModels.NewsDataModels
 
     public class CommentsNews
     {
+        public DateTime CreatedTime { get; set; }
         public string Text { get; set; }
         public CommentAuthor Author { get; set; }
     }

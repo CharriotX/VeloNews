@@ -129,10 +129,10 @@ namespace VeloNews.Controllers
 
         [Authorize]
         [HttpPost]
-        public IActionResult AddComment(int id, string text)
+        public IActionResult AddComment(SaveNewsCommentViewModel viewModel)
         {
-            _newsCommentService.SaveComment(id, text);
-            return RedirectToAction("ShowNews", new { @newsId = id });
+            _newsCommentService.SaveComment(viewModel);
+            return RedirectToAction("ShowNews", new { @newsId = viewModel.NewsId });
         }
     }
 }

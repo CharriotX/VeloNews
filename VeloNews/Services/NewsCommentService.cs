@@ -1,5 +1,6 @@
 ﻿using Data.Interface.DataModels.NewsDataModels;
 using Data.Interface.Repositories;
+using VeloNews.Models.NewsViewModels;
 using VeloNews.Services.IServices;
 
 namespace VeloNews.Services
@@ -17,16 +18,17 @@ namespace VeloNews.Services
             _newsCommentRepository = newsCommentRepository;
         }
 
-        public void SaveComment(int newsId, string text)
+        public void SaveComment(SaveNewsCommentViewModel viewModel)
         {
             var user = _userService.GetCurrentUser();
             var data = new SaveNewsCommentData
             {
                 NewsId = new NewsId
                 {
-                    Id = newsId
+                    Id = viewModel.NewsId
                 },
-                Text = text,
+                Text = viewModel.Text,
+                CreatedTime = DateTime.Now,
                 Author = new Creator
                 {
                     Id = user.Id
