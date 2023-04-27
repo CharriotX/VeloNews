@@ -7,6 +7,12 @@ namespace VeloNews.Models.ValidationAttributes
 {
     public class IsUniqueUserNameAttribute : ValidationAttribute
     {
+        public override string FormatErrorMessage(string name)
+        {
+            return string.IsNullOrEmpty(ErrorMessage)
+                ? $"{name} cant be empty"
+                : ErrorMessage;
+        }
         protected override ValidationResult? IsValid(object? value,
             ValidationContext validationContext)
         {

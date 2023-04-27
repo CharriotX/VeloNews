@@ -19,8 +19,10 @@ body {
     color: #444444;
 }
 
-ul li {
+ul, li {
     list-style: none;
+    margin: 0;
+    padding: 0;
 }
 
 a {
@@ -52,8 +54,12 @@ a {
     .btn.btn-submit {
         background: #34d94d;
     }
-/*-------------*/
 
+
+.field-validation-error {
+    color: red;
+}
+/*-------------*/
 .header {
     margin: 0;
     padding: 0;

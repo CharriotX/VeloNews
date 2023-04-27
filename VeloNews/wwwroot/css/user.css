@@ -1,24 +1,87 @@
-﻿.register-block{
-
+﻿.register-title {
 }
 
-.register-form{
-
+.register-create-account {
+    margin: 60px 0 15px 0;
 }
 
-.register-name{
 
+.register-block {
+}
+
+.register-form {
+}
+
+.register {
+    border: 1px solid grey;
+    max-width: 550px;
+    width: 90%;
+    padding: 20px;
+    border-radius: 7px;
+    margin: 15px 0; 
+}
+
+    .register li {
+        display: flex;
+        justify-content: space-between;
+        margin: 8px;
+        border-bottom: 1px dotted grey;
+        padding: 10px;
+    }
+
+.username-input input {
+    width: 250px;
+}
+
+.password-input input {
+    width: 250px;
+}
+
+.register-name {
 }
 
 .register-password {
 }
 
 .register-button {
-
 }
 
 
-.profile-logout-btn a{
+.profile-logout-btn a {
     color: blue;
-    text-decoration:underline;
+    text-decoration: underline;
+}
+/*---------LOGIN-------------*/
+
+.login-desc {
+    margin: 60px 0 15px 0;
+}
+
+.login-input {
+    max-width: 350px;
+    border: 1px solid grey;
+    border-radius: 7px;
+    padding: 10px;
+    margin: 10px;
+}
+
+.login-input-item {
+    margin: 3px 0;
+    padding: 3px 0;
+}
+
+    .login-input-item input[type=text] {
+        width: 250px;
+    }
+
+.login-item-text{
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.register-ref {
+    margin-top: 100px;
+}
+.register-ref a{
+    color: blue;
 }

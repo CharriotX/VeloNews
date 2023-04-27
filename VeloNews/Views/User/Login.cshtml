@@ -6,16 +6,30 @@
 }
 
 <div>
+    <h2 class="login-title">Login</h2>
+    <div class="login-desc">
+        Login with your username and password.
+    </div>
     <form action="/User/Login" method="post">
-        <div>
-            <div>Enter username</div>
-            @Html.TextBoxFor(x => x.Name)
-        </div>
-        <div>
-            <div>Enter password</div>
-            @Html.TextBoxFor(x=>x.Password)
-        </div>
-
-        <input type="submit" value="Log In"/>
+        <ul class="login-input">
+            <li class="login-input-item">
+                <div class="login-item-text">Username</div>
+                <div>@Html.TextBoxFor(x => x.Name)</div>
+            </li>
+            <li class="login-input-item">
+                <div class="login-item-text">Password</div>
+                <div>@Html.TextBoxFor(x => x.Password)</div>
+            </li>
+            <li class="login-input-item">
+                <input type="submit" value="Log In" />
+            </li>
+        </ul>
     </form>
+    <ul>
+        <li>@Html.ValidationMessageFor(x => x.Name)</li>
+        <li>@Html.ValidationMessageFor(x =>x.Password)</li>
+    </ul>
+    <div class="register-ref">
+        Or do you want to signup? Go <a class="profile-logout-btn" href="/User/Registration">here</a> to create a new account on VeloNews.
+    </div>
 </div>

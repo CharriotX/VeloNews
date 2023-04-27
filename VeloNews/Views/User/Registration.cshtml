@@ -7,18 +7,38 @@
 }
 
 <div class="register-block">
+    <h2 class="register-title">Register</h2>
+    <div class="register-create-account">
+        Create account on VeloNews.
+    </div>
+    <ul>
+        <li>@Html.ValidationMessageFor(x => x.UserName)</li>
+        <li>@Html.ValidationMessageFor(x =>x.ConfirmPassword)</li>
+    </ul>
+
     <form action="/User/Registration" method="post" class="register-form">
-        <div class="register-name">
-            <div>Enter username</div>
-            @Html.TextBoxFor(x => x.UserName)
-            @Html.ValidationMessageFor(x => x.UserName)
-        </div>
-        <div class="register-pass">
-            <div>Enter password</div>
-            @Html.TextBoxFor(x => x.Password)
-        </div>
-        <div class="rester-button">
-            <input type="submit" value="Registration"/>
+        <ul class="register">
+            <li class="register-name">
+                <div>Username</div>
+                <div class="username-input">
+                    @Html.TextBoxFor(x => x.UserName)
+                </div>
+            </li>
+            <li class="register-pass">
+                <div>Password</div>
+                <div class="password-input">
+                    @Html.TextBoxFor(x => x.Password)
+                </div>
+            </li>
+            <li class="register-pass">
+                <div>Confirm Password</div>
+                <div class="password-input">
+                    @Html.TextBoxFor(x => x.ConfirmPassword)
+                </div>
+            </li>
+        </ul>
+        <div class="register-button">
+            <input type="submit" value="Registration" />
         </div>
     </form>
 </div>
