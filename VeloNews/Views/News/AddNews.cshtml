@@ -5,6 +5,7 @@
 
 <div class="add-news">
     <form action="AddNews" method="post" enctype="multipart/form-data" >
+        @Html.HiddenFor(x => x.Id)
         <div class="news-title-input">
             Заголовок: @Html.TextAreaFor(x => x.Title, new {@class="title", cols="150", rows="2"})
         </div>

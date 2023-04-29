@@ -86,6 +86,8 @@
     padding: 0px 10px;
     font-size: small;
     border-top: 1px solid grey;
+    display: flex;
+    justify-content: space-between;
 }
 
 

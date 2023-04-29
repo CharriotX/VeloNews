@@ -17,7 +17,10 @@
                     </div>
                     <div class="news-item-text">@Html.Raw(@item.ShortText)</div>
                 </div>
-                <div class="news-item-author">Created by @item.Author, @item.CreatedTime.AddDays(-1).ToString("dd-MM-yyyy, HH:mm") </div>
+                <div class="news-item-author">
+                    <div>Created by @item.Author, @item.CreatedTime.AddDays(-1).ToString("dd-MM-yyyy, HH:mm")</div>
+                    <div><a href="/News/AddNews?newsId=@item.Id">edit</a></div>
+                </div>
             </div>
         }
     </div>
