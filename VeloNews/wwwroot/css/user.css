@@ -47,11 +47,6 @@
 .register-button {
 }
 
-
-.profile-logout-btn a {
-    color: blue;
-    text-decoration: underline;
-}
 /*---------LOGIN-------------*/
 
 .login-title {
@@ -88,4 +83,32 @@
 }
 .register-ref a{
     color: blue;
+}
+
+
+/*-------PROFILE---------*/
+
+.profile-logout-text {
+    margin: 20px 0 40px 0;
+}
+
+.profile-logout-text a {
+    color: blue;
+    text-decoration: underline;
+}
+
+.profile-info {
+    max-width: 300px;
+    border: 1px solid grey;
+}
+
+.profile-info-list {
+    
+}
+
+.profile-info-item {
+    border-bottom: 1px dotted grey;
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 20px;
 }
