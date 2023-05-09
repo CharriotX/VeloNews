@@ -129,15 +129,21 @@ namespace VeloNews.Controllers
         }
 
         [HttpGet]
-        public IActionResult EditNews()
+        public IActionResult EditNews(int newsId)
         {
-            return View();
+            var model = _newsService.GetNewsForEdit(newsId);
+            return View(model);
         }
 
         [HttpPost]
-        public IActionResult EditNews(int newsId)
+        public IActionResult EditNews(EditNewsViewModel viewModel)
         {
-            return RedirectToAction();
+            _newsService.EditNews(viewModel.Id,
+                viewModel.Title,
+                viewModel.Text,
+                viewModel.ShortText);
+
+            return RedirectToAction("Index", "News");
         }
 
         [Authorize]

@@ -1,1 +1,22 @@
-﻿
+﻿@using VeloNews.Models.NewsViewModels;
+@model EditNewsViewModel
+
+
+<div>
+
+    <form action="/News/EditNews" method="post">
+        @Html.HiddenFor(x => x.Id)
+
+        <div>
+            Title: @Html.TextBoxFor(x =>x.Title)
+        </div>
+        <div>
+            Text: @Html.TextAreaFor(x =>x.Text)
+        </div>
+        <div>
+            ShortText: @Html.TextAreaFor(x => x.ShortText)
+        </div>
+        <input type="submit" value="Edit" />
+    </form>
+
+</div>
