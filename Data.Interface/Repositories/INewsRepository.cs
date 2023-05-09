@@ -8,5 +8,7 @@ namespace Data.Interface.Repositories
         News GetNewsWithComments(int newsId);
         NewsWithCommentsAndImagesData GetNewsWithCommentsAndImages(int newsId);
         List<NewsCardsData> GetAllNewsCards();
+        EditNewsData GetNewsForEdit(int newsId);
+        void EditNews(int id, string title, string text, string shorText);
     }
 }

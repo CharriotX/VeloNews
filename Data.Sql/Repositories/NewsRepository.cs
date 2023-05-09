@@ -11,6 +11,16 @@ namespace Data.Sql.Repositories
         {
         }
 
+        public void EditNews(int id, string title, string text, string shorText)
+        {
+            var news = Get(id);
+            news.Title = title;
+            news.ShorText = shorText;
+            news.Text = text;
+
+            _webContext.SaveChanges();
+        }
+
         public List<NewsCardsData> GetAllNewsCards()
         {
             return _dbSet
@@ -26,6 +36,21 @@ namespace Data.Sql.Repositories
                     PreviewImage = dbNews.NewsImages.FirstOrDefault().Url
                 }).ToList();
         }
+
+        public EditNewsData GetNewsForEdit(int newsId)
+        {
+            var news = _dbSet.Include(x => x.NewsImages).FirstOrDefault(x => x.Id == newsId);
+            var data = new EditNewsData
+            {
+                Id = news.Id,
+                Title = news.Title,
+                Text = news.Text,
+                ShortText = news.ShorText
+            };
+
+            return data;
+        }
+
         public News GetNewsWithComments(int newsId)
         {
             return _dbSet
@@ -72,5 +97,7 @@ namespace Data.Sql.Repositories
 
             return data;
         }
+
+
     }
 }

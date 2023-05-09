@@ -25,6 +25,11 @@ namespace VeloNews.Services
             _userService = userService;
         }
 
+        public void EditNews(int id, string title, string text, string shorText)
+        {
+            _newsRepository.EditNews(id, title, text, shorText);
+        }
+
         public List<NewsCardViewModel> GetAllNewsCards()
         {
             var allNews = _newsRepository.GetAllNewsCards();
@@ -67,6 +72,20 @@ namespace VeloNews.Services
             };
 
             return model;
+        }
+
+        public EditNewsViewModel GetNewsForEdit(int newsId)
+        {
+            var news = _newsRepository.GetNewsForEdit(newsId);
+            var viewModel = new EditNewsViewModel()
+            {
+                Id = news.Id,
+                Title = news.Title,
+                Text = news.Text,
+                ShortText = news.ShortText
+            };
+
+            return viewModel;
         }
     }
 }
