@@ -25,21 +25,10 @@
                         <div>VELO NEWS</div>
                     </div>
                     <div class="auth">
-                        @if (!User.Identity.IsAuthenticated)
-                        {
-                            <span class="material-symbols-outlined">lock</span>
-                            <div><a href="/User/Login">Вход</a></div>
-                            <div>/</div>
-                            <div><a href="/User/Registration">Registration</a></div>
-                        }
-                        else
-                        {
-                            <span class="material-symbols-outlined">
-                                account_circle
-                            </span>
-                            <div><a href="/User/Profile">Profile</a></div>
-                        }
-
+                        <span class="material-symbols-outlined">
+                            account_circle
+                        </span>
+                        <div><a href="/User/Profile">Admin</a></div>
                     </div>
                 </div>
             </div>
@@ -64,6 +53,13 @@
         </div>
     </header>
     <section class="main">
+        <div class="left-menu">
+            <ul class="left-menu-list">
+                <li class="left-menu-item">
+
+                </li>
+            </ul>
+        </div>
         <div class="container">
             @RenderBody()
         </div>

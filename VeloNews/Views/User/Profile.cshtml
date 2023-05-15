@@ -1,10 +1,12 @@
-﻿@using VeloNews.Models.UserViewModels;
+﻿@using Data.Interface.Models;
+@using VeloNews.Models.UserViewModels;
+@using VeloNews.Services;
 @model ProfileViewModel
+
 
 @section Styles {
     <link href="~/css/user.css" rel="stylesheet" type="text/css" />
 }
-
 
 <div>
     <h2>My account</h2>
@@ -30,7 +32,10 @@
         </ul>
     </div>
     <div>
-        <div>@Model.Name</div>
+        <div>
+            @Model.Name
+            <a href="/Admin/Index">AdminPage</a>
+        </div>
     </div>
 
 </div>
