@@ -16,7 +16,8 @@ namespace VeloNews.Controllers
         private IUserService _userService;
         private INewsService _newsService;
 
-        public UserController(IUserService userService, INewsService newsService)
+        public UserController(IUserService userService, 
+            INewsService newsService)
         {
             _userService = userService;
             _newsService = newsService;
@@ -35,6 +36,7 @@ namespace VeloNews.Controllers
             var model = new ProfileViewModel()
             {
                 Name = user.Name,
+                Role = user.Role.ToString()
             };
 
             return View(model);

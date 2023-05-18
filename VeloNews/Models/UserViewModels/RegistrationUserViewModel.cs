@@ -5,12 +5,12 @@ namespace VeloNews.Models.UserViewModels
 {
     public class RegistrationUserViewModel
     {
-        [EnglishWordFormInputs]
+        [EnglishWordsFormInputs]
         [IsCorrectUserName]
         [IsUniqueUserName]
         public string UserName { get; set; }
 
-        [EnglishWordFormInputs]
+        [EnglishWordsFormInputs]
         public string Password { get; set; }
 
         [Compare("Password", ErrorMessage ="Confirm password doesn't match, type again!")]

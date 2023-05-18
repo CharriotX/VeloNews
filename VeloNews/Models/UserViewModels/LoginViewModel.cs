@@ -6,11 +6,11 @@ namespace VeloNews.Models.UserViewModels
     {
         public int Id { get; set; }
 
-        [EnglishWordFormInputs]
+        [EnglishWordsFormInputs]
         [IsUserNameExist]
         public string Name { get; set; }
 
-        [EnglishWordFormInputs]
+        [EnglishWordsFormInputs]
         [IsPasswordCorrect]
         public string Password { get; set; }
     }

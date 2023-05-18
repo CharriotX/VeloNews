@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="Controllers\Api\" />
     <Folder Include="wwwroot\css\froala\" />
     <Folder Include="wwwroot\images\uploads\news\" />
     <Folder Include="wwwroot\images\uploads\pictures\" />
@@ -16,6 +17,13 @@
   <ItemGroup>
     <ProjectReference Include="..\Data.Interface\Data.Interface.csproj" />
     <ProjectReference Include="..\Data.Sql\Data.Sql.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="wwwroot\css\adminLayout.css">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>

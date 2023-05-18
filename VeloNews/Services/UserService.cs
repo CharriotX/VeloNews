@@ -12,7 +12,8 @@ namespace VeloNews.Services
         private IUserRepository _userRepository;
         private IHttpContextAccessor _httpContextAccessor;
 
-        public UserService(IUserRepository userRepository, IHttpContextAccessor httpContextAccessor)
+        public UserService(IUserRepository userRepository,
+            IHttpContextAccessor httpContextAccessor)
         {
             _userRepository = userRepository;
             _httpContextAccessor = httpContextAccessor;

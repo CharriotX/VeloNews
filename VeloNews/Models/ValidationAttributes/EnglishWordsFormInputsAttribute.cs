@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 
 namespace VeloNews.Models.ValidationAttributes
 {
-    public class EnglishWordFormInputsAttribute : ValidationAttribute
+    public class EnglishWordsFormInputsAttribute : ValidationAttribute
     {
         Regex pattern = new Regex("^[A-Za-z\\d_-]+$");
         protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
@@ -17,7 +17,7 @@ namespace VeloNews.Models.ValidationAttributes
             }
             else
             {
-                return new ValidationResult($"You need use eng words in {validationContext.DisplayName} field");
+                return new ValidationResult($"You need use Eng words in {validationContext.DisplayName} field");
             }
         }
     }
