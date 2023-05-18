@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <Folder Include="Controllers\Api\" />
+    <Folder Include="Models\AdminViewModels\" />
     <Folder Include="wwwroot\css\froala\" />
     <Folder Include="wwwroot\images\uploads\news\" />
     <Folder Include="wwwroot\images\uploads\pictures\" />
