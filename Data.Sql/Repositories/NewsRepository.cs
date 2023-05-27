@@ -1,4 +1,6 @@
-﻿using Data.Interface.DataModels.NewsDataModels;
+﻿using Data.Interface.DataModels;
+using Data.Interface.DataModels.AdminDataModels;
+using Data.Interface.DataModels.NewsDataModels;
 using Data.Interface.Models;
 using Data.Interface.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -35,6 +37,23 @@ namespace Data.Sql.Repositories
                     Author = dbNews.Creator.Name,
                     PreviewImage = dbNews.NewsImages.FirstOrDefault().Url
                 }).ToList();
+        }
+
+        public List<LastNews> GetLastNews()
+        {
+            var lastNews = _dbSet.Include(x => x.Creator).OrderByDescending(x => x.Id).Take(10).ToList();
+            var data = lastNews.Select(x => new LastNews
+            {
+                Id = x.Id,
+                Title = x.Title,
+                Creator = new CreatorData
+                {
+                    Id = x.Creator.Id,
+                    Name = x.Creator.Name
+                }
+            }).ToList();
+
+            return data;
         }
 
         public EditNewsData GetNewsForEdit(int newsId)

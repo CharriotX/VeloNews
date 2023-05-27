@@ -1,4 +1,6 @@
-﻿using Data.Interface.DataModels.NewsDataModels;
+﻿using Data.Interface.DataModels;
+using Data.Interface.DataModels.AdminDataModels;
+using Data.Interface.DataModels.NewsDataModels;
 using Data.Interface.Models;
 using Data.Interface.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -15,6 +17,24 @@ namespace Data.Sql.Repositories
         {
             _newsRepository = newsRepository;
             _userRepository = userRepository;
+        }
+
+        public List<LastComment> GetLastComments()
+        {
+            var lastComments = _dbSet.Include(x => x.News).Include(x => x.User).OrderByDescending(x => x.Id).Take(10).ToList();
+            var data = lastComments.Select(x => new LastComment
+            {
+                Id = x.Id,
+                NewsId = x.News.Id,
+                Text = x.Text,
+                Creator = new CreatorData
+                {
+                    Id = x.User.Id,
+                    Name = x.User.Name
+                }
+            }).ToList();
+
+            return data;
         }
 
         public void SaveComment(SaveNewsCommentData data)

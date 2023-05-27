@@ -1,8 +1,136 @@
-﻿@{
+﻿@using VeloNews.Models.AdminViewModels;
+@model AdminMainPageViewModel
+@{
     Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+@section Styles {
+    <link href="~/css/admin.css" rel="stylesheet" type="text/css" />
 }
 
 
-<div>
-    Hi admin
+<div class="wrapper">
+    <div class="stats-section">
+        <div class="stats-list">
+            <div class="stats-item">
+                <span class="material-symbols-outlined">
+                    newspaper
+                </span>
+                <div>
+                    News
+                </div>
+                <div class="stats-count">
+                    @Model.SiteStats.NewsCount
+                </div>
+            </div>
+            <div class="stats-item">
+                <span class="material-symbols-outlined">
+                    reviews
+                </span>
+                <div>
+                    Comments
+                </div>
+                <div class="stats-count">
+                    @Model.SiteStats.NewsCommentsCount
+                </div>
+            </div>
+            <div class="stats-item">
+                <span class="material-symbols-outlined">
+                    person
+                </span>
+                <div>
+                    Users
+                </div>
+                <div class="stats-count">
+                    @Model.SiteStats.UsersCount
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="last-activity-section">
+        <div class="activity-block news">
+            <h3>Last published news</h3>
+            <div class="news-row-header">
+                <div class="news-table-cell id">
+                    ID
+                </div>
+                <div class="news-table-cell title">
+                    Title
+                </div>
+                <div class="news-table-cell creator">
+                    Creator
+                </div>
+            </div>
+            @foreach (var news in Model.LastNews)
+            {
+                <div class="news-row">
+                    <div class="news-table-cell id">
+                        @news.Id
+                    </div>
+                    <div class="news-table-cell title">
+                        @news.Title
+                    </div>
+                    <div class="news-table-cell creator">
+                        @news.Creator
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="activity-block user">
+            <h3>Last registered users</h3>
+            <div class="user-row-header">
+                <div class="user-table-cell">
+                    ID
+                </div>
+                <div class="user-table-cell username">
+                    Username
+                </div>
+            </div>
+            @foreach (var user in Model.LastRegisteredUsers)
+            {
+                <div class="user-row">
+                    <div class="user-table-cell id">
+                        @user.Id
+                    </div>
+                    <div class="user-table-cell username">
+                        @user.Name
+                    </div>
+                </div>
+            }
+        </div>
+
+        <div class="activity-block-comments">
+            <h3>Recent comments</h3>
+            <div class="comment-row-header">
+                <div class="comment-table-cell">
+                    ID
+                </div>
+                <div class="comment-table-cell text">
+                    Text
+                </div>
+                <div class="comment-table-cell">
+                    News
+                </div>
+                <div class="comment-table-cell">
+                    Creator
+                </div>
+            </div>
+            @foreach (var comment in Model.LastNewsComments)
+            {
+                <div class="comment-row">
+                    <div class="comment-table-cell">
+                        @comment.Id
+                    </div>
+                    <div class="comment-table-cell text">
+                        @Html.Raw(@comment.Text)
+                    </div>
+                    <div class="comment-table-cell">
+                        <a href="/News/ShowNews?newsId=@comment.NewsId">Go to news</a>
+                    </div>
+                    <div class="comment-table-cell">
+                        @comment.Creator
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
 </div>

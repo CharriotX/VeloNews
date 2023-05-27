@@ -1,4 +1,5 @@
-﻿using Data.Interface.DataModels.UserDataModels;
+﻿using Data.Interface.DataModels.AdminDataModels;
+using Data.Interface.DataModels.UserDataModels;
 using Data.Interface.Models;
 using Data.Interface.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,18 @@ namespace Data.Sql.Repositories
     {
         public UserRepository(WebContext webContext) : base(webContext)
         {
+        }
+
+        public List<LastRegisteredUser> GetLastRegisteredUsers()
+        {
+            var lastRegisterUser = _dbSet.OrderByDescending(x => x.Id).Take(10).ToList();
+            var data = lastRegisterUser.Select(x => new LastRegisteredUser
+            {
+                Id = x.Id,
+                UserName = x.Name
+            }).ToList();
+
+            return data;
         }
 
         public User GetUserByNameAndPass(string name, string pass)

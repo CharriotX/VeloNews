@@ -1,4 +1,5 @@
-﻿using Data.Interface.DataModels.UserDataModels;
+﻿using Data.Interface.DataModels.AdminDataModels;
+using Data.Interface.DataModels.UserDataModels;
 using Data.Interface.Models;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,7 @@ namespace Data.Interface.Repositories
     {
         User GetUserByNameAndPass(string name, string pass);
         bool IsUserExist(string userName);
+        List<LastRegisteredUser> GetLastRegisteredUsers();
         void UserRegistration(UserRegistrationData data);
         User GetUserByUserName(string userName);
         bool IsUserNameExist(string userName);

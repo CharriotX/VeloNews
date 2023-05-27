@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <Folder Include="Controllers\Api\" />
-    <Folder Include="Models\AdminViewModels\" />
     <Folder Include="wwwroot\css\froala\" />
     <Folder Include="wwwroot\images\uploads\news\" />
     <Folder Include="wwwroot\images\uploads\pictures\" />
@@ -21,7 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Update="wwwroot\css\adminLayout.css">
+    <Content Update="wwwroot\css\admin.css">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>

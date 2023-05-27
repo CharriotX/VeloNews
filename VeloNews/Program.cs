@@ -2,6 +2,7 @@ using Data.Interface.Repositories;
 using Data.Sql;
 using Data.Sql.Repositories;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.Extensions.DependencyInjection;
 using VeloNews.Services;
 using VeloNews.Services.IServices;
 
@@ -17,6 +18,10 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         option.Cookie.Name = "VeloNewsCookie";
     });
 
+builder.Services.AddScoped<IAdminService>(x =>
+    new AdminService(
+        x.GetService<IUserService>(),
+        x.GetService<IAdminRepository>()));
 
 builder.Services.AddScoped<INewsCommentService>(x =>
     new NewsCommentService(
@@ -44,6 +49,14 @@ dataSqlStartup.RegisterDbContext(builder.Services);
 
 builder.Services.AddScoped<INewsRepository>(x =>
     new NewsRepository(x.GetService<WebContext>()));
+
+builder.Services.AddScoped<IAdminRepository>(x =>
+    new AdminRepository(
+        x.GetService<IUserRepository>(),
+        x.GetService<INewsRepository>(),
+        x.GetService<INewsCommentRepository>()
+        ));
+
 builder.Services.AddScoped<INewsCommentRepository>(x =>
     new NewsCommentRepository(
         x.GetService<WebContext>(),

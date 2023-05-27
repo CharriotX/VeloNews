@@ -6,15 +6,18 @@ namespace VeloNews.Controllers
     public class AdminController : Controller
     {
         private IUserService _userService;
+        private IAdminService _adminService;
 
-        public AdminController(IUserService userService)
+        public AdminController(IUserService userService, IAdminService adminService)
         {
             _userService = userService;
+            _adminService = adminService;
         }
 
         public IActionResult Index()
         {
-            return View();
+            var viewModel = _adminService.GetAdminMainPageViewModel();
+            return View(viewModel);
         }
 
         public IActionResult AllNews()

@@ -1,4 +1,5 @@
-﻿using Data.Interface.DataModels.NewsDataModels;
+﻿using Data.Interface.DataModels;
+using Data.Interface.DataModels.NewsDataModels;
 using Data.Interface.Repositories;
 using VeloNews.Models.NewsViewModels;
 using VeloNews.Services.IServices;
@@ -29,7 +30,7 @@ namespace VeloNews.Services
                 },
                 Text = viewModel.Text,
                 CreatedTime = DateTime.Now,
-                Author = new Creator
+                Author = new CreatorData
                 {
                     Id = user.Id
                 }

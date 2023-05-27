@@ -11,7 +11,7 @@ namespace Data.Interface.DataModels.NewsDataModels
         public NewsId NewsId { get; set; }
         public string Text { get; set; }
         public DateTime CreatedTime { get; set; }
-        public Creator Author { get; set; }
+        public CreatorData Author { get; set; }
     }
 
     public class NewsId
@@ -19,8 +19,4 @@ namespace Data.Interface.DataModels.NewsDataModels
         public int Id { get; set; }
     }
 
-    public class Creator
-    {
-        public int Id { get; set; }
-    }
 }
