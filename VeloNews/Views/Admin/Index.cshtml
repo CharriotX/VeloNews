@@ -62,17 +62,20 @@
             </div>
             @foreach (var news in Model.LastNews)
             {
-                <div class="news-row">
-                    <div class="news-table-cell id">
-                        @news.Id
+                <a href="/News/ShowNews?newsId=@news.Id">
+                    <div class="news-row">
+                        <div class="news-table-cell id">
+                            @news.Id
+                        </div>
+                        <div class="news-table-cell title">
+                            @news.Title
+                        </div>
+                        <div class="news-table-cell creator">
+                            @news.Creator
+                        </div>
                     </div>
-                    <div class="news-table-cell title">
-                        @news.Title
-                    </div>
-                    <div class="news-table-cell creator">
-                        @news.Creator
-                    </div>
-                </div>
+                </a>
+
             }
         </div>
         <div class="activity-block user">
@@ -98,7 +101,7 @@
             }
         </div>
 
-        <div class="activity-block-comments">
+        <div class="activity-block comments">
             <h3>Recent comments</h3>
             <div class="comment-row-header">
                 <div class="comment-table-cell">

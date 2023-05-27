@@ -95,6 +95,14 @@
     border-bottom: 1px solid darkslateblue;
 }
 
+.activity-block.news a {
+    color: black;   
+}
+
+a .news-row:hover{
+    background: white;
+}
+
 .news-row {
     border: 1px solid darkslateblue;
     border-radius: 7px;
@@ -139,7 +147,7 @@
         display: inline;
     }
 
-.activity-block-comments {
+.activity-block.comments {
     margin-top: 30px;
     border: 1px solid darkslateblue;
     border-radius: 10px;
