@@ -22,7 +22,10 @@ namespace Data.Sql.Repositories
 
             _webContext.SaveChanges();
         }
-
+        public List<News> GetAllNewsWithIncludes()
+        {
+            return _dbSet.Include(x => x.Creator).ToList();
+        }
         public List<NewsCardsData> GetAllNewsCards()
         {
             return _dbSet
@@ -117,6 +120,11 @@ namespace Data.Sql.Repositories
             return data;
         }
 
+        public override PaginatorData<News> GetPaginator(int page, int perPage)
+        {
+            var initialSource = _dbSet.Include(x => x.Creator);
 
+            return base.GetPaginator(initialSource, page, perPage);
+        }
     }
 }

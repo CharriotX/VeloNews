@@ -6,6 +6,7 @@ namespace Data.Interface.Repositories
 {
     public interface INewsRepository : IBaseRepository<News>
     {
+        List<News> GetAllNewsWithIncludes();
         News GetNewsWithComments(int newsId);
         NewsWithCommentsAndImagesData GetNewsWithCommentsAndImages(int newsId);
         List<NewsCardsData> GetAllNewsCards();

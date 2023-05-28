@@ -1,4 +1,5 @@
-﻿using Data.Interface.Models;
+﻿using Data.Interface.DataModels;
+using Data.Interface.Models;
 using Data.Interface.Repositories;
 using Microsoft.EntityFrameworkCore;
 
@@ -20,7 +21,7 @@ namespace Data.Sql.Repositories
             return _dbSet.FirstOrDefault(x => x.Id == id);
         }
 
-        public List<T> GetAll()
+        public virtual List<T> GetAll()
         {
             return _dbSet.ToList();
         }
@@ -43,6 +44,26 @@ namespace Data.Sql.Repositories
         {
             _dbSet.Remove(model);
             _webContext.SaveChanges();
+        }
+
+        public virtual PaginatorData<T> GetPaginator(int page, int perPage)
+        {
+            return GetPaginator(_dbSet, page, perPage);
+        }
+
+        public virtual PaginatorData<T> GetPaginator(IQueryable<T> initialSource, int page, int perPage)
+        {
+            var dataModel = new PaginatorData<T>();
+
+            var items = initialSource
+                .Skip((page - 1) * perPage)
+                .Take(perPage)
+                .ToList();
+
+            dataModel.Items = items;
+            dataModel.TotalCount = _dbSet.Count();
+
+            return dataModel;
         }
     }
 }

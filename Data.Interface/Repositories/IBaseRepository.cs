@@ -1,4 +1,5 @@
-﻿using Data.Interface.Models;
+﻿using Data.Interface.DataModels;
+using Data.Interface.Models;
 
 namespace Data.Interface.Repositories
 {
@@ -8,5 +9,6 @@ namespace Data.Interface.Repositories
         List<T> GetAll();
         void Remove(T model);
         void Save(T model);
+        PaginatorData<T> GetPaginator(int page, int perPage);
     }
 }

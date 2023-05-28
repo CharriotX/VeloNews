@@ -1,0 +1,66 @@
+﻿@using VeloNews.Models.AdminViewModels;
+
+@model PaginatorViewModel<NewsForAdminPageViewModel>
+
+@section Styles {
+    <link href="~/css/admin.css" rel="stylesheet" type="text/css" />
+}
+
+<div class="wrapper">
+    <div class="all-news-table">
+        <div class="news-header-list">
+            <div class="news-header-item">
+                <div class="news-header-cell">
+                    ID
+                </div>
+                <div class="news-header-cell">
+                    Title
+                </div>
+                <div class="news-header-cell">
+                    Date of creation
+                </div>
+                <div class="news-header-cell">
+                    Creator
+                </div>
+                <div class="news-header-cell">
+                    Actions
+                </div>
+            </div>
+
+        </div>
+        <div class="all-news-list">
+            @foreach (var news in Model.Items)
+            {
+                <div class="news-list-item">
+                    <div>
+                        @news.Id
+                    </div>
+                    <div class="news-item-title">
+                        <a href="/News/ShowNews?newsId=@news.Id" target="_blank">@news.Title</a>
+                    </div>
+                    <div>
+                        @news.TimeOfCreation
+                    </div>
+                    <div>
+                        @news.Creator.Name
+                    </div>
+                    <div class="news-item-actions">
+                        <a><div class="item-action-edit">Edit</div></a>
+                        <a><div class="item-action-remove">Remove</div></a>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+    <div class="paginator">
+        @foreach (var pageNumber in Model.PageList)
+        {
+            <a href="/Admin/AllNews?page=@pageNumber"
+               class="@(Model.ActivePageNumber == pageNumber ? "active" : "")">
+                @pageNumber
+            </a>
+        }
+    </div>
+</div>
+
+

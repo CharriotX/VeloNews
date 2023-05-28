@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using VeloNews.Models;
+using VeloNews.Models.AdminViewModels;
 using VeloNews.Services.IServices;
 
 namespace VeloNews.Controllers
@@ -20,9 +22,10 @@ namespace VeloNews.Controllers
             return View(viewModel);
         }
 
-        public IActionResult AllNews()
+        public IActionResult AllNews(int page = 1, int perPage = 8)
         {
-            return View();
+            var model = _adminService.GetAllNewsForPagginator(page, perPage);
+            return View(model);
         }
     }
 }

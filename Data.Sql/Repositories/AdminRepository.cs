@@ -1,5 +1,6 @@
 ﻿using Data.Interface.DataModels;
 using Data.Interface.DataModels.AdminDataModels;
+using Data.Interface.Models;
 using Data.Interface.Repositories;
 using System;
 using System.Collections.Generic;
@@ -22,6 +23,25 @@ namespace Data.Sql.Repositories
             _userRepository = userRepository;
             _newsRepository = newsRepository;
             _newsCommentRepository = newsCommentRepository;
+        }
+
+        public List<NewsForAdminPageData> GetAllNewsForAdminPage()
+        {
+            var allNews = _newsRepository.GetAllNewsWithIncludes();
+
+            var data = allNews.Select(x => new NewsForAdminPageData
+            {
+                Id = x.Id,
+                Title = x.Title,
+                TimeOfCreation = x.CreatedTime,
+                Creator = new CreatorData
+                {
+                    Id = x.Creator.Id,
+                    Name = x.Creator.Name
+                }
+            }).ToList();
+
+            return data;
         }
 
         public MainAdminPageData GetDataFormAdminMainPage()
@@ -69,6 +89,13 @@ namespace Data.Sql.Repositories
                     NewsCount = newsCount
                 }
             };
+
+            return data;
+        }
+
+        public PaginatorData<News> GetAllNewsPaginator(int page, int perPage)
+        {
+            var data = _newsRepository.GetPaginator(page, perPage);
 
             return data;
         }
