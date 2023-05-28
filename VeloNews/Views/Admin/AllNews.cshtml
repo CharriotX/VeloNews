@@ -45,7 +45,9 @@
                         @news.Creator.Name
                     </div>
                     <div class="news-item-actions">
-                        <a><div class="item-action-edit">Edit</div></a>
+                        <a href="/News/EditNews?newsId=@news.Id" target="_blank">
+                            <div class="item-action-edit">Edit</div>
+                        </a>
                         <a><div class="item-action-remove">Remove</div></a>
                     </div>
                 </div>

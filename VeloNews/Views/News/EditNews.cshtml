@@ -1,6 +1,12 @@
 ﻿@using VeloNews.Models.NewsViewModels;
 @model EditNewsViewModel
 
+@section Styles {
+    <link href="~/css/news.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/trix@2.0.0/dist/trix.css">
+    <script type="text/javascript" src="https://unpkg.com/trix@2.0.0/dist/trix.umd.min.js"></script>
+}
+
 
 <div>
 
@@ -10,11 +16,15 @@
         <div>
             Title: @Html.TextBoxFor(x =>x.Title)
         </div>
-        <div>
-            Text: @Html.TextAreaFor(x =>x.Text)
+        <div class="trix-editor">
+            Shor text:
+            @Html.HiddenFor(x => x.ShortText, new {@id = "short-text"})
+            <trix-editor input="short-text" trix-file-accept="preventDefault"></trix-editor>
         </div>
-        <div>
-            ShortText: @Html.TextAreaFor(x => x.ShortText)
+        <div class="trix-editor">
+            Text:
+            @Html.HiddenFor(x => x.Text, new {@id = "text"})
+            <trix-editor input="text" trix-file-accept="preventDefault"></trix-editor>
         </div>
         <input type="submit" value="Edit" />
     </form>

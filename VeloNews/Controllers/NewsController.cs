@@ -143,7 +143,7 @@ namespace VeloNews.Controllers
                 viewModel.Text,
                 viewModel.ShortText);
 
-            return RedirectToAction("Index", "News");
+            return RedirectToAction("ShowNews", "News", new {newsId = viewModel.Id});
         }
 
         [Authorize]
