@@ -26,6 +26,13 @@
             Текст новости: @Html.TextAreaFor(x => x.Text, new{id="newsEditor"})
         </div>
 
+        <div>
+            <select asp-for="@Model.SelectedCategoryId"
+            asp-items="@Model.Categories">
+                <option>Select one</option>
+            </select>
+        </div>
+
         <button class="btn btn-submit">Create news</button>
     </form>
 

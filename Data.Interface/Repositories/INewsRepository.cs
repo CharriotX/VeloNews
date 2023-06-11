@@ -13,5 +13,6 @@ namespace Data.Interface.Repositories
         List<LastNews> GetLastNews();
         EditNewsData GetNewsForEdit(int newsId);
         void EditNews(int id, string title, string text, string shorText);
+        void SaveNews(AddNewsData data);
     }
 }

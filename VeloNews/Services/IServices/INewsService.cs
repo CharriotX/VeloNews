@@ -10,6 +10,9 @@ namespace VeloNews.Services.IServices
         ShowNewsViewModel GetFullNews(int newsId);
         List<NewsCardViewModel> GetAllNewsCards();
         EditNewsViewModel GetNewsForEdit(int newsId);
+        AddNewsData SaveNews(AddNewsViewModel viewModel);
+        NewsViewModel GetAllNewsCategories();
+        
         void EditNews(int id, string title, string text, string shorText);
     }
 }

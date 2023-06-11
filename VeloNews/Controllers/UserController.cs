@@ -24,7 +24,7 @@ namespace VeloNews.Controllers
         }
 
         [Authorize]
-        public IActionResult Profile()
+        public IActionResult MyProfile()
         {
             var user = _userService.GetCurrentUser();
 
@@ -74,7 +74,7 @@ namespace VeloNews.Controllers
 
             await HttpContext.SignInAsync(principal);
 
-            return RedirectToAction("Profile");
+            return RedirectToAction("MyProfile");
         }
 
         public async Task<IActionResult> Logout()

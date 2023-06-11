@@ -12,6 +12,7 @@ namespace VeloNews.Controllers
         private INewsService _newsService;
         private INewsCommentService _newsCommentService;
         private INewsRepository _newsRepository;
+        private INewsCategoryRepository _newsCategoryRepository;
         private IImageRepository _imageRepository;
         private IUserService _userService;
         private IWebHostEnvironment _webHostEnvironment;
@@ -21,7 +22,8 @@ namespace VeloNews.Controllers
             IWebHostEnvironment webHostEnvironment,
             IUserService userService,
             INewsService newsService,
-            INewsCommentService newsCommentService)
+            INewsCommentService newsCommentService,
+            INewsCategoryRepository newsCategoryRepository)
         {
             _newsRepository = newsRepository;
             _imageRepository = imageRepository;
@@ -29,6 +31,7 @@ namespace VeloNews.Controllers
             _userService = userService;
             _newsService = newsService;
             _newsCommentService = newsCommentService;
+            _newsCategoryRepository = newsCategoryRepository;
         }
 
         public IActionResult Index()
@@ -48,7 +51,8 @@ namespace VeloNews.Controllers
         [HttpGet]
         public IActionResult AddNews(int newsId)
         {
-            return View();
+            var modelWithCategoryList = _newsService.GetAllNewsCategories();
+            return View(modelWithCategoryList);
         }
 
         [Authorize]
@@ -61,6 +65,7 @@ namespace VeloNews.Controllers
             }
 
             var author = _userService.GetCurrentUser();
+            var category = _newsCategoryRepository.Get(viewModel.SelectedCategoryId);
 
             var dbModel = new News()
             {
@@ -69,7 +74,8 @@ namespace VeloNews.Controllers
                 Text = viewModel.Text,
                 ShorText = viewModel.ShortText,
                 CreatedTime = DateTime.Now,
-                Creator = author
+                Creator = author,
+                Category = category
             };
 
             _newsRepository.Save(dbModel);

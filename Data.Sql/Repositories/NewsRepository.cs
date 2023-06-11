@@ -31,6 +31,7 @@ namespace Data.Sql.Repositories
             return _dbSet
                 .Include(x => x.NewsImages)
                 .Include(x => x.Creator)
+                .Include(x => x.Category)
                 .Select(dbNews => new NewsCardsData
                 {
                     Id = dbNews.Id,
@@ -38,6 +39,7 @@ namespace Data.Sql.Repositories
                     ShortText = dbNews.ShorText,
                     CreatedTime = dbNews.CreatedTime,
                     Author = dbNews.Creator.Name,
+                    Category = dbNews.Category.Name,
                     PreviewImage = dbNews.NewsImages.FirstOrDefault().Url
                 }).ToList();
         }
@@ -125,6 +127,11 @@ namespace Data.Sql.Repositories
             var initialSource = _dbSet.Include(x => x.Creator);
 
             return base.GetPaginator(initialSource, page, perPage);
+        }
+
+        public void SaveNews(AddNewsData data)
+        {
+            throw new NotImplementedException();
         }
     }
 }

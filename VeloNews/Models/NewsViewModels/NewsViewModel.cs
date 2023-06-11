@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System.ComponentModel.DataAnnotations;
 
 namespace VeloNews.Models.NewsViewModels
 {
@@ -11,6 +12,8 @@ namespace VeloNews.Models.NewsViewModels
         public string ShortText { get; set; }
         [Required]
         public string Text { get; set; }
+        public int SelectedCategoryId { get; set; }
+        public List<SelectListItem> Categories { get; set; }
         public DateTime CreatedTime { get; set; }
         public string Author { get; set; }
         public int ImagesCount { get; set; }

@@ -9,6 +9,7 @@ namespace Data.Sql
         public DbSet<Image> Images { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Comment> Comments { get; set; }
+        public DbSet<NewsCategory> NewsCategories { get; set; }
 
         public WebContext() { }
 
@@ -33,6 +34,12 @@ namespace Data.Sql
             modelBuilder.Entity<News>()
                 .HasMany(n => n.NewsComments)
                 .WithOne(c => c.News);
+
+            modelBuilder.Entity<News>()
+                .HasOne(n => n.Category)
+                .WithMany(c => c.News)
+                .HasForeignKey("CategoryId")
+                .IsRequired();
 
             base.OnModelCreating(modelBuilder);
         }

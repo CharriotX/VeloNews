@@ -6,6 +6,12 @@
     display: none !important;
 }
 
+:root {
+    --main-bg-color: darkslateblue;
+    --primary-bg-color: #ccccff;
+    --main-border: 1px solid var(--main-bg-color);
+}
+
 /*________________________________________--*/
 
 .add-news {
@@ -64,8 +70,17 @@
 }
 
 .body-image-block {
+    position: relative;
     width: 350px;
-    padding: 5px;
+}
+
+.body-image-block .category {
+    position: absolute;
+    font-size: 18px;
+    top: 0;
+    padding:5px 10px;
+    background: var(--main-bg-color);
+    color: white;
 }
 
 .news-item-body img {
