@@ -4,13 +4,22 @@ using Data.Interface.DataModels.NewsDataModels;
 using Data.Interface.Models;
 using Data.Interface.Repositories;
 using Microsoft.EntityFrameworkCore;
+using static System.Net.Mime.MediaTypeNames;
+using Image = Data.Interface.Models.Image;
 
 namespace Data.Sql.Repositories
 {
     public class NewsRepository : BaseRepository<News>, INewsRepository
     {
-        public NewsRepository(WebContext webContext) : base(webContext)
+        private IUserRepository _userRepository;
+        private INewsCategoryRepository _newsCategoryRepository;
+
+        public NewsRepository(WebContext webContext,
+            INewsCategoryRepository newsCategoryRepository,
+            IUserRepository userRepository) : base(webContext)
         {
+            _newsCategoryRepository = newsCategoryRepository;
+            _userRepository = userRepository;
         }
 
         public void EditNews(int id, string title, string text, string shorText)
@@ -129,9 +138,25 @@ namespace Data.Sql.Repositories
             return base.GetPaginator(initialSource, page, perPage);
         }
 
-        public void SaveNews(AddNewsData data)
+        public int SaveNews(AddNewsData data)
         {
-            throw new NotImplementedException();
+            var user = _userRepository.Get(data.Author.Id);
+            var newsCategory = _newsCategoryRepository.Get(data.CategoryId);
+
+            var model = new News()
+            {
+                Id = data.Id,
+                Title = data.Title,
+                ShorText = data.ShorText,
+                Text = data.Text,
+                CreatedTime = data.CreatedDate,
+                Creator = user,
+                Category = newsCategory
+            };
+
+            Save(model);
+
+            return model.Id;
         }
     }
 }

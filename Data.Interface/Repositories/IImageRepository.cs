@@ -1,4 +1,5 @@
-﻿using Data.Interface.Models;
+﻿using Data.Interface.DataModels;
+using Data.Interface.Models;
 
 namespace Data.Interface.Repositories
 {
@@ -6,5 +7,6 @@ namespace Data.Interface.Repositories
     {
         string GetUrlForPreviewImage(int newsId);
         List<string> GetUrlsForShowNewsImages(int newsId);
+        void SaveNewsImages(ImageData data);
     }
 }

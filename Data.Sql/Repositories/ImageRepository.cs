@@ -1,12 +1,15 @@
-﻿using Data.Interface.Models;
+﻿using Data.Interface.DataModels;
+using Data.Interface.Models;
 using Data.Interface.Repositories;
 
 namespace Data.Sql.Repositories
 {
     public class ImageRepository : BaseRepository<Image>, IImageRepository
     {
-        public ImageRepository(WebContext webContext) : base(webContext)
+        private INewsRepository _newsRepository;
+        public ImageRepository(WebContext webContext, INewsRepository newsRepository) : base(webContext)
         {
+            _newsRepository = newsRepository;
         }
 
         public string GetUrlForPreviewImage(int newsId)
@@ -23,6 +26,20 @@ namespace Data.Sql.Repositories
             var urls = news.Select(x => x.Url).ToList();
 
             return urls;
+        }
+
+        public void SaveNewsImages(ImageData data)
+        {
+            var news = _newsRepository.Get(data.NewsId);
+            var model = new Image()
+            {
+                Name = data.Name,
+                Url = data.Url,
+                News = news
+            };
+
+            _dbSet.Add(model);
+            _webContext.SaveChanges();
         }
     }
 }

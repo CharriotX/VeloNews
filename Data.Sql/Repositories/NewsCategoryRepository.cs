@@ -13,5 +13,10 @@ namespace Data.Sql.Repositories
         public NewsCategoryRepository(WebContext webContext) : base(webContext)
         {
         }
+
+        public NewsCategory GetCategoryByName(string name)
+        {
+            return _dbSet.SingleOrDefault(x => x.Name == name);
+        }
     }
 }

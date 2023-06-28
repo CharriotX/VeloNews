@@ -40,7 +40,8 @@ builder.Services.AddScoped<INewsService>(x =>
         x.GetService<IImageRepository>(),
         x.GetService<INewsCommentRepository>(),
         x.GetService<IUserService>(),
-        x.GetService<INewsCategoryRepository>()
+        x.GetService<INewsCategoryRepository>(),
+        x.GetService<IWebHostEnvironment>()
         ));
 
 
@@ -49,7 +50,11 @@ dataSqlStartup.RegisterDbContext(builder.Services);
 
 
 builder.Services.AddScoped<INewsRepository>(x =>
-    new NewsRepository(x.GetService<WebContext>()));
+    new NewsRepository(
+        x.GetService<WebContext>(),
+        x.GetService<INewsCategoryRepository>(),
+        x.GetService<IUserRepository>()
+        ));
 
 builder.Services.AddScoped<INewsCategoryRepository>(x =>
     new NewsCategoryRepository(x.GetService<WebContext>()));
@@ -66,8 +71,13 @@ builder.Services.AddScoped<INewsCommentRepository>(x =>
         x.GetService<WebContext>(),
         x.GetService<INewsRepository>(),
         x.GetService<IUserRepository>()));
+
 builder.Services.AddScoped<IImageRepository>(x =>
-    new ImageRepository(x.GetService<WebContext>()));
+    new ImageRepository(
+        x.GetService<WebContext>(),
+        x.GetService<INewsRepository>()
+        ));
+
 builder.Services.AddScoped<IUserRepository>(x =>
     new UserRepository(x.GetService<WebContext>()));
 

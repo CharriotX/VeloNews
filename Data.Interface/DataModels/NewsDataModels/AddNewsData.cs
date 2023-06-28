@@ -13,10 +13,10 @@ namespace Data.Interface.DataModels.NewsDataModels
         public string ShorText { get; set; }
         public string Text { get; set; }
         public DateTime CreatedDate { get; set; }
-        public string Category { get; set; }
+        public int CategoryId { get; set; }
 
         public CreatorData Author { get; set; }
-        public ImageData Image { get; set; }
+        public List<ImageData> Images { get; set; }
     }
 
 
