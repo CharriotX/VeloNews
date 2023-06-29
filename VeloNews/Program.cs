@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.Extensions.DependencyInjection;
 using VeloNews.Services;
 using VeloNews.Services.IServices;
+using VeloNews.Utilities;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -86,6 +87,8 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
+
+app.Seed();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
