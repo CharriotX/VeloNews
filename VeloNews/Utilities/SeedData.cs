@@ -10,6 +10,7 @@ namespace VeloNews.Utilities
             using (var scope = webApplication.Services.CreateScope())
             {
                 SeedUsers(scope);
+                SeedNewsCategory(scope);
             }
         }
 
@@ -27,6 +28,29 @@ namespace VeloNews.Utilities
                 };
 
                 userRepository.Save(admin);
+            }
+        }
+
+        private static void SeedNewsCategory(IServiceScope scope)
+        {
+            var newsCategoryRepository = scope.ServiceProvider.GetRequiredService<INewsCategoryRepository>();
+
+            if (!newsCategoryRepository.Any())
+            {
+                newsCategoryRepository.Save(new NewsCategory()
+                {
+                    Name = "News"
+                });
+
+                newsCategoryRepository.Save(new NewsCategory()
+                {
+                    Name = "Race"
+                });
+
+                newsCategoryRepository.Save(new NewsCategory()
+                {
+                    Name = "Result"
+                });
             }
         }
     }
