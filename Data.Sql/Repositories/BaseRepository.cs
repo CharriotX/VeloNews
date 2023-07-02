@@ -25,6 +25,8 @@ namespace Data.Sql.Repositories
         {
             return _dbSet.ToList();
         }
+        public bool Any()
+            => _dbSet.Any();
 
         public void Save(T model)
         {

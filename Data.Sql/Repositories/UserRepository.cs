@@ -48,7 +48,8 @@ namespace Data.Sql.Repositories
             var model = new User()
             {
                 Name = data.UserName,
-                Password = data.Password
+                Password = data.Password,
+                Role = UserRole.User
             };
 
             _dbSet.Add(model);
