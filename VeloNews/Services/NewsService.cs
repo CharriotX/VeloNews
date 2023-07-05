@@ -39,6 +39,13 @@ namespace VeloNews.Services
             _newsRepository.EditNews(id, title, text, shorText);
         }
 
+        public List<NewsCardViewModel> GetLastNewsForHomePage()
+        {
+            var lastNews = _newsRepository.GetLastNews();
+
+            return models;
+        }
+
         public List<NewsCardViewModel> GetAllNewsCards()
         {
             var allNews = _newsRepository.GetAllNewsCards();
