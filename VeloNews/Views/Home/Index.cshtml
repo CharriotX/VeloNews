@@ -1,17 +1,1 @@
-﻿@using VeloNews.Models.HomeViewModels;
-
-@model HomeViewModel
-
-
-<div>
-    <div>
-        @foreach(var lastNews in Model.LastNews)
-        {
-            <div>@lastNews.Title</div>
-            <div>@lastNews.ShortText</div>
-            <div>@lastNews.Category</div>
-            <div><img src="@lastNews.PreviewImage" /></div>
-            <div>@lastNews.Id</div>
-        }
-    </div>
-</div>
+﻿
