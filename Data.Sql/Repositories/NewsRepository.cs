@@ -164,11 +164,11 @@ namespace Data.Sql.Repositories
         public List<HomePageLastNews> GetNewsForHomePage()
         {
             var news = _dbSet
-                 .Include(x => x.Category)
-                 .Include(x => x.NewsImages)
-                 .OrderByDescending(x => x.Id)
-                 .Take(4)
-                 .ToList();
+                .Include(x => x.NewsImages)
+                .Include(x => x.Category)
+                .OrderByDescending(x => x.Id)
+                .Take(4)
+                .ToList();
 
             var data = news.Select(x => new HomePageLastNews
             {

@@ -17,31 +17,8 @@ namespace VeloNews.Controllers
         public IActionResult Index()
         {
             var model = _newsService.GetNewsForHomePage();
-            var model = images.Select(x => new ImageViewModel()
-            {
-                Name = x.Name,
-                Url = x.Url
-            }).ToList();
-
+            
             return View(model);
-        }
-
-        [HttpGet]
-        public IActionResult AddImage()
-        {
-            var model = images.Select(x => new ImageViewModel()
-            {
-                Name = x.Name,
-                Url = x.Url
-            }).ToList();
-
-            return View(model);
-        }
-
-        [HttpGet]
-        public IActionResult AddImage()
-        {
-            return View();
         }
     }
 }
