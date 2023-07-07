@@ -5,6 +5,7 @@ using Data.Interface.Repositories;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
+using VeloNews.Models.HomeViewModels;
 using VeloNews.Models.NewsViewModels;
 using VeloNews.Services.IServices;
 
@@ -39,11 +40,23 @@ namespace VeloNews.Services
             _newsRepository.EditNews(id, title, text, shorText);
         }
 
-        public List<NewsCardViewModel> GetLastNewsForHomePage()
+        public HomeViewModel GetNewsForHomePage()
         {
-            var lastNews = _newsRepository.GetLastNews();
+            var lastNews = _newsRepository.GetNewsForHomePage();
 
-            return models;
+            var model = new HomeViewModel()
+            {
+                LastNews = lastNews.Select(x => new HomePageNewsViewModel()
+                {
+                    Id = x.Id,
+                    Title = x.Title,
+                    ShortText = x.ShortText,
+                    Category = x.Category,
+                    PreviewImage = x.PreviewImageUrl
+                }).ToList()
+            };
+
+            return model;
         }
 
         public List<NewsCardViewModel> GetAllNewsCards()

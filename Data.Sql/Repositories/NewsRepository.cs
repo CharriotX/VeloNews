@@ -1,9 +1,11 @@
 ﻿using Data.Interface.DataModels;
 using Data.Interface.DataModels.AdminDataModels;
+using Data.Interface.DataModels.HomeDateModels;
 using Data.Interface.DataModels.NewsDataModels;
 using Data.Interface.Models;
 using Data.Interface.Repositories;
 using Microsoft.EntityFrameworkCore;
+using static Data.Interface.DataModels.HomeDateModels.HomePageData;
 using static System.Net.Mime.MediaTypeNames;
 using Image = Data.Interface.Models.Image;
 
@@ -157,6 +159,27 @@ namespace Data.Sql.Repositories
             Save(model);
 
             return model.Id;
+        }
+
+        public List<HomePageLastNews> GetNewsForHomePage()
+        {
+            var news = _dbSet
+                 .Include(x => x.Category)
+                 .Include(x => x.NewsImages)
+                 .OrderByDescending(x => x.Id)
+                 .Take(4)
+                 .ToList();
+
+            var data = news.Select(x => new HomePageLastNews
+            {
+                Id = x.Id,
+                Title = x.Title,
+                ShortText = x.ShorText,
+                Category = x.Category.Name,
+                PreviewImageUrl = x.NewsImages.FirstOrDefault().Url
+            }).ToList();
+
+            return data;
         }
     }
 }
