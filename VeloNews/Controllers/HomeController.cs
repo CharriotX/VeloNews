@@ -1,7 +1,4 @@
-﻿using Data.Interface.Models;
-using Data.Interface.Repositories;
-using Microsoft.AspNetCore.Mvc;
-using VeloNews.Models.ImageViewModels;
+﻿using Microsoft.AspNetCore.Mvc;
 using VeloNews.Services.IServices;
 
 namespace VeloNews.Controllers

@@ -11,7 +11,7 @@ namespace Data.Interface.Repositories
         List<News> GetAllNewsWithIncludes();
         News GetNewsWithComments(int newsId);
         NewsWithCommentsAndImagesData GetNewsWithCommentsAndImages(int newsId);
-        List<HomePageLastNews> GetNewsForHomePage();
+        List<HomePageLastNewsData> GetNewsForHomePage();
         List<NewsCardsData> GetAllNewsCards();
         List<LastNews> GetLastNews();
         EditNewsData GetNewsForEdit(int newsId);

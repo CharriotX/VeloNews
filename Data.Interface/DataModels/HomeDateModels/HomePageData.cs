@@ -8,7 +8,7 @@ namespace Data.Interface.DataModels.HomeDateModels
 {
     public class HomePageData
     {
-        public class HomePageLastNews
+        public class HomePageLastNewsData
         {
             public int Id { get; set; }
             public string Title { get; set; }

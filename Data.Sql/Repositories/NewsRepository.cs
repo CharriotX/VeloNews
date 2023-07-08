@@ -161,16 +161,16 @@ namespace Data.Sql.Repositories
             return model.Id;
         }
 
-        public List<HomePageLastNews> GetNewsForHomePage()
+        public List<HomePageLastNewsData> GetNewsForHomePage()
         {
             var news = _dbSet
                 .Include(x => x.NewsImages)
                 .Include(x => x.Category)
                 .OrderByDescending(x => x.Id)
-                .Take(4)
+                .Take(5)
                 .ToList();
 
-            var data = news.Select(x => new HomePageLastNews
+            var data = news.Select(x => new HomePageLastNewsData
             {
                 Id = x.Id,
                 Title = x.Title,

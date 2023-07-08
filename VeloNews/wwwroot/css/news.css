@@ -71,7 +71,8 @@
 
 .body-image-block {
     position: relative;
-    width: 350px;
+    width: 280px;
+    height: 250px;
 }
 
 .body-image-block .category {
@@ -84,8 +85,9 @@
 }
 
 .news-item-body img {
-    max-width: 350px;
-    max-height: 240px;
+    width: 270px;
+    height: 240px;
+    object-fit:  cover;
 }
 
 .news-item-text {
