@@ -9,6 +9,7 @@ namespace Data.Interface.Repositories
         List<T> GetAll();
         void Remove(T model);
         void Save(T model);
+        int Count();
         bool Any();
         PaginatorData<T> GetPaginator(int page, int perPage);
     }
