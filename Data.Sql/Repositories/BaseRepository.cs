@@ -48,6 +48,11 @@ namespace Data.Sql.Repositories
             _webContext.SaveChanges();
         }
 
+        public int Count()
+        {
+            return _dbSet.Count();
+        }
+
         public virtual PaginatorData<T> GetPaginator(int page, int perPage)
         {
             return GetPaginator(_dbSet, page, perPage);
