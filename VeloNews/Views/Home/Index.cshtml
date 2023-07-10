@@ -1,14 +1,40 @@
-﻿@using VeloNews.Models.ImageViewModels;
-@model List<ImageViewModel>
+﻿@using VeloNews.Models.HomeViewModels;
+
+@model HomeViewModel
+
 
 
 <div>
-    @foreach(var image in Model)
-    {
-        <div>@image.Name</div>
-        <div><img src="@image.Url" /></div>
-    }
+    <div class="lastnews-section">
+        @foreach (var lastNews in Model.LastNews)
+        {
+            <div class="lastnews-item">
+                <input type="hidden" value="@lastNews.Id" />
+                <div class="lastnews-item-image">
+                    <a href="/News/ShowNews?newsId=@lastNews.Id">
+                        <img src="@lastNews.PreviewImage" />
+                    </a>
+                    <div class="item-image-category">@lastNews.Category</div>
+                </div>
+                <div class="lastnews-item-text">
+                    <div class="lastnews-item-title">
+                        <a href="/News/ShowNews?newsId=@lastNews.Id">
+                            @lastNews.Title
+                        </a>
+                    </div>
+                    <div class="lastnews-item-short-text">
+                        @Html.Raw(@lastNews.ShortText)
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
 </div>
-<div>
-    <a href="/Home/AddImage">Add new image</a>
-</div>
+
+@section Styles {
+    <link href="~/css/home.css" rel="stylesheet" type="text/css" />
+}
+
+    @section Scripts {
+    <script src="/js/home.js"></script>
+}
