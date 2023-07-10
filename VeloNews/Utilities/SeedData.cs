@@ -46,12 +46,12 @@ namespace VeloNews.Utilities
 
                 newsCategoryRepository.Save(new NewsCategory()
                 {
-                    Name = "Race"
+                    Name = "Result"
                 });
 
                 newsCategoryRepository.Save(new NewsCategory()
                 {
-                    Name = "Result"
+                    Name = "Race"
                 });
             }
         }
