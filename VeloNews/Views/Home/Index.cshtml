@@ -6,23 +6,26 @@
 
 <div>
     <div class="lastnews-section">
-        @foreach(var lastNews in Model.LastNews)
+        @foreach (var lastNews in Model.LastNews)
         {
             <div class="lastnews-item">
-                <input type="hidden" value="@lastNews.Id"/>
+                <input type="hidden" value="@lastNews.Id" />
                 <div class="lastnews-item-image">
-                    <img src="@lastNews.PreviewImage"/>
+                    <a href="/News/ShowNews?newsId=@lastNews.Id">
+                        <img src="@lastNews.PreviewImage" />
+                    </a>
                     <div class="item-image-category">@lastNews.Category</div>
                 </div>
                 <div class="lastnews-item-text">
                     <div class="lastnews-item-title">
-                        @lastNews.Title
+                        <a href="/News/ShowNews?newsId=@lastNews.Id">
+                            @lastNews.Title
+                        </a>
                     </div>
                     <div class="lastnews-item-short-text">
                         @Html.Raw(@lastNews.ShortText)
                     </div>
                 </div>
-
             </div>
         }
     </div>
@@ -30,4 +33,8 @@
 
 @section Styles {
     <link href="~/css/home.css" rel="stylesheet" type="text/css" />
+}
+
+    @section Scripts {
+    <script src="/js/home.js"></script>
 }
