@@ -62,6 +62,7 @@ namespace VeloNews.Utilities
             var newsCategoryRepository = scope.ServiceProvider.GetRequiredService<INewsCategoryRepository>();
             var userRepository = scope.ServiceProvider.GetRequiredService<IUserRepository>();
             var imageRepository = scope.ServiceProvider.GetRequiredService<IImageRepository>();
+            var newsCommentRepository = scope.ServiceProvider.GetRequiredService<INewsCommentRepository>();
 
             var resultCategory = newsCategoryRepository.GetCategoryByName("result");
             var creator = userRepository.GetUserByUserName(ADMIN_DEFAULT_NAME_AND_PASSWORD);
@@ -91,6 +92,16 @@ namespace VeloNews.Utilities
                         Url = $"/images/seedImages/seed_img_{i}.png",
                         News = thisNews
                     });
+
+                    for (int x = 0; x < 3; x++)
+                    {
+                        newsCommentRepository.Save(new Comment()
+                        {
+                            News = thisNews,
+                            Text = $"Seed comment {x}",
+                            User = creator
+                        });
+                    }
                 }
             }
         }

@@ -1,13 +1,10 @@
 ﻿using Data.Interface.DataModels;
 using Data.Interface.DataModels.AdminDataModels;
-using Data.Interface.DataModels.HomeDateModels;
 using Data.Interface.DataModels.NewsDataModels;
 using Data.Interface.Models;
 using Data.Interface.Repositories;
 using Microsoft.EntityFrameworkCore;
 using static Data.Interface.DataModels.HomeDateModels.HomePageData;
-using static System.Net.Mime.MediaTypeNames;
-using Image = Data.Interface.Models.Image;
 
 namespace Data.Sql.Repositories
 {
@@ -97,11 +94,11 @@ namespace Data.Sql.Repositories
         public NewsWithCommentsAndImagesData GetNewsWithCommentsAndImages(int newsId)
         {
             var dbNews = _dbSet
-                .Include(x => x.NewsImages)
                 .Include(x => x.Creator)
-                .Include(x => x.NewsComments)
-                .ThenInclude(x => x.User)
-                .SingleOrDefault(x => x.Id == newsId);
+                .Include(i => i.NewsImages)
+                .Include(c => c.NewsComments)
+                .ThenInclude(u => u.User)
+                .Single(x => x.Id == newsId);
 
             var data = new NewsWithCommentsAndImagesData
             {
