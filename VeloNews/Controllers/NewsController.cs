@@ -65,7 +65,8 @@ namespace VeloNews.Controllers
         [HttpPost]
         public IActionResult EditNews(EditNewsViewModel viewModel)
         {
-            _newsService.EditNews(viewModel.Id,
+            _newsService.EditNews(
+                viewModel.Id,
                 viewModel.Title,
                 viewModel.Text,
                 viewModel.ShortText);

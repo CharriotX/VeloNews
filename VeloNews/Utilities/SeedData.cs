@@ -99,7 +99,8 @@ namespace VeloNews.Utilities
                         {
                             News = thisNews,
                             Text = $"Seed comment {x}",
-                            User = creator
+                            User = creator,
+                            CreatedTime = DateTime.Now
                         });
                     }
                 }
