@@ -8,8 +8,7 @@ namespace Data.Interface.Repositories
 {
     public interface INewsRepository : IBaseRepository<News>
     {
-        List<News> GetAllNewsWithIncludes();
-        News GetNewsWithComments(int newsId);
+        List<News> GetAllNewsWithCreator();
         NewsWithCommentsAndImagesData GetNewsWithCommentsAndImages(int newsId);
         List<HomePageLastNewsData> GetNewsForHomePage();
         List<NewsCardsData> GetAllNewsCards();

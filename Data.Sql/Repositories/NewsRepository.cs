@@ -33,7 +33,20 @@ namespace Data.Sql.Repositories
 
             _webContext.SaveChanges();
         }
-        public List<News> GetAllNewsWithIncludes()
+        public EditNewsData GetNewsForEdit(int newsId)
+        {
+            var news = _dbSet.Include(x => x.NewsImages).FirstOrDefault(x => x.Id == newsId);
+            var data = new EditNewsData
+            {
+                Id = news.Id,
+                Title = news.Title,
+                Text = news.Text,
+                ShortText = news.ShorText
+            };
+
+            return data;
+        }
+        public List<News> GetAllNewsWithCreator()
         {
             return _dbSet.Include(x => x.Creator).ToList();
         }
@@ -54,7 +67,6 @@ namespace Data.Sql.Repositories
                     PreviewImage = dbNews.NewsImages.FirstOrDefault().Url
                 }).ToList();
         }
-
         public List<LastNews> GetLastNews()
         {
             var lastNews = _dbSet.Include(x => x.Creator).OrderByDescending(x => x.Id).Take(10).ToList();
@@ -70,29 +82,6 @@ namespace Data.Sql.Repositories
             }).ToList();
 
             return data;
-        }
-
-        public EditNewsData GetNewsForEdit(int newsId)
-        {
-            var news = _dbSet.Include(x => x.NewsImages).FirstOrDefault(x => x.Id == newsId);
-            var data = new EditNewsData
-            {
-                Id = news.Id,
-                Title = news.Title,
-                Text = news.Text,
-                ShortText = news.ShorText
-            };
-
-            return data;
-        }
-
-        public News GetNewsWithComments(int newsId)
-        {
-            return _dbSet
-                 .Include(x => x.NewsImages)
-                 .Include(x => x.NewsComments)
-                 .ThenInclude(u => u.User)
-                 .FirstOrDefault(x => x.Id == newsId);
         }
         public NewsWithCommentsAndImagesData GetNewsWithCommentsAndImages(int newsId)
         {
@@ -132,14 +121,12 @@ namespace Data.Sql.Repositories
 
             return data;
         }
-
         public override PaginatorData<News> GetPaginator(int page, int perPage)
         {
             var initialSource = _dbSet.Include(x => x.Creator);
 
             return base.GetPaginator(initialSource, page, perPage);
         }
-
         public int SaveNews(AddNewsData data)
         {
             var user = _userRepository.Get(data.Author.Id);
@@ -160,7 +147,6 @@ namespace Data.Sql.Repositories
 
             return model.Id;
         }
-
         public List<HomePageLastNewsData> GetNewsForHomePage()
         {
             var news = _dbSet

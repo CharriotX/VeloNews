@@ -27,7 +27,7 @@ namespace Data.Sql.Repositories
 
         public List<NewsForAdminPageData> GetAllNewsForAdminPage()
         {
-            var allNews = _newsRepository.GetAllNewsWithIncludes();
+            var allNews = _newsRepository.GetAllNewsWithCreator();
 
             var data = allNews.Select(x => new NewsForAdminPageData
             {

@@ -19,7 +19,6 @@ namespace VeloNews.Controllers
             _newsCommentService = newsCommentService;
         }
 
-        //[Route("/{categoryName}")]
         public IActionResult Index()
         {
             var model = _newsService.GetAllNewsCards();

@@ -14,18 +14,18 @@
 
 .lastnews-item {
     position: relative;
-    width: 380px;
-    height: 400px;
+    width: 340px;
+    height: 320px;
     background: #D3D3D3;
 }
 
     .lastnews-item:nth-child(-n+2) {
-        width: 600px;
-        height: 500px;
+        width: 500px;
+        min-height: 600px;
     }
 
         .lastnews-item:nth-child(-n+2).lastnews-item-image img {
-            width: 550px;
+            width: 450px;
         }
 
 .lastnews-item-image {

@@ -70,6 +70,7 @@
 
 .last-activity-section {
     display: flex;
+    justify-content: space-between;
     text-align: center;
     width: 100%;
     margin-top: 70px;
@@ -152,8 +153,8 @@ a .news-row:hover {
     }
 
 .activity-block.comments {
+    width: 100%;
     margin-top: 30px;
-    border: var(--main-border);
     border-radius: 10px;
 }
 
