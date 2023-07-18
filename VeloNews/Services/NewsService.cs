@@ -229,6 +229,18 @@ namespace VeloNews.Services
             return viewModel;
         }
 
+        public PaginatorViewModel<NewsCardViewModel> GetNewsCardForPaginator(int page, int perPage)
+        {
+            var viewModel = _paginatorService.GetPaginatorViewModel(
+                page,
+                perPage,
+                BuildNewsCardViewModel,
+                _newsRepository
+                );
+
+            return viewModel;
+        }
+
         public NewsForAdminPageViewModel BuildAdminNewsViewModel(News dbNews)
         {
             return new NewsForAdminPageViewModel()
@@ -242,6 +254,22 @@ namespace VeloNews.Services
                 TimeOfCreation = dbNews.CreatedTime,
                 Title = dbNews.Title
             };
+        }
+
+        public NewsCardViewModel BuildNewsCardViewModel(News model)
+        {
+            var viewModel = new NewsCardViewModel()
+            {
+                Id = model.Id,
+                Title = model.Title,
+                ShortText = model.ShorText,
+                CreatedTime = model.CreatedTime,
+                Author = model.Creator.Name,
+                Category = model.Category.Name,
+                PreviewImage = model.NewsImages.First().Url
+            };
+
+            return viewModel;
         }
     }
 }

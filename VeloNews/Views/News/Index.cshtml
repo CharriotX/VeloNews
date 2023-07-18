@@ -1,5 +1,5 @@
 ﻿@using VeloNews.Models.NewsViewModels;
-@model List<NewsCardViewModel>
+@model PaginatorViewModel<NewsCardViewModel>
 
 @section Styles {
     <link href="~/css/news.css" rel="stylesheet" type="text/css" />
@@ -7,7 +7,7 @@
 
 <div class="all-news">
     <div class="news-list">
-        @foreach (var item in Model)
+        @foreach (var item in Model.Items)
         {
             <div class="news-item">
                 <div class="news-item-title"><a href="/News/ShowNews?newsId=@item.Id">@item.Title</a></div>
@@ -23,6 +23,15 @@
                     <div><a href="/News/EditNews?newsId=@item.Id">edit</a></div>
                 </div>
             </div>
+        }
+    </div>
+    <div class="paginator">
+        @foreach (var pageNumber in Model.PageList)
+        {
+            <a href="/News/Index?page=@pageNumber"
+               class="@(Model.ActivePageNumber == pageNumber ? "active" : "")">
+                @pageNumber
+            </a>
         }
     </div>
 
