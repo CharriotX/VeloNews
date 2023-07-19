@@ -5,9 +5,13 @@ using Data.Interface.Repositories;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
+using VeloNews.Models.AdminViewModels;
+using VeloNews.Models;
 using VeloNews.Models.HomeViewModels;
 using VeloNews.Models.NewsViewModels;
+using VeloNews.Models.UserViewModels;
 using VeloNews.Services.IServices;
+using VeloNews.Services.Helpers;
 
 namespace VeloNews.Services
 {
@@ -18,6 +22,7 @@ namespace VeloNews.Services
         private IImageRepository _imageRepository;
         private INewsCommentRepository _newsCommentRepository;
         private INewsCategoryRepository _newsCategoryRepository;
+        private IPaginatorService _paginatorService;
         private IWebHostEnvironment _webHostEnvironment;
 
         public NewsService(INewsRepository newsRepository,
@@ -25,7 +30,8 @@ namespace VeloNews.Services
             INewsCommentRepository newsCommentRepository,
             IUserService userService,
             INewsCategoryRepository newsCategoryRepository,
-            IWebHostEnvironment webHostEnvironment)
+            IWebHostEnvironment webHostEnvironment,
+            IPaginatorService paginatorService)
         {
             _newsRepository = newsRepository;
             _imageRepository = imageRepository;
@@ -33,6 +39,7 @@ namespace VeloNews.Services
             _userService = userService;
             _newsCategoryRepository = newsCategoryRepository;
             _webHostEnvironment = webHostEnvironment;
+            _paginatorService = paginatorService;
         }
 
         public void EditNews(int id, string title, string text, string shorText)
@@ -208,6 +215,61 @@ namespace VeloNews.Services
             }
 
             return data;
+        }
+
+        public PaginatorViewModel<NewsForAdminPageViewModel> GetAllNewsForPagginator(int page, int perPage)
+        {
+            var viewModel = _paginatorService.GetPaginatorViewModel(
+                page,
+                perPage,
+                BuildAdminNewsViewModel,
+                _newsRepository
+                );
+
+            return viewModel;
+        }
+
+        public PaginatorViewModel<NewsCardViewModel> GetNewsCardForPaginator(int page, int perPage)
+        {
+            var viewModel = _paginatorService.GetPaginatorViewModel(
+                page,
+                perPage,
+                BuildNewsCardViewModel,
+                _newsRepository
+                );
+
+            return viewModel;
+        }
+
+        public NewsForAdminPageViewModel BuildAdminNewsViewModel(News dbNews)
+        {
+            return new NewsForAdminPageViewModel()
+            {
+                Id = dbNews.Id,
+                Creator = new UserInfoViewModel()
+                {
+                    Id = dbNews.Creator.Id,
+                    Name = dbNews.Creator.Name
+                },
+                TimeOfCreation = dbNews.CreatedTime,
+                Title = dbNews.Title
+            };
+        }
+
+        public NewsCardViewModel BuildNewsCardViewModel(News model)
+        {
+            var viewModel = new NewsCardViewModel()
+            {
+                Id = model.Id,
+                Title = model.Title,
+                ShortText = model.ShorText,
+                CreatedTime = model.CreatedTime,
+                Author = model.Creator.Name,
+                Category = model.Category.Name,
+                PreviewImage = model.NewsImages.First().Url
+            };
+
+            return viewModel;
         }
     }
 }

@@ -4,6 +4,7 @@
 
 @section Styles {
     <link href="~/css/admin.css" rel="stylesheet" type="text/css" />
+    <link href="~/css/paginator.css" rel="stylesheet" type="text/css" />
 }
 
 <div class="wrapper">
@@ -55,13 +56,23 @@
         </div>
     </div>
     <div class="paginator">
-        @foreach (var pageNumber in Model.PageList)
-        {
-            <a href="/Admin/AllNews?page=@pageNumber"
-               class="@(Model.ActivePageNumber == pageNumber ? "active" : "")">
-                @pageNumber
-            </a>
-        }
+        <ul>
+            <li class="page-item @(!Model.ShowFirst ? "disabled":"")">
+                <a href="/Admin/AllNews?page=1"><< </a>
+            </li>
+            <li class="page-item @(!Model.ShowPrevious ? "disabled":"")">
+                <a href="/Admin/AllNews?page=@(Model.ActivePageNumber - 1)"> < </a>
+            </li>
+            <li class="active">
+                @Model.ActivePageNumber
+            </li>
+            <li class="page-item @(!Model.ShowNext ? "disabled":"")">
+                <a href="/Admin/AllNews?page=@(Model.ActivePageNumber + 1)">></a>
+            </li>
+            <li class="page-item @(!Model.ShowLast ? "disabled":"")">
+                <a href="/Admin/AllNews?page=@Model.PagesListCount"> >></a>
+            </li>
+        </ul>
     </div>
 </div>
 

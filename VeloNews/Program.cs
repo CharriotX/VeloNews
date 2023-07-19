@@ -4,6 +4,7 @@ using Data.Sql.Repositories;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.Extensions.DependencyInjection;
 using VeloNews.Services;
+using VeloNews.Services.Helpers;
 using VeloNews.Services.IServices;
 using VeloNews.Utilities;
 
@@ -42,8 +43,11 @@ builder.Services.AddScoped<INewsService>(x =>
         x.GetService<INewsCommentRepository>(),
         x.GetService<IUserService>(),
         x.GetService<INewsCategoryRepository>(),
-        x.GetService<IWebHostEnvironment>()
+        x.GetService<IWebHostEnvironment>(),
+        x.GetService<IPaginatorService>()
         ));
+
+builder.Services.AddScoped<IPaginatorService, PaginatorService>();
 
 
 var dataSqlStartup = new Startup();

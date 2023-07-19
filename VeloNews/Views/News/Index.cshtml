@@ -1,13 +1,18 @@
 ﻿@using VeloNews.Models.NewsViewModels;
-@model List<NewsCardViewModel>
+@model PaginatorViewModel<NewsCardViewModel>
 
 @section Styles {
     <link href="~/css/news.css" rel="stylesheet" type="text/css" />
+    <link href="~/css/paginator.css" rel="stylesheet" type="text/css" />
+}
+
+@section Scripts {
+    <script src="~/js/paginatorCustom.js"></script>
 }
 
 <div class="all-news">
     <div class="news-list">
-        @foreach (var item in Model)
+        @foreach (var item in Model.Items)
         {
             <div class="news-item">
                 <div class="news-item-title"><a href="/News/ShowNews?newsId=@item.Id">@item.Title</a></div>
@@ -24,6 +29,26 @@
                 </div>
             </div>
         }
+    </div>
+
+    <div class="paginator">
+        <ul>
+            <li class="page-item @(!Model.ShowFirst ? "disabled":"")">
+                <a href="/News/Index?page=1"><< </a>
+            </li>
+            <li class="page-item @(!Model.ShowPrevious ? "disabled":"")">
+                <a href="/News/Index?page=@(Model.ActivePageNumber - 1)"> < </a>
+            </li>
+            <li class="active">
+                @Model.ActivePageNumber
+            </li>
+            <li class="page-item @(!Model.ShowNext ? "disabled":"")">
+                <a href="/News/Index?page=@(Model.ActivePageNumber + 1)">></a>
+            </li>
+            <li class="page-item @(!Model.ShowLast ? "disabled":"")">
+                <a href="/News/Index?page=@Model.PagesListCount"> >></a>
+            </li>
+        </ul>
     </div>
 
     <div>

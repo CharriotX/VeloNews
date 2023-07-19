@@ -120,7 +120,11 @@ namespace Data.Sql.Repositories
         }
         public override PaginatorData<News> GetPaginator(int page, int perPage)
         {
-            var initialSource = _dbSet.Include(x => x.Creator);
+            var initialSource = _dbSet
+                .Include(x => x.Creator)
+                .Include(x => x.NewsImages)
+                .Include(x => x.Category)
+                .OrderByDescending(x => x.Id);
 
             return base.GetPaginator(initialSource, page, perPage);
         }

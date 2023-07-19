@@ -9,11 +9,13 @@ namespace VeloNews.Controllers
     {
         private IUserService _userService;
         private IAdminService _adminService;
+        private INewsService _newsService;
 
-        public AdminController(IUserService userService, IAdminService adminService)
+        public AdminController(IUserService userService, IAdminService adminService, INewsService newsService)
         {
             _userService = userService;
             _adminService = adminService;
+            _newsService = newsService;
         }
 
         public IActionResult Index()
@@ -24,7 +26,7 @@ namespace VeloNews.Controllers
 
         public IActionResult AllNews(int page = 1, int perPage = 8)
         {
-            var model = _adminService.GetAllNewsForPagginator(page, perPage);
+            var model = _newsService.GetAllNewsForPagginator(page, perPage);
             return View(model);
         }
     }

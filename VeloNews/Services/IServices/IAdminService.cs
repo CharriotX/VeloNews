@@ -7,6 +7,5 @@ namespace VeloNews.Services.IServices
     {
         AdminMainPageViewModel GetAdminMainPageViewModel();
         List<NewsForAdminPageViewModel> GetNewsListForAdminPageViewModel();
-        PaginatorViewModel<NewsForAdminPageViewModel> GetAllNewsForPagginator(int page, int perPage);
     }
 }
