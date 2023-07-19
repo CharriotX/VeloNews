@@ -25,9 +25,7 @@ namespace VeloNews.Services.Helpers
             var doWeNeedMorePages = dbPaginator.TotalCount % perPage != 0;
             var totalPageCount = (dbPaginator.TotalCount / perPage)
                 + (doWeNeedMorePages ? 1 : 0);
-            viewModel.PageList = Enumerable
-                .Range(1, totalPageCount)
-                .ToList();
+            viewModel.PagesListCount = totalPageCount;
             viewModel.ActivePageNumber = page;
 
             return viewModel;

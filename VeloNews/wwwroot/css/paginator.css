@@ -1,0 +1,23 @@
+﻿.paginator ul {
+    display: flex;
+    justify-content: center;
+}
+
+.paginator a {
+    border: 1px solid blue;
+    color: black;
+    padding: 5px 10px;
+    margin: 0 10px;
+    border-radius: 3px;
+}
+
+.paginator .active {
+    margin: 0 20px;
+    font-size: 18px;
+}
+
+.page-item.disabled  a{
+    cursor: default;
+    pointer-events: none;
+    background: #b7b7b7;
+}

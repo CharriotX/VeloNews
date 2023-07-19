@@ -3,6 +3,11 @@
 
 @section Styles {
     <link href="~/css/news.css" rel="stylesheet" type="text/css" />
+    <link href="~/css/paginator.css" rel="stylesheet" type="text/css" />
+}
+
+@section Scripts {
+    <script src="~/js/paginatorCustom.js"></script>
 }
 
 <div class="all-news">
@@ -25,14 +30,25 @@
             </div>
         }
     </div>
+
     <div class="paginator">
-        @foreach (var pageNumber in Model.PageList)
-        {
-            <a href="/News/Index?page=@pageNumber"
-               class="@(Model.ActivePageNumber == pageNumber ? "active" : "")">
-                @pageNumber
-            </a>
-        }
+        <ul>
+            <li class="page-item @(!Model.ShowFirst ? "disabled":"")">
+                <a href="/News/Index?page=1"><< </a>
+            </li>
+            <li class="page-item @(!Model.ShowPrevious ? "disabled":"")">
+                <a href="/News/Index?page=@(Model.ActivePageNumber - 1)"> < </a>
+            </li>
+            <li class="active">
+                @Model.ActivePageNumber
+            </li>
+            <li class="page-item @(!Model.ShowNext ? "disabled":"")">
+                <a href="/News/Index?page=@(Model.ActivePageNumber + 1)">></a>
+            </li>
+            <li class="page-item @(!Model.ShowLast ? "disabled":"")">
+                <a href="/News/Index?page=@Model.PagesListCount"> >></a>
+            </li>
+        </ul>
     </div>
 
     <div>
