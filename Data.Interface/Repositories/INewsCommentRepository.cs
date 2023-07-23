@@ -6,7 +6,7 @@ namespace Data.Interface.Repositories
 {
     public interface INewsCommentRepository : IBaseRepository<Comment>
     {
-        void SaveComment(SaveNewsCommentData data);
+        int SaveComment(SaveNewsCommentData data);
         List<LastComment> GetLastComments();
     }
 }

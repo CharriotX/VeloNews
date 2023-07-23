@@ -117,6 +117,7 @@ namespace VeloNews.Services
                 }).ToList(),
                 NewsComments = news.NewsComments.Select(x => new NewsCommentViewModel()
                 {
+                    Id = x.Id,
                     Author = x.Author.Name,
                     CreatedTime = x.CreatedTime,
                     Text = x.Text

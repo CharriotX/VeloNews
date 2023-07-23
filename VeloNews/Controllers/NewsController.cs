@@ -72,13 +72,5 @@ namespace VeloNews.Controllers
 
             return RedirectToAction("ShowNews", "News", new { newsId = viewModel.Id });
         }
-
-        [Authorize]
-        [HttpPost]
-        public IActionResult AddComment(SaveNewsCommentViewModel viewModel)
-        {
-            _newsCommentService.SaveComment(viewModel);
-            return RedirectToAction("ShowNews", new { @newsId = viewModel.NewsId });
-        }
     }
 }
