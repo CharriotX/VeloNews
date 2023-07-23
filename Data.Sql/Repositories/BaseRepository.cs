@@ -48,6 +48,12 @@ namespace Data.Sql.Repositories
             _webContext.SaveChanges();
         }
 
+        public void Remove(int id)
+        {
+            Remove(Get(id));
+        }
+
+
         public int Count()
         {
             return _dbSet.Count();

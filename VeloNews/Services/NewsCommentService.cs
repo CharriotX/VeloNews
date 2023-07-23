@@ -19,24 +19,42 @@ namespace VeloNews.Services
             _newsCommentRepository = newsCommentRepository;
         }
 
-        public void SaveComment(SaveNewsCommentViewModel viewModel)
+        public SaveNewsCommentViewModel SaveComment(int newsId, string text)
         {
             var user = _userService.GetCurrentUser();
             var data = new SaveNewsCommentData
             {
                 NewsId = new NewsId
                 {
-                    Id = viewModel.NewsId
+                    Id = newsId
                 },
-                Text = viewModel.Text,
+                Text = text,
                 CreatedTime = DateTime.Now,
                 Author = new CreatorData
                 {
-                    Id = user.Id
+                    Id = user.Id,
+                    Name = user.Name
                 }
             };
 
-            _newsCommentRepository.SaveComment(data);
+            var commentId = _newsCommentRepository.SaveComment(data);
+
+            var comment = _newsCommentRepository.Get(commentId);
+
+            var model = new SaveNewsCommentViewModel()
+            {
+                Author = user.Name,
+                CreatedTime = comment.CreatedTime.ToString("dd-MM-yyyy, HH:mm"),
+                NewsId = newsId,
+                Text = comment.Text
+            };
+
+            return model;
+        }
+
+        public void RemoveComment(int commentId)
+        {
+            _newsCommentRepository.Remove(commentId);
         }
     }
 }

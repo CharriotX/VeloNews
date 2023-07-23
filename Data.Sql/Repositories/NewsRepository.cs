@@ -107,6 +107,7 @@ namespace Data.Sql.Repositories
                     .NewsComments
                     .Select(x => new CommentsNews
                     {
+                        Id = x.Id,
                         Text = x.Text,
                         CreatedTime = x.CreatedTime,
                         Author = new CommentAuthor

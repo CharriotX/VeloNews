@@ -4,7 +4,11 @@
 @section Styles {
     <link href="~/css/news.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" type="text/css" href="https://unpkg.com/trix@2.0.0/dist/trix.css">
+
+}
+@section Scripts {
     <script type="text/javascript" src="https://unpkg.com/trix@2.0.0/dist/trix.umd.min.js"></script>
+    <script src="~/js/news/showNews.js"></script>
 }
 
 <div class="show-news">
@@ -25,36 +29,53 @@
 
         <div class="comment-block">
             <div class="comment-input">
-                <form action="/News/AddComment" method="post">
-                    <input type="hidden" name="NewsId" value="@Model.Id" />
+                <form>
+                    <input class="news-id" type="hidden" name="NewsId" value="@Model.Id" />
                     <div>Add comment:</div>
                     <div class="trix-editor">
                         <input id="comment-field" name="Text" type="hidden" />
                         <trix-editor input="comment-field" trix-file-accept="preventDefault"></trix-editor>
                     </div>
                     <div class="comment-input-submit">
-                        <input type="submit" value="Send" />
+                        <input type="button" value="Send" />
                     </div>
                 </form>
             </div>
             <div class="comment-list">
-                <div сlass="comment-list-sort">Последние комментарии</div>
+                <div class="comment-item template">
+                    <div class="comment-item-avatar">
+                        <div>avatar will be here</div>
+                    </div>
+                    <div class="comment-item-text">
+                        <div class="item-text-username">
+                            <div class="text-username-nick"></div>
+                            <div class="text-username-date"></div>
+                        </div>
+                        <div class="item-text-field"></div>
+                    </div>
+                </div>
                 @foreach (var comment in Model.NewsComments)
                 {
-                    @if (Model.NewsComments.Count <= 0)
+                    @if (Model.NewsComments.Count == 0)
                     {
                         <div class="none-commetns">Комментариев пока нет.</div>
                     }
                     else
                     {
                         <div class="comment-item">
+                            <input name="commentId" hidden value="@comment.Id"/>
                             <div class="comment-item-avatar">
                                 <div>avatar will be here</div>
                             </div>
                             <div class="comment-item-text">
                                 <div class="item-text-username">
-                                    <div class="text-username-nick">@comment.Author</div>
-                                    <div class="text-username-date">@comment.CreatedTime.ToString("dd-MM-yyyy, HH:mm")</div>
+                                    <div class="username-info">
+                                        <div class="text-username-nick">@comment.Author</div>
+                                        <div class="text-username-date">@comment.CreatedTime.ToString("dd-MM-yyyy, HH:mm")</div>
+                                    </div>
+                                    <div class="action-buttons">
+                                        <button class="remove-button">X</button>
+                                    </div>
                                 </div>
                                 <div class="item-text-field">
                                     @Html.Raw(comment.Text)

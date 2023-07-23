@@ -203,6 +203,8 @@
 }
 
 .item-text-username {
+    display: flex;
+    justify-content: space-between;
     padding: 5px 10px;
     border-bottom: 1px solid grey;
 }
@@ -223,3 +225,13 @@
     opacity: 80%;
 }
 
+.remove-button {
+    background: red;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+
+.template {
+    display: none;
+}

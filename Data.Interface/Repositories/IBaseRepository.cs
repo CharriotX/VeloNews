@@ -8,6 +8,7 @@ namespace Data.Interface.Repositories
         T Get(int id);
         List<T> GetAll();
         void Remove(T model);
+        void Remove(int id);
         void Save(T model);
         int Count();
         bool Any();

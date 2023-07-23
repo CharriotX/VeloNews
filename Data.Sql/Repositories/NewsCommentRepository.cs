@@ -37,7 +37,7 @@ namespace Data.Sql.Repositories
             return data;
         }
 
-        public void SaveComment(SaveNewsCommentData data)
+        public int SaveComment(SaveNewsCommentData data)
         {
             var comment = new Comment()
             {
@@ -49,6 +49,8 @@ namespace Data.Sql.Repositories
 
             _dbSet.Add(comment);
             _webContext.SaveChanges();
+
+            return comment.Id;
         }
     }
 }
