@@ -1,30 +1,30 @@
-﻿using Data.Interface.Models;
-using Data.Interface.Repositories;
-using Microsoft.AspNetCore.Authentication;
+﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Security.Claims;
 using VeloNews.Models.UserViewModels;
-using VeloNews.Services;
 using VeloNews.Services.IServices;
+using IAuthenticationService = VeloNews.Services.IServices.IAuthenticationService;
 
 namespace VeloNews.Controllers
 {
     public class UserController : Controller
     {
         private IUserService _userService;
+        private IAuthenticationService _authenticationService;
 
-        public UserController(IUserService userService)
+        public UserController(IUserService userService, 
+            IAuthenticationService authenticationService)
         {
             _userService = userService;
+            _authenticationService = authenticationService;
         }
 
         [Authorize]
         public IActionResult MyProfile()
         {
-            var user = _userService.GetCurrentUser();
+            var user = _authenticationService.GetCurrentUser();
 
             if (user == null)
             {
@@ -69,7 +69,7 @@ namespace VeloNews.Controllers
                 return View();
             }
 
-            var user = _userService.GetUserByNameAndPass(viewModel.Name, viewModel.Password);
+            var user = _authenticationService.GetUserByNameAndPass(viewModel.Name, viewModel.Password);
 
             if (user == null)
             {
