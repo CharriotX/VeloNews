@@ -8,9 +8,10 @@ namespace Data.Interface.Models
         public string ShorText { get; set; }
         public string Text { get; set; }
         public DateTime CreatedTime { get; set; }
+
         public virtual User Creator { get; set; }
         public virtual NewsCategory Category { get; set; }
-        public virtual List<Image> NewsImages { get; set; }
+        public virtual List<NewsImage> NewsImages { get; set; }
         public virtual List<Comment> NewsComments { get; set; }
     }
 }

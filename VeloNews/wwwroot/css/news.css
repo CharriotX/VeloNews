@@ -194,8 +194,15 @@
 .comment-item-avatar {
     text-align: center;
     border-right: 1px solid grey;
-    width: 20%;
-    padding: 7px;
+    width: 250px;
+    display: flex;
+    justify-content: center;
+}
+
+.comment-item-avatar img {
+    max-width:200px;
+    max-height: 220px;
+    object-fit: contain;
 }
 
 .comment-item-text {
@@ -211,7 +218,7 @@
 
 .item-text-field {
     min-height: 150px;
-    padding: 20px 5px;
+    padding: 10px 5px;
 }
 
 .text-username-nick {

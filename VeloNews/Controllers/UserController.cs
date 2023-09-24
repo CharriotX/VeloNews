@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Security.Claims;
 using VeloNews.Models.UserViewModels;
 using VeloNews.Services;
@@ -14,13 +15,10 @@ namespace VeloNews.Controllers
     public class UserController : Controller
     {
         private IUserService _userService;
-        private INewsService _newsService;
 
-        public UserController(IUserService userService, 
-            INewsService newsService)
+        public UserController(IUserService userService)
         {
             _userService = userService;
-            _newsService = newsService;
         }
 
         [Authorize]
@@ -33,13 +31,29 @@ namespace VeloNews.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            var model = new ProfileViewModel()
-            {
-                Name = user.Name,
-                Role = user.Role.ToString()
-            };
+            var model = _userService.ShowProfile();
 
             return View(model);
+        }
+
+        [HttpGet]
+        public IActionResult EditMyProfile(int userId)
+        {
+            var model = _userService.GetViewModelForEditProfilePage(userId);
+            return View(model);
+        }
+        [HttpPost]
+        public IActionResult EditMyProfile(EditMyProfileViewModel viewModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                var model = _userService.GetViewModelForEditProfilePage(viewModel.UserId);
+                return View(model);
+            }
+
+            _userService.EditMyProfile(viewModel);
+
+            return RedirectToAction("MyProfile");
         }
 
         [HttpGet]

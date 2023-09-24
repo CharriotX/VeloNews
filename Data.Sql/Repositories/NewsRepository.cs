@@ -87,6 +87,7 @@ namespace Data.Sql.Repositories
                 .Include(i => i.NewsImages)
                 .Include(c => c.NewsComments)
                 .ThenInclude(u => u.User)
+                .ThenInclude(i => i.UserProfileImage)
                 .Single(x => x.Id == newsId);
 
             var data = new NewsWithCommentsAndImagesData
@@ -110,9 +111,10 @@ namespace Data.Sql.Repositories
                         Id = x.Id,
                         Text = x.Text,
                         CreatedTime = x.CreatedTime,
-                        Author = new CommentAuthor
+                        Author = new UserData
                         {
-                            Name = x.User.Name
+                            UserName = x.User.Name,
+                            UserProfileImageUrl = x.User.UserProfileImage.Url
                         }
                     }).ToList()
             };

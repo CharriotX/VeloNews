@@ -11,7 +11,6 @@ using VeloNews.Models.HomeViewModels;
 using VeloNews.Models.NewsViewModels;
 using VeloNews.Models.UserViewModels;
 using VeloNews.Services.IServices;
-using VeloNews.Services.Helpers;
 
 namespace VeloNews.Services
 {
@@ -19,14 +18,14 @@ namespace VeloNews.Services
     {
         private IUserService _userService;
         private INewsRepository _newsRepository;
-        private IImageRepository _imageRepository;
+        private INewsImageRepository _imageRepository;
         private INewsCommentRepository _newsCommentRepository;
         private INewsCategoryRepository _newsCategoryRepository;
         private IPaginatorService _paginatorService;
         private IWebHostEnvironment _webHostEnvironment;
 
         public NewsService(INewsRepository newsRepository,
-            IImageRepository imageRepository,
+            INewsImageRepository imageRepository,
             INewsCommentRepository newsCommentRepository,
             IUserService userService,
             INewsCategoryRepository newsCategoryRepository,
@@ -118,7 +117,8 @@ namespace VeloNews.Services
                 NewsComments = news.NewsComments.Select(x => new NewsCommentViewModel()
                 {
                     Id = x.Id,
-                    Author = x.Author.Name,
+                    UserName = x.Author.UserName,
+                    AuthorAvatarUrl = x.Author.UserProfileImageUrl,
                     CreatedTime = x.CreatedTime,
                     Text = x.Text
                 }).Reverse().ToList()
@@ -164,7 +164,7 @@ namespace VeloNews.Services
 
             if (viewModel.Images == null)
             {
-                var imageData = new ImageData
+                var imageData = new NewsImageData
                 {
                     Name = "defaultImage",
                     Url = $"/images/defaultNewsPreviewImage.jpg",
@@ -203,7 +203,7 @@ namespace VeloNews.Services
                         file.CopyTo(fs);
                     }
 
-                    var imageData = new ImageData
+                    var imageData = new NewsImageData
                     {
                         Name = fileName,
                         Url = $"/images/uploads/news/{folderName}/{fileName}",

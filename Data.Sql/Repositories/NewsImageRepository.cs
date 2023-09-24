@@ -4,10 +4,10 @@ using Data.Interface.Repositories;
 
 namespace Data.Sql.Repositories
 {
-    public class ImageRepository : BaseRepository<Image>, IImageRepository
+    public class NewsImageRepository : BaseRepository<NewsImage>, INewsImageRepository
     {
         private INewsRepository _newsRepository;
-        public ImageRepository(WebContext webContext, INewsRepository newsRepository) : base(webContext)
+        public NewsImageRepository(WebContext webContext, INewsRepository newsRepository) : base(webContext)
         {
             _newsRepository = newsRepository;
         }
@@ -28,10 +28,10 @@ namespace Data.Sql.Repositories
             return urls;
         }
 
-        public void SaveNewsImages(ImageData data)
+        public void SaveNewsImages(NewsImageData data)
         {
             var news = _newsRepository.Get(data.NewsId);
-            var model = new Image()
+            var model = new NewsImage()
             {
                 Name = data.Name,
                 Url = data.Url,

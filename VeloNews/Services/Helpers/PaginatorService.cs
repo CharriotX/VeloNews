@@ -1,18 +1,19 @@
 ﻿using Data.Interface.Models;
 using Data.Interface.Repositories;
 using VeloNews.Models;
+using VeloNews.Services.IServices;
 
 namespace VeloNews.Services.Helpers
 {
     public class PaginatorService : IPaginatorService
     {
-        public PaginatorViewModel<TViewModel> GetPaginatorViewModel<TViewModel, DbModel>(
+        public PaginatorViewModel<TViewModel> GetPaginatorViewModel<TViewModel, TDbModel>(
             int page,
             int perPage,
-            Func<DbModel, TViewModel> buildViewModelFunc,
-            IBaseRepository<DbModel> repository)
+            Func<TDbModel, TViewModel> buildViewModelFunc,
+            IBaseRepository<TDbModel> repository)
             where TViewModel : class
-            where DbModel : BaseModel
+            where TDbModel : BaseModel
         {
             var dbPaginator = repository.GetPaginator(page, perPage);
 

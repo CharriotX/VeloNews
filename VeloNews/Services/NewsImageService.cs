@@ -12,11 +12,11 @@ using VeloNews.Services.IServices;
 
 namespace VeloNews.Services
 {
-    public class ImageService : IImageService
+    public class NewsImageService : INewsImageService
     {
         private IUserService _userService;
         private IAdminRepository _adminRepository;
-        public ImageService(IUserService userService, IAdminRepository adminRepository)
+        public NewsImageService(IUserService userService, IAdminRepository adminRepository)
         {
             _userService = userService;
             _adminRepository = adminRepository;

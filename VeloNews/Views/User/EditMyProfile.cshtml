@@ -1,0 +1,49 @@
+﻿@using VeloNews.Models.UserViewModels;
+@model EditMyProfileViewModel
+
+@section Styles {
+    <link href="~/css/user.css" rel="stylesheet" type="text/css" />
+}
+
+@section Scripts {
+    <script src="~/js/user/myProfile.js"></script>
+}
+
+<div>
+    <h2>Edit my profile</h2>
+    <form action="EditMyProfile" method="post" enctype="multipart/form-data">
+        @Html.HiddenFor(x => x.UserId)
+        <div class="edit-block">
+            <ul class="edit-block_list">
+                <li class="edit-block_item">
+                    <div class="block-item-title">Username</div>
+                    <div class="block-item-input">@Html.TextBoxFor(x => x.Name)</div>
+                    <div>@Html.ValidationMessageFor(x => x.Name)</div>
+                </li>
+                <li class="edit-block_item">
+                    <div class="block-item-title">Country</div>
+                    <div class="block-item-input">
+                        <select asp-for="Country"
+                                asp-items="@Model.Countries">
+                            <option>Не указан</option>
+                        </select>
+                    </div>
+                    <div>@Html.ValidationMessageFor(x => x.Country)</div>
+                </li>
+                <li class="edit-block_item">
+                    <div class="block-item-title">Date of birth</div>
+                    <div class ="block-item-input"><input asp-for="DateOfBirth" type="date" /></div>
+                    <div>@Html.ValidationMessageFor(x => x.DateOfBirth)</div>
+                </li>
+                <li class="edit-block_item">
+                    <div class="block-item-title">Upload new image</div>
+                    <div class="block-item-input"><input asp-for="@Model.NewProfileImage" type="file" /></div>
+                    <div>@Html.ValidationMessageFor(x => x.NewProfileImage)</div>
+                </li>
+            </ul>
+        </div>
+        <div class="edit-block-submit">
+            <input type="submit" value="Save" />
+        </div>
+    </form>
+</div>

@@ -6,8 +6,9 @@ namespace Data.Sql
     public class WebContext : DbContext
     {
         public DbSet<News> News { get; set; }
-        public DbSet<Image> Images { get; set; }
+        public DbSet<NewsImage> NewsImages { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<UserProfileImage> UserProfileImages { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<NewsCategory> NewsCategories { get; set; }
 
@@ -27,13 +28,19 @@ namespace Data.Sql
                 .HasMany(c => c.NewsComments)
                 .WithOne(u => u.User);
 
-            modelBuilder.Entity<Image>()
-                .HasOne(n => n.News)
-                .WithMany(i => i.NewsImages);
+            modelBuilder.Entity<NewsImage>()
+                .HasOne(i => i.News)
+                .WithMany(n => n.NewsImages);
 
             modelBuilder.Entity<News>()
                 .HasMany(n => n.NewsComments)
                 .WithOne(c => c.News);
+
+            modelBuilder.Entity<UserProfileImage>()
+                .HasOne(i => i.User)
+                .WithOne(u => u.UserProfileImage)
+                .HasForeignKey<UserProfileImage>("UserId")
+                .IsRequired();
 
             modelBuilder.Entity<News>()
                 .HasOne(n => n.Category)

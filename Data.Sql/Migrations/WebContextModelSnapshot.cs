@@ -52,32 +52,6 @@ namespace Data.Sql.Migrations
                     b.ToTable("Comments");
                 });
 
-            modelBuilder.Entity("Data.Interface.Models.Image", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("NewsId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Url")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NewsId");
-
-                    b.ToTable("Images");
-                });
-
             modelBuilder.Entity("Data.Interface.Models.News", b =>
                 {
                     b.Property<int>("Id")
@@ -133,6 +107,32 @@ namespace Data.Sql.Migrations
                     b.ToTable("NewsCategories");
                 });
 
+            modelBuilder.Entity("Data.Interface.Models.NewsImage", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("NewsId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Url")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NewsId");
+
+                    b.ToTable("NewsImages");
+                });
+
             modelBuilder.Entity("Data.Interface.Models.User", b =>
                 {
                     b.Property<int>("Id")
@@ -140,6 +140,13 @@ namespace Data.Sql.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Country")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("DateOfBirth")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -152,9 +159,39 @@ namespace Data.Sql.Migrations
                     b.Property<int>("Role")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("UserCreationDate")
+                        .HasColumnType("datetime2");
+
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("Data.Interface.Models.UserProfileImage", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Url")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
+
+                    b.ToTable("UserProfileImages");
                 });
 
             modelBuilder.Entity("Data.Interface.Models.Comment", b =>
@@ -176,17 +213,6 @@ namespace Data.Sql.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Data.Interface.Models.Image", b =>
-                {
-                    b.HasOne("Data.Interface.Models.News", "News")
-                        .WithMany("NewsImages")
-                        .HasForeignKey("NewsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("News");
-                });
-
             modelBuilder.Entity("Data.Interface.Models.News", b =>
                 {
                     b.HasOne("Data.Interface.Models.NewsCategory", "Category")
@@ -206,6 +232,28 @@ namespace Data.Sql.Migrations
                     b.Navigation("Creator");
                 });
 
+            modelBuilder.Entity("Data.Interface.Models.NewsImage", b =>
+                {
+                    b.HasOne("Data.Interface.Models.News", "News")
+                        .WithMany("NewsImages")
+                        .HasForeignKey("NewsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("News");
+                });
+
+            modelBuilder.Entity("Data.Interface.Models.UserProfileImage", b =>
+                {
+                    b.HasOne("Data.Interface.Models.User", "User")
+                        .WithOne("UserProfileImage")
+                        .HasForeignKey("Data.Interface.Models.UserProfileImage", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Data.Interface.Models.News", b =>
                 {
                     b.Navigation("NewsComments");
@@ -223,6 +271,9 @@ namespace Data.Sql.Migrations
                     b.Navigation("News");
 
                     b.Navigation("NewsComments");
+
+                    b.Navigation("UserProfileImage")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

@@ -10,13 +10,11 @@
         {
             <div class="lastnews-item">
                 <input type="hidden" value="@lastNews.Id" />
-                <div class="lastnews-item-image">
-                    <div class="lastnews-item-image">
-                        <a href="/News/ShowNews?newsId=@lastNews.Id">
-                            <img src="@lastNews.PreviewImage" />
-                        </a>
-                        <div class="item-image-category">@lastNews.Category</div>
-                    </div>
+                <div class="lastnews-image-block">
+                    <a href="/News/ShowNews?newsId=@lastNews.Id">
+                        <img src="@lastNews.PreviewImage" />
+                    </a>
+                    <div class="item-image-category">@lastNews.Category</div>
                 </div>
                 <div class="lastnews-item-text">
                     <div class="lastnews-item-title">
@@ -34,6 +32,6 @@
     <link href="~/css/home.css" rel="stylesheet" type="text/css" />
 }
 
-    @section Scripts {
+@section Scripts {
     <script src="/js/home.js"></script>
 }
