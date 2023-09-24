@@ -20,10 +20,22 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         option.Cookie.Name = "VeloNewsCookie";
     });
 
+var dataSqlStartup = new Startup();
+dataSqlStartup.RegisterDbContext(builder.Services);
+
+builder.Services.AddScoped<IPaginatorService, PaginatorService>();
+
 builder.Services.AddScoped<IAdminService>(x =>
     new AdminService(
         x.GetService<IUserService>(),
         x.GetService<IAdminRepository>()));
+
+builder.Services.AddScoped<IAdminRepository>(x =>
+    new AdminRepository(
+        x.GetService<IUserRepository>(),
+        x.GetService<INewsRepository>(),
+        x.GetService<INewsCommentRepository>()
+        ));
 
 builder.Services.AddScoped<INewsCommentService>(x =>
     new NewsCommentService(
@@ -34,12 +46,15 @@ builder.Services.AddScoped<INewsCommentService>(x =>
 builder.Services.AddScoped<IUserService>(x =>
     new UserService(
         x.GetService<IUserRepository>(),
-        x.GetService<IHttpContextAccessor>()));
+        x.GetService<IHttpContextAccessor>(),
+        x.GetService<IUserProfileImageRepository>(),
+        x.GetService<IUserProfileImageService>()
+        ));
 
 builder.Services.AddScoped<INewsService>(x =>
     new NewsService(
         x.GetService<INewsRepository>(),
-        x.GetService<IImageRepository>(),
+        x.GetService<INewsImageRepository>(),
         x.GetService<INewsCommentRepository>(),
         x.GetService<IUserService>(),
         x.GetService<INewsCategoryRepository>(),
@@ -47,12 +62,17 @@ builder.Services.AddScoped<INewsService>(x =>
         x.GetService<IPaginatorService>()
         ));
 
-builder.Services.AddScoped<IPaginatorService, PaginatorService>();
+builder.Services.AddScoped<IUserProfileImageService>(x =>
+    new UserProfileImageService(
+        x.GetService<IUserRepository>(),
+        x.GetService<IWebHostEnvironment>(),
+        x.GetService<IUserProfileImageRepository>()
+        ));
 
-
-var dataSqlStartup = new Startup();
-dataSqlStartup.RegisterDbContext(builder.Services);
-
+builder.Services.AddScoped<IUserProfileImageRepository>(x =>
+    new UserProfileImageRepository(
+        x.GetService<WebContext>(),
+        x.GetService<IUserRepository>()));
 
 builder.Services.AddScoped<INewsRepository>(x =>
     new NewsRepository(
@@ -64,27 +84,21 @@ builder.Services.AddScoped<INewsRepository>(x =>
 builder.Services.AddScoped<INewsCategoryRepository>(x =>
     new NewsCategoryRepository(x.GetService<WebContext>()));
 
-builder.Services.AddScoped<IAdminRepository>(x =>
-    new AdminRepository(
-        x.GetService<IUserRepository>(),
-        x.GetService<INewsRepository>(),
-        x.GetService<INewsCommentRepository>()
-        ));
-
 builder.Services.AddScoped<INewsCommentRepository>(x =>
     new NewsCommentRepository(
         x.GetService<WebContext>(),
         x.GetService<INewsRepository>(),
         x.GetService<IUserRepository>()));
 
-builder.Services.AddScoped<IImageRepository>(x =>
-    new ImageRepository(
+builder.Services.AddScoped<INewsImageRepository>(x =>
+    new NewsImageRepository(
         x.GetService<WebContext>(),
         x.GetService<INewsRepository>()
         ));
 
 builder.Services.AddScoped<IUserRepository>(x =>
-    new UserRepository(x.GetService<WebContext>()));
+    new UserRepository(
+        x.GetService<WebContext>()));
 
 
 builder.Services.AddHttpContextAccessor();

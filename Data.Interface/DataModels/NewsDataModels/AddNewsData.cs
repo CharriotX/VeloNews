@@ -16,7 +16,7 @@ namespace Data.Interface.DataModels.NewsDataModels
         public int CategoryId { get; set; }
 
         public CreatorData Author { get; set; }
-        public List<ImageData> Images { get; set; }
+        public List<NewsImageData> Images { get; set; }
     }
 
 

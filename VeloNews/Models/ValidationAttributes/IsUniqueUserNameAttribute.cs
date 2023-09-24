@@ -2,6 +2,8 @@
 using Data.Sql.Repositories;
 using System.ComponentModel.DataAnnotations;
 using System.Data;
+using VeloNews.Services;
+using VeloNews.Services.IServices;
 
 namespace VeloNews.Models.ValidationAttributes
 {
@@ -17,11 +19,22 @@ namespace VeloNews.Models.ValidationAttributes
             ValidationContext validationContext)
         {
             var userRepository = validationContext.GetService(typeof(IUserRepository)) as UserRepository;
+            var userService = validationContext.GetService(typeof(IUserService)) as UserService;
 
             var userName = value?.ToString();
 
+            var currentUser = userService.GetCurrentUser();
+
             var isDuplicate = userRepository.IsUserNameExist(userName);
-            if (isDuplicate)
+
+            bool IsEditUserName = false;
+
+            if (currentUser.Name == userName)
+            {
+                IsEditUserName = true;
+            }
+
+            if (isDuplicate & !IsEditUserName)
             {
                 return new ValidationResult("This user name is already used");
             }

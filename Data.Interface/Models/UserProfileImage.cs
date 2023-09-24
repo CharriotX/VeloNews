@@ -4,13 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Data.Interface.DataModels
+namespace Data.Interface.Models
 {
-    public class ImageData
+    public class UserProfileImage : BaseModel
     {
-        public int Id { get; set; }
         public string Name { get; set; }
         public string Url { get; set; }
-        public int NewsId { get; set; }
+        public User User { get; set; }
     }
 }

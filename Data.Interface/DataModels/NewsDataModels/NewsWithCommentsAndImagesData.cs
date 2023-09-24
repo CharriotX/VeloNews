@@ -30,11 +30,6 @@ namespace Data.Interface.DataModels.NewsDataModels
         public int Id { get; set; }
         public DateTime CreatedTime { get; set; }
         public string Text { get; set; }
-        public CommentAuthor Author { get; set; }
-    }
-
-    public class CommentAuthor
-    {
-        public string Name { get; set; }
+        public UserData Author { get; set; }
     }
 }

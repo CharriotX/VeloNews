@@ -1,11 +1,6 @@
 ﻿using Data.Interface.DataModels.AdminDataModels;
 using Data.Interface.DataModels.UserDataModels;
 using Data.Interface.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Data.Interface.Repositories
 {
@@ -14,8 +9,11 @@ namespace Data.Interface.Repositories
         User GetUserByNameAndPass(string name, string pass);
         bool IsUserExist(string userName);
         List<LastRegisteredUser> GetLastRegisteredUsers();
-        void UserRegistration(UserRegistrationData data);
+        User UserRegistration(UserRegistrationData data);
         User GetUserByUserName(string userName);
         bool IsUserNameExist(string userName);
+        User GetUserWithProfileImage(int userId);
+        ShowUserProfileData GetUserProfileData(int userId);
+        void EditMyProfile(EditMyProfileData data);
     }
 }

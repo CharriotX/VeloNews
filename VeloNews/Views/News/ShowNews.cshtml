@@ -65,12 +65,12 @@
                         <div class="comment-item">
                             <input name="commentId" hidden value="@comment.Id"/>
                             <div class="comment-item-avatar">
-                                <div>avatar will be here</div>
+                                <img src="@comment.AuthorAvatarUrl">
                             </div>
                             <div class="comment-item-text">
                                 <div class="item-text-username">
                                     <div class="username-info">
-                                        <div class="text-username-nick">@comment.Author</div>
+                                        <div class="text-username-nick">@comment.UserName</div>
                                         <div class="text-username-date">@comment.CreatedTime.ToString("dd-MM-yyyy, HH:mm")</div>
                                     </div>
                                     <div class="action-buttons">

@@ -6,19 +6,22 @@ namespace VeloNews.Utilities
     public static class SeedData
     {
         private const string ADMIN_DEFAULT_NAME_AND_PASSWORD = "admin";
+        private const string DEFAULT_USER_PROFILE_IMAGE_NAME = "defaultUserImage";
         public static void Seed(this WebApplication webApplication)
         {
             using (var scope = webApplication.Services.CreateScope())
             {
-                SeedUsers(scope);
+                SeedAdmin(scope);
                 SeedNewsCategory(scope);
                 SeedNews(scope);
+                SeedUserProfileImage(scope);
             }
         }
 
-        private static void SeedUsers(IServiceScope scope)
+        private static void SeedAdmin(IServiceScope scope)
         {
             var userRepository = scope.ServiceProvider.GetRequiredService<IUserRepository>();
+            var userProfileImageRepository = scope.ServiceProvider.GetRequiredService<IUserProfileImageRepository>();
 
             if (!userRepository.IsUserExist(ADMIN_DEFAULT_NAME_AND_PASSWORD))
             {
@@ -26,7 +29,10 @@ namespace VeloNews.Utilities
                 {
                     Name = ADMIN_DEFAULT_NAME_AND_PASSWORD,
                     Password = ADMIN_DEFAULT_NAME_AND_PASSWORD,
-                    Role = UserRole.Admin
+                    Role = UserRole.Admin,
+                    Country = "Не указан",
+                    DateOfBirth = new DateTime(01, 01, 01),
+                    UserCreationDate = new DateTime(01, 01, 01)
                 };
 
                 userRepository.Save(admin);
@@ -61,7 +67,7 @@ namespace VeloNews.Utilities
             var newsRepository = scope.ServiceProvider.GetRequiredService<INewsRepository>();
             var newsCategoryRepository = scope.ServiceProvider.GetRequiredService<INewsCategoryRepository>();
             var userRepository = scope.ServiceProvider.GetRequiredService<IUserRepository>();
-            var imageRepository = scope.ServiceProvider.GetRequiredService<IImageRepository>();
+            var imageRepository = scope.ServiceProvider.GetRequiredService<INewsImageRepository>();
             var newsCommentRepository = scope.ServiceProvider.GetRequiredService<INewsCommentRepository>();
 
             var resultCategory = newsCategoryRepository.GetCategoryByName("result");
@@ -86,10 +92,10 @@ namespace VeloNews.Utilities
                     newsRepository.Save(seedNews);
 
                     var thisNews = newsRepository.Get(seedNews.Id);
-                    imageRepository.Save(new Image()
+                    imageRepository.Save(new NewsImage()
                     {
                         Name = $"SeedImage{i}",
-                        Url = $"/images/seedImages/seed_img_{i}.png",
+                        Url = $"/images/seedNewsImages/seed_img_{i}.png",
                         News = thisNews
                     });
 
@@ -103,6 +109,27 @@ namespace VeloNews.Utilities
                             CreatedTime = DateTime.Now
                         });
                     }
+                }
+            }
+        }
+
+        private static void SeedUserProfileImage(IServiceScope scope)
+        {
+            var userRepository = scope.ServiceProvider.GetRequiredService<IUserRepository>();
+            var userProfileImageRepository = scope.ServiceProvider.GetRequiredService<IUserProfileImageRepository>();
+
+            var users = userRepository.GetAll();
+
+            if (!userProfileImageRepository.Any())
+            {
+                foreach (var user in users)
+                {
+                    userProfileImageRepository.Save(new UserProfileImage()
+                    {
+                        Name = DEFAULT_USER_PROFILE_IMAGE_NAME,
+                        Url = $"/images/default-user-image.png",
+                        User = user
+                    });
                 }
             }
         }

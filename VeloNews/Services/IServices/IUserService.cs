@@ -11,5 +11,8 @@ namespace VeloNews.Services.IServices
         User GetCurrentUser();
         User GetUserByNameAndPass(string userName, string userPass);
         void RegistrationUser(RegistrationUserViewModel viewModel);
+        ProfileViewModel ShowProfile();
+        EditMyProfileViewModel GetViewModelForEditProfilePage(int userId);
+        EditMyProfileData EditMyProfile(EditMyProfileViewModel viewModel);
     }
 }

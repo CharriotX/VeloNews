@@ -7,37 +7,59 @@
     <link href="~/css/user.css" rel="stylesheet" type="text/css" />
 }
 
+@section Scripts {
+    <script src="~/js/user/myProfile.js"></script>
+}
+
 <div>
     <h2>My account</h2>
     <div class="profile-logout-text">You are logged in. Click <a href="/User/Logout">here</a> to logout.</div>
 
-    <div>
+    <div class="account-info">
+        @Html.HiddenFor(x => x.Id)
         Your account information.
+        @if (Model.Role == UserRole.Admin.ToString())
+        {
+            <div>
+                <a href="/Admin/Index">AdminPage</a>
+            </div>
+        }
     </div>
     <div class="profile-info">
+        <div class="profile-avatar">
+            <div class="profile-image">
+                <img src="@Model.ProfileImageUrl" />
+            </div>
+        </div>
         <ul class="profile-info-list">
             <li class="profile-info-item">
                 <div>Username</div>
                 <div>@Model.Name</div>
             </li>
             <li class="profile-info-item">
-                <div>Username</div>
-                <div>@Model.Name</div>
+                <div>Country</div>
+                <div>@Model.Country</div>
             </li>
             <li class="profile-info-item">
-                <div>Username</div>
-                <div>@Model.Name</div>
+                <div>Date of Birth</div>
+                <div>
+                    @if (Model.DateOfBirth <= Model.DefaultDateOfBirth)
+                    {
+                        <span>Не указан</span>
+                    }
+                    else
+                    {
+                        @Model.DateOfBirth.ToShortDateString()
+                    }
+                </div>
+            </li>
+            <li class="profile-info-item">
+                <div>Account creation date</div>
+                <div>@Model.UserCreationDate.ToShortDateString()</div>
             </li>
         </ul>
-    </div>
-    <div>
         <div>
-            @if (Model.Role == UserRole.Admin.ToString())
-            {
-                <a href="/Admin/Index">AdminPage</a>
-            }
-            @Model.Name
+            <a href="/User/EditMyProfile?userId=@Model.Id">Редактировать профиль</a>
         </div>
     </div>
-
 </div>

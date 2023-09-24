@@ -2,7 +2,7 @@
 using Data.Interface.Repositories;
 using VeloNews.Models;
 
-namespace VeloNews.Services.Helpers
+namespace VeloNews.Services.IServices
 {
     public interface IPaginatorService
     {

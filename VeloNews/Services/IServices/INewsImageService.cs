@@ -2,7 +2,7 @@
 
 namespace VeloNews.Services.IServices
 {
-    public interface IImageService
+    public interface INewsImageService
     {
     }
 }
