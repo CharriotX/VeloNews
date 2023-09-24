@@ -1,16 +1,9 @@
-﻿using Data.Interface.DataModels;
-using Data.Interface.DataModels.UserDataModels;
+﻿using Data.Interface.DataModels.UserDataModels;
 using Data.Interface.Models;
 using Data.Interface.Repositories;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using System.ComponentModel;
-using System.Globalization;
-using System.Reflection;
-using VeloNews.Models;
 using VeloNews.Models.UserViewModels;
 using VeloNews.Services.IServices;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace VeloNews.Services
 {
@@ -66,7 +59,6 @@ namespace VeloNews.Services
             };
 
             var savedUser = _userRepository.UserRegistration(data);
-
 
             _userProfileImageRepository.SaveDefaultUserProfileImage(savedUser);
         }
