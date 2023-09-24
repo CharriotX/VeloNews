@@ -16,29 +16,26 @@ namespace VeloNews.Services
 {
     public class NewsService : INewsService
     {
-        private IUserService _userService;
         private INewsRepository _newsRepository;
         private INewsImageRepository _imageRepository;
-        private INewsCommentRepository _newsCommentRepository;
         private INewsCategoryRepository _newsCategoryRepository;
         private IPaginatorService _paginatorService;
         private IWebHostEnvironment _webHostEnvironment;
+        private IAuthenticationService _authenticationService;
 
         public NewsService(INewsRepository newsRepository,
             INewsImageRepository imageRepository,
-            INewsCommentRepository newsCommentRepository,
-            IUserService userService,
             INewsCategoryRepository newsCategoryRepository,
             IWebHostEnvironment webHostEnvironment,
-            IPaginatorService paginatorService)
+            IPaginatorService paginatorService,
+            IAuthenticationService authenticationService)
         {
             _newsRepository = newsRepository;
             _imageRepository = imageRepository;
-            _newsCommentRepository = newsCommentRepository;
-            _userService = userService;
             _newsCategoryRepository = newsCategoryRepository;
             _webHostEnvironment = webHostEnvironment;
             _paginatorService = paginatorService;
+            _authenticationService = authenticationService;
         }
 
         public void EditNews(int id, string title, string text, string shorText)
@@ -143,7 +140,7 @@ namespace VeloNews.Services
 
         public AddNewsData SaveNews(AddNewsViewModel viewModel)
         {
-            var user = _userService.GetCurrentUser();
+            var user = _authenticationService.GetCurrentUser();
 
             var data = new AddNewsData
             {

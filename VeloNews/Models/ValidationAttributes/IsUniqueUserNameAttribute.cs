@@ -19,11 +19,11 @@ namespace VeloNews.Models.ValidationAttributes
             ValidationContext validationContext)
         {
             var userRepository = validationContext.GetService(typeof(IUserRepository)) as UserRepository;
-            var userService = validationContext.GetService(typeof(IUserService)) as UserService;
+            var authService = validationContext.GetService(typeof(IAuthenticationService)) as AuthenticationService;
 
             var userName = value?.ToString();
 
-            var currentUser = userService.GetCurrentUser();
+            var currentUser = authService.GetCurrentUser();
 
             var isDuplicate = userRepository.IsUserNameExist(userName);
 

@@ -1,5 +1,4 @@
 ﻿using Data.Interface.DataModels.UserDataModels;
-using Data.Interface.Models;
 using Data.Interface.Repositories;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using VeloNews.Models.UserViewModels;
@@ -13,41 +12,19 @@ namespace VeloNews.Services
         private IHttpContextAccessor _httpContextAccessor;
         private IUserProfileImageRepository _userProfileImageRepository;
         private IUserProfileImageService _userProfileImageService;
+        private IAuthenticationService _authenticationService;
 
         public UserService(IUserRepository userRepository,
             IHttpContextAccessor httpContextAccessor,
             IUserProfileImageRepository userProfileImageRepository,
-            IUserProfileImageService userProfileImageService)
+            IUserProfileImageService userProfileImageService,
+            IAuthenticationService authenticationService)
         {
             _userRepository = userRepository;
             _httpContextAccessor = httpContextAccessor;
             _userProfileImageRepository = userProfileImageRepository;
             _userProfileImageService = userProfileImageService;
-        }
-
-        public List<User> GetAllUsers()
-        {
-            return _userRepository.GetAll();
-        }
-
-        public User GetCurrentUser()
-        {
-            var idStr = _httpContextAccessor
-                .HttpContext
-                .User
-                .Claims
-                .FirstOrDefault(x => x.Type == "Id")
-                ?.Value;
-
-            if (idStr == null)
-            {
-                return null;
-            }
-
-            var id = int.Parse(idStr);
-            var user = _userRepository.Get(id);
-
-            return user;
+            _authenticationService = authenticationService;
         }
 
         public void RegistrationUser(RegistrationUserViewModel viewModel)
@@ -62,12 +39,6 @@ namespace VeloNews.Services
 
             _userProfileImageRepository.SaveDefaultUserProfileImage(savedUser);
         }
-
-        public User GetUserByNameAndPass(string userName, string userPass)
-        {
-            return _userRepository.GetUserByNameAndPass(userName, userPass);
-        }
-
 
         public EditMyProfileViewModel GetViewModelForEditProfilePage(int userId)
         {
@@ -111,7 +82,7 @@ namespace VeloNews.Services
 
         public ProfileViewModel ShowProfile()
         {
-            var currentUser = GetCurrentUser();
+            var currentUser = _authenticationService.GetCurrentUser();
             var userData = _userRepository.GetUserProfileData(currentUser.Id);
 
             var model = new ProfileViewModel()

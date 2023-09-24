@@ -8,20 +8,19 @@ namespace VeloNews.Services
 {
     public class NewsCommentService : INewsCommentService
     {
-        private INewsService _newsService;
-        private IUserService _userService;
         private INewsCommentRepository _newsCommentRepository;
+        private IAuthenticationService _authenticationService;
 
-        public NewsCommentService(INewsService newsService, IUserService userService, INewsCommentRepository newsCommentRepository)
+        public NewsCommentService(INewsCommentRepository newsCommentRepository, 
+            IAuthenticationService authenticationService)
         {
-            _newsService = newsService;
-            _userService = userService;
             _newsCommentRepository = newsCommentRepository;
+            _authenticationService = authenticationService;
         }
 
         public SaveNewsCommentViewModel SaveComment(int newsId, string text)
         {
-            var user = _userService.GetCurrentUser();
+            var user = _authenticationService.GetCurrentUser();
             var data = new SaveNewsCommentData
             {
                 NewsId = new NewsId

@@ -7,9 +7,6 @@ namespace VeloNews.Services.IServices
 {
     public interface IUserService
     {
-        List<User> GetAllUsers();
-        User GetCurrentUser();
-        User GetUserByNameAndPass(string userName, string userPass);
         void RegistrationUser(RegistrationUserViewModel viewModel);
         ProfileViewModel ShowProfile();
         EditMyProfileViewModel GetViewModelForEditProfilePage(int userId);

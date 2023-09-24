@@ -39,27 +39,26 @@ builder.Services.AddScoped<IAdminRepository>(x =>
 
 builder.Services.AddScoped<INewsCommentService>(x =>
     new NewsCommentService(
-        x.GetService<INewsService>(),
-        x.GetService<IUserService>(),
-        x.GetService<INewsCommentRepository>()));
+        x.GetService<INewsCommentRepository>(),
+        x.GetService<IAuthenticationService>()));
 
 builder.Services.AddScoped<IUserService>(x =>
     new UserService(
         x.GetService<IUserRepository>(),
         x.GetService<IHttpContextAccessor>(),
         x.GetService<IUserProfileImageRepository>(),
-        x.GetService<IUserProfileImageService>()
+        x.GetService<IUserProfileImageService>(),
+        x.GetService<IAuthenticationService>()
         ));
 
 builder.Services.AddScoped<INewsService>(x =>
     new NewsService(
         x.GetService<INewsRepository>(),
         x.GetService<INewsImageRepository>(),
-        x.GetService<INewsCommentRepository>(),
-        x.GetService<IUserService>(),
         x.GetService<INewsCategoryRepository>(),
         x.GetService<IWebHostEnvironment>(),
-        x.GetService<IPaginatorService>()
+        x.GetService<IPaginatorService>(),
+        x.GetService<IAuthenticationService>()
         ));
 
 builder.Services.AddScoped<IUserProfileImageService>(x =>
@@ -67,6 +66,12 @@ builder.Services.AddScoped<IUserProfileImageService>(x =>
         x.GetService<IUserRepository>(),
         x.GetService<IWebHostEnvironment>(),
         x.GetService<IUserProfileImageRepository>()
+        ));
+
+builder.Services.AddScoped<IAuthenticationService>(x =>
+    new AuthenticationService(
+        x.GetService<IUserRepository>(),
+        x.GetService<IHttpContextAccessor>()
         ));
 
 builder.Services.AddScoped<IUserProfileImageRepository>(x =>
