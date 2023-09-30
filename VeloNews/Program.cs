@@ -56,9 +56,9 @@ builder.Services.AddScoped<INewsService>(x =>
         x.GetService<INewsRepository>(),
         x.GetService<INewsImageRepository>(),
         x.GetService<INewsCategoryRepository>(),
-        x.GetService<IWebHostEnvironment>(),
         x.GetService<IPaginatorService>(),
-        x.GetService<IAuthenticationService>()
+        x.GetService<IAuthenticationService>(),
+        x.GetService<INewsImageService>()
         ));
 
 builder.Services.AddScoped<IUserProfileImageService>(x =>
@@ -73,6 +73,11 @@ builder.Services.AddScoped<IAuthenticationService>(x =>
         x.GetService<IUserRepository>(),
         x.GetService<IHttpContextAccessor>()
         ));
+
+builder.Services.AddScoped<INewsImageService>(x =>
+    new NewsImageService(
+        x.GetService<INewsImageRepository>(),
+        x.GetService<IWebHostEnvironment>()));
 
 builder.Services.AddScoped<IUserProfileImageRepository>(x =>
     new UserProfileImageRepository(

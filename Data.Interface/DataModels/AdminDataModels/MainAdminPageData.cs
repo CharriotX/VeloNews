@@ -18,13 +18,13 @@ namespace Data.Interface.DataModels.AdminDataModels
     {
         public int Id { get; set; }
         public string Title { get; set; }
-        public CreatorData Creator { get; set; }
+        public CommentAuthorData Creator { get; set; }
     }
 
     public class LastComment
     {
         public int Id { get; set; }
-        public CreatorData Creator { get; set; }
+        public CommentAuthorData Creator { get; set; }
         public string Text { get; set; }
         public int NewsId { get; set; }
     }

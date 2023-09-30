@@ -156,10 +156,15 @@
 }
 
     .back-btn a {
+        color: blue;
         padding: 5px;
         border-bottom: 1px solid grey;
     }
 
+.unauthorized-user a{
+    color: blue;
+    text-decoration: underline;
+}
 
 .comment-block {
     margin-top: 140px;
@@ -188,7 +193,7 @@
     color: red;
 }
 
-.none-commetns {
+.none-comments {
 }
 
 .comment-item-avatar {
@@ -232,11 +237,15 @@
     opacity: 80%;
 }
 
-.remove-button {
-    background: red;
-    color: white;
-    border: none;
-    border-radius: 5px;
+.comment-actions {
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.remove-comment a :hover {
+    color: red;
 }
 
 .template {

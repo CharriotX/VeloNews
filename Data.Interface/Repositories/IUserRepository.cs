@@ -10,7 +10,7 @@ namespace Data.Interface.Repositories
         bool IsUserExist(string userName);
         List<LastRegisteredUser> GetLastRegisteredUsers();
         User UserRegistration(UserRegistrationData data);
-        User GetUserByUserName(string userName);
+        User GetUserByUsername(string userName);
         bool IsUserNameExist(string userName);
         User GetUserWithProfileImage(int userId);
         ShowUserProfileData GetUserProfileData(int userId);

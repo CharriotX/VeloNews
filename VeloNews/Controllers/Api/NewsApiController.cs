@@ -17,9 +17,9 @@ namespace VeloNews.Controllers.Api
         }
 
         [Route("AddComment")]
-        public JsonResult AddComment(int newsId, string text)
+        public JsonResult AddComment(int commentId, int newsId, string text)
         {
-            var model = _newsCommentService.SaveComment(newsId, text);
+            var model = _newsCommentService.SaveComment(commentId,newsId, text);
            
             return Json(model);
         }

@@ -1,5 +1,7 @@
 ﻿@using VeloNews.Models.NewsViewModels;
+@using VeloNews.Services.IServices;
 @model PaginatorViewModel<NewsCardViewModel>
+@inject IAuthenticationService authService;
 
 @section Styles {
     <link href="~/css/news.css" rel="stylesheet" type="text/css" />
@@ -25,7 +27,10 @@
                 </div>
                 <div class="news-item-author">
                     <div>Created by @item.Author, @item.CreatedTime.AddDays(-1).ToString("dd-MM-yyyy, HH:mm")</div>
-                    <div><a href="/News/EditNews?newsId=@item.Id">edit</a></div>
+                    @if (authService.IsAdmin())
+                    {
+                        <div><a href="/News/EditNews?newsId=@item.Id">edit</a></div>
+                    }
                 </div>
             </div>
         }

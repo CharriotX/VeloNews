@@ -2,9 +2,7 @@
 using Data.Interface.DataModels.NewsDataModels;
 using Data.Interface.Models;
 using Data.Interface.Repositories;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using System;
 using VeloNews.Models.AdminViewModels;
 using VeloNews.Models;
 using VeloNews.Models.HomeViewModels;
@@ -20,22 +18,22 @@ namespace VeloNews.Services
         private INewsImageRepository _imageRepository;
         private INewsCategoryRepository _newsCategoryRepository;
         private IPaginatorService _paginatorService;
-        private IWebHostEnvironment _webHostEnvironment;
         private IAuthenticationService _authenticationService;
+        private INewsImageService _newsImageService;
 
         public NewsService(INewsRepository newsRepository,
             INewsImageRepository imageRepository,
             INewsCategoryRepository newsCategoryRepository,
-            IWebHostEnvironment webHostEnvironment,
             IPaginatorService paginatorService,
-            IAuthenticationService authenticationService)
+            IAuthenticationService authenticationService,
+            INewsImageService newsImageService)
         {
             _newsRepository = newsRepository;
             _imageRepository = imageRepository;
             _newsCategoryRepository = newsCategoryRepository;
-            _webHostEnvironment = webHostEnvironment;
             _paginatorService = paginatorService;
             _authenticationService = authenticationService;
+            _newsImageService = newsImageService;
         }
 
         public void EditNews(int id, string title, string text, string shorText)
@@ -150,67 +148,16 @@ namespace VeloNews.Services
                 Text = viewModel.Text,
                 CreatedDate = DateTime.Now,
                 CategoryId = viewModel.SelectedCategoryId,
-                Author = new CreatorData
+                Author = new CommentAuthorData
                 {
                     Id = user.Id,
-                    Name = user.Name
+                    AuthorName = user.Name
                 }
             };
 
-            var thisNews = _newsRepository.SaveNews(data);
+            var thisNewsId = _newsRepository.SaveNews(data);
 
-            if (viewModel.Images == null)
-            {
-                var imageData = new NewsImageData
-                {
-                    Name = "defaultImage",
-                    Url = $"/images/defaultNewsPreviewImage.jpg",
-                    NewsId = thisNews
-                };
-
-                _imageRepository.SaveNewsImages(imageData);
-            }
-            else
-            {
-                var imageIndex = 1;
-
-                foreach (var file in viewModel.Images)
-                {
-                    var extention = Path.GetExtension(file.FileName);
-                    var folderName = $"post{data.CreatedDate.ToString("ddMMyyyy")}";
-                    var path = Path.Combine(
-                        _webHostEnvironment.WebRootPath,
-                        "images",
-                        "uploads",
-                        "news",
-                        folderName
-                        );
-
-                    if (!Directory.Exists(path))
-                    {
-                        Directory.CreateDirectory(path);
-                    }
-
-                    var fileName = $"{thisNews}-{imageIndex}{extention}";
-
-                    var fileNameWithPath = Path.Combine(path, fileName);
-
-                    using (var fs = new FileStream(fileNameWithPath, FileMode.CreateNew))
-                    {
-                        file.CopyTo(fs);
-                    }
-
-                    var imageData = new NewsImageData
-                    {
-                        Name = fileName,
-                        Url = $"/images/uploads/news/{folderName}/{fileName}",
-                        NewsId = thisNews
-                    };
-
-                    _imageRepository.SaveNewsImages(imageData);
-                    imageIndex++;
-                }
-            }
+            _newsImageService.UploadNewsImages(thisNewsId, viewModel.Images, data.CreatedDate);
 
             return data;
         }

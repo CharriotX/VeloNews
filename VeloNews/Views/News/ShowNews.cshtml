@@ -1,8 +1,11 @@
 ﻿@using VeloNews.Models.NewsViewModels;
+@using VeloNews.Services.IServices;
+
 @model ShowNewsViewModel
+@inject IAuthenticationService authService;
 
 @section Styles {
-    <link href="~/css/news.css" rel="stylesheet" type="text/css" />
+    <link href="~/css/news.css?v=2" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" type="text/css" href="https://unpkg.com/trix@2.0.0/dist/trix.css">
 
 }
@@ -25,64 +28,78 @@
             </div>
             <div class="show-news-text">@Html.Raw(Model.Text)</div>
         </div>
-        <div class="back-btn"><a href="/News/Index">Back to news</a></div>
-
+        <div id="comment-anchor" class="back-btn"><a href="/News/Index">Back to news</a></div>
         <div class="comment-block">
-            <div class="comment-input">
-                <form>
-                    <input class="news-id" type="hidden" name="NewsId" value="@Model.Id" />
-                    <div>Add comment:</div>
-                    <div class="trix-editor">
-                        <input id="comment-field" name="Text" type="hidden" />
-                        <trix-editor input="comment-field" trix-file-accept="preventDefault"></trix-editor>
-                    </div>
-                    <div class="comment-input-submit">
-                        <input type="button" value="Send" />
-                    </div>
-                </form>
-            </div>
+            @if (authService.GetCurrentUser() == null)
+            {
+                <div class="unauthorized-user">
+                    <a href="/User/Login">Войдите</a> или <a href="/User/Registration/">зарегиструйтесь</a> чтобы оставить комментарий.
+                </div>
+            }
+            else
+            {
+                <div class="comment-input">
+                    <form>
+                        <input class="comment-id-form" type="hidden" value="0" />
+                        <input class="news-id" type="hidden" name="NewsId" value="@Model.Id" />
+                        <h3 class="comment-head">Add comment:</h3>
+                        <div class="trix-editor">
+                            <input id="comment-field" name="Text" type="hidden" />
+                            <trix-editor input="comment-field" trix-file-accept="preventDefault"></trix-editor>
+                        </div>
+                        <div class="comment-input-submit">
+                            <input type="button" value="Send" />
+                        </div>
+                    </form>
+                </div>
+            }
             <div class="comment-list">
                 <div class="comment-item template">
                     <div class="comment-item-avatar">
-                        <div>avatar will be here</div>
+                        <img src="" />
                     </div>
                     <div class="comment-item-text">
                         <div class="item-text-username">
-                            <div class="text-username-nick"></div>
-                            <div class="text-username-date"></div>
+                            <div class="username-info">
+                                <div class="text-username-nick"></div>
+                                <div class="text-username-date"></div>
+                            </div>
                         </div>
-                        <div class="item-text-field"></div>
+                        <div class="item-text-field">
+                        </div>
                     </div>
                 </div>
                 @foreach (var comment in Model.NewsComments)
                 {
-                    @if (Model.NewsComments.Count == 0)
-                    {
-                        <div class="none-commetns">Комментариев пока нет.</div>
-                    }
-                    else
-                    {
-                        <div class="comment-item">
-                            <input name="commentId" hidden value="@comment.Id"/>
-                            <div class="comment-item-avatar">
-                                <img src="@comment.AuthorAvatarUrl">
+                    <div class="comment-item" data="@comment.Id">
+                        <input name="commentId" hidden value="@comment.Id" />
+                        <div class="comment-item-avatar">
+                            <img src="@comment.AuthorAvatarUrl">
+                        </div>
+                        <div class="comment-item-text">
+                            <div class="item-text-username">
+                                <div class="username-info">
+                                    <div class="text-username-nick">@comment.UserName</div>
+                                    <div class="text-username-date">@comment.CreatedTime.ToString("dd-MM-yyyy, HH:mm")</div>
+                                </div>
+                                
+                                <div class="comment-actions">
+                                    @if (authService.IsAdmin())
+                                    {
+                                        <a href="#comment-anchor" class="remove-comment">Удалить</a>
+                                    }
+                                    @if (authService.IsAdmin() || authService.GetCurrentUser() == authService.GetUserByName(comment.UserName))
+                                    {
+                                        <a href="#comment-anchor" class="edit-comment">Редактировать</a>
+                                    }
+                                </div>
                             </div>
-                            <div class="comment-item-text">
-                                <div class="item-text-username">
-                                    <div class="username-info">
-                                        <div class="text-username-nick">@comment.UserName</div>
-                                        <div class="text-username-date">@comment.CreatedTime.ToString("dd-MM-yyyy, HH:mm")</div>
-                                    </div>
-                                    <div class="action-buttons">
-                                        <button class="remove-button">X</button>
-                                    </div>
-                                </div>
-                                <div class="item-text-field">
-                                    @Html.Raw(comment.Text)
-                                </div>
+                            <div class="item-text-field">
+                                @Html.Raw(comment.Text)
                             </div>
                         </div>
-                    }
+                    </div>
+
                 }
             </div>
         </div>

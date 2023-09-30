@@ -12,7 +12,7 @@ namespace Data.Interface.DataModels.NewsDataModels
         public NewsId NewsId { get; set; }
         public string Text { get; set; }
         public DateTime CreatedTime { get; set; }
-        public CreatorData Author { get; set; }
+        public CommentAuthorData Author { get; set; }
     }
 
     public class NewsId

@@ -13,7 +13,7 @@ namespace VeloNews.Models.ValidationAttributes
             var userRepository = validationContext.GetService(typeof(IUserRepository)) as UserRepository;
             var userContext = (LoginViewModel)validationContext.ObjectInstance;
             var password = value == null ? String.Empty : value.ToString();
-            var user = userRepository.GetUserByUserName(userContext.Name);
+            var user = userRepository.GetUserByUsername(userContext.Name);
 
             if (user == null)
             {

@@ -29,7 +29,7 @@ namespace VeloNews.Services
                 LastNews = data.LastPublishedNews.Select(x => new LastNewsViewModel()
                 {
                     Id = x.Id,
-                    Creator = x.Creator.Name,
+                    Creator = x.Creator.AuthorName,
                     Title = x.Title
                 }).ToList(),
                 LastNewsComments = data.LastComments.Select(x => new LastNewsCommentsViewModel()
@@ -37,7 +37,7 @@ namespace VeloNews.Services
                     Id = x.Id,
                     NewsId = x.NewsId,
                     Text = x.Text,
-                    Creator = x.Creator.Name
+                    Creator = x.Creator.AuthorName
                 }).ToList(),
                 LastRegisteredUsers = data.LastRegisteredUsers.Select(x => new Models.UserViewModels.LastRegisteredUsersViewModel()
                 {
@@ -67,7 +67,7 @@ namespace VeloNews.Services
                 Creator = new UserInfoViewModel
                 {
                     Id = x.Creator.Id,
-                    Name = x.Creator.Name
+                    Name = x.Creator.AuthorName
                 }
             }).ToList();
 
