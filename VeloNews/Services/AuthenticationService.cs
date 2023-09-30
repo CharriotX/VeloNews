@@ -6,6 +6,8 @@ namespace VeloNews.Services
 {
     public class AuthenticationService : IAuthenticationService
     {
+        private const string DEFAULT_ADMIN_NAME = "admin";
+
         private IUserRepository _userRepository;
         private IHttpContextAccessor _httpContextAccessor;
 
@@ -36,7 +38,7 @@ namespace VeloNews.Services
             }
 
             var id = int.Parse(idStr);
-            var user = _userRepository.Get(id);
+            var user = _userRepository.GetUserWithProfileImage(id);
 
             return user;
         }
@@ -44,6 +46,27 @@ namespace VeloNews.Services
         public User GetUserByNameAndPass(string userName, string userPass)
         {
             return _userRepository.GetUserByNameAndPass(userName, userPass);
+        }
+        public User GetUserByName(string username)
+        {
+            return _userRepository.GetUserByUsername(username);
+        }
+
+        public bool IsAdmin()
+        {
+            var user = GetCurrentUser();
+
+            if(user == null)
+            {
+                return false;   
+            }
+
+            if (user.Name == DEFAULT_ADMIN_NAME)
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }

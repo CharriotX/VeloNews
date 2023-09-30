@@ -18,37 +18,64 @@ namespace VeloNews.Services
             _authenticationService = authenticationService;
         }
 
-        public SaveNewsCommentViewModel SaveComment(int newsId, string text)
+        public SaveNewsCommentViewModel SaveComment(int commentId, int newsId, string text)
         {
-            var user = _authenticationService.GetCurrentUser();
-            var data = new SaveNewsCommentData
+            if(commentId == 0)
             {
-                NewsId = new NewsId
+                var user = _authenticationService.GetCurrentUser();
+                var data = new SaveNewsCommentData
                 {
-                    Id = newsId
-                },
-                Text = text,
-                CreatedTime = DateTime.Now,
-                Author = new CreatorData
+                    NewsId = new NewsId
+                    {
+                        Id = newsId
+                    },
+                    Text = text,
+                    CreatedTime = DateTime.Now,
+                    Author = new CommentAuthorData
+                    {
+                        Id = user.Id,
+                        AuthorName = user.Name,
+                        AuthorProfileImageUrl = user.UserProfileImage.Url
+                    }
+                };
+
+                var id = _newsCommentRepository.SaveComment(data);
+
+                var comment = _newsCommentRepository.Get(id);
+
+                var model = new SaveNewsCommentViewModel()
                 {
-                    Id = user.Id,
-                    Name = user.Name
-                }
-            };
+                    Author = user.Name,
+                    CreatedTime = comment.CreatedTime.ToString("dd-MM-yyyy, HH:mm"),
+                    NewsId = newsId,
+                    AuthorProfileImageUrl = user.UserProfileImage.Url,
+                    Text = comment.Text
+                };
 
-            var commentId = _newsCommentRepository.SaveComment(data);
+                return model;
+            }
+            else
+            {
+                var model = EditComment(commentId,text);
+                return model;
+            }      
 
+        }
+
+        public SaveNewsCommentViewModel EditComment(int commentId, string text)
+        {
             var comment = _newsCommentRepository.Get(commentId);
 
-            var model = new SaveNewsCommentViewModel()
-            {
-                Author = user.Name,
-                CreatedTime = comment.CreatedTime.ToString("dd-MM-yyyy, HH:mm"),
-                NewsId = newsId,
-                Text = comment.Text
-            };
+            comment.Text = text;
+            comment.CreatedTime = DateTime.Now;
 
-            return model;
+            _newsCommentRepository.Save(comment);
+
+            return new SaveNewsCommentViewModel()
+            {
+                Text = comment.Text,
+                CreatedTime = comment.CreatedTime.ToString("dd-MM-yyyy, HH:mm")
+            };
         }
 
         public void RemoveComment(int commentId)

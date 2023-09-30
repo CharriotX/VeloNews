@@ -31,7 +31,7 @@ namespace Data.Sql.Repositories
         {
             return _dbSet.SingleOrDefault(x => x.Name == name && x.Password == pass);
         }
-        public User GetUserByUserName(string userName)
+        public User GetUserByUsername(string userName)
         {
             return _dbSet.FirstOrDefault(x => x.Name == userName);
         }

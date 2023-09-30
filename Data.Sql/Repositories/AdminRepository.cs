@@ -34,10 +34,10 @@ namespace Data.Sql.Repositories
                 Id = x.Id,
                 Title = x.Title,
                 TimeOfCreation = x.CreatedTime,
-                Creator = new CreatorData
+                Creator = new CommentAuthorData
                 {
                     Id = x.Creator.Id,
-                    Name = x.Creator.Name
+                    AuthorName = x.Creator.Name
                 }
             }).ToList();
 
@@ -60,10 +60,10 @@ namespace Data.Sql.Repositories
                 {
                     Title = x.Title,
                     Id = x.Id,
-                    Creator = new CreatorData
+                    Creator = new CommentAuthorData
                     {
                         Id = x.Creator.Id,
-                        Name = x.Creator.Name
+                        AuthorName = x.Creator.AuthorName
                     }
                 }).ToList(),
                 LastComments = lastComments.Select(x => new LastComment
@@ -71,10 +71,10 @@ namespace Data.Sql.Repositories
                     Id = x.Id,
                     NewsId = x.NewsId,
                     Text = x.Text,
-                    Creator = new CreatorData
+                    Creator = new CommentAuthorData
                     {
                         Id = x.Creator.Id,
-                        Name = x.Creator.Name
+                        AuthorName = x.Creator.AuthorName
                     }
                 }).ToList(),
                 LastRegisteredUsers = lastRegisterUsers.Select(x => new LastRegisteredUser

@@ -71,10 +71,10 @@ namespace Data.Sql.Repositories
             {
                 Id = x.Id,
                 Title = x.Title,
-                Creator = new CreatorData
+                Creator = new CommentAuthorData
                 {
                     Id = x.Creator.Id,
-                    Name = x.Creator.Name
+                    AuthorName = x.Creator.Name
                 }
             }).ToList();
 

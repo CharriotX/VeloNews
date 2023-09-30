@@ -27,10 +27,10 @@ namespace Data.Sql.Repositories
                 Id = x.Id,
                 NewsId = x.News.Id,
                 Text = x.Text,
-                Creator = new CreatorData
+                Creator = new CommentAuthorData
                 {
                     Id = x.User.Id,
-                    Name = x.User.Name
+                    AuthorName = x.User.Name
                 }
             }).ToList();
 

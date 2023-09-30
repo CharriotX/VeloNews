@@ -71,7 +71,7 @@ namespace VeloNews.Utilities
             var newsCommentRepository = scope.ServiceProvider.GetRequiredService<INewsCommentRepository>();
 
             var resultCategory = newsCategoryRepository.GetCategoryByName("result");
-            var creator = userRepository.GetUserByUserName(ADMIN_DEFAULT_NAME_AND_PASSWORD);
+            var creator = userRepository.GetUserByUsername(ADMIN_DEFAULT_NAME_AND_PASSWORD);
 
             if (newsRepository.Count() < 5)
             {

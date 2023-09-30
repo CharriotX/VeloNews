@@ -7,5 +7,7 @@ namespace VeloNews.Services.IServices
         List<User> GetAllUsers();
         User GetCurrentUser();
         User GetUserByNameAndPass(string userName, string userPass);
+        User GetUserByName(string username);
+        bool IsAdmin();
     }
 }
