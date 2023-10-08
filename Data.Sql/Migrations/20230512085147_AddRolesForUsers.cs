@@ -1,4 +1,4 @@
-﻿using Data.Interface.Models;
+﻿using Data.Interface.Models.enums;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable

@@ -11,7 +11,7 @@ namespace VeloNews.Services
         private IUserRepository _userRepository;
         private IHttpContextAccessor _httpContextAccessor;
 
-        public AuthenticationService(IUserRepository userRepository, 
+        public AuthenticationService(IUserRepository userRepository,
             IHttpContextAccessor httpContextAccessor)
         {
             _userRepository = userRepository;
@@ -56,9 +56,9 @@ namespace VeloNews.Services
         {
             var user = GetCurrentUser();
 
-            if(user == null)
+            if (user == null)
             {
-                return false;   
+                return false;
             }
 
             if (user.Name == DEFAULT_ADMIN_NAME)

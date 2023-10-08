@@ -2,6 +2,7 @@
 using Data.Interface.DataModels.AdminDataModels;
 using Data.Interface.DataModels.UserDataModels;
 using Data.Interface.Models;
+using Data.Interface.Models.enums;
 using Data.Interface.Repositories;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Cryptography.X509Certificates;

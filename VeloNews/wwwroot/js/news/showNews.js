@@ -3,7 +3,10 @@
         const userText = $("[name=Text]").val();
         const newsId = $(".news-id").val();
         const commentId = $(".comment-id-form").val();
-        console.log(commentId);
+
+        var hub = new signalR.HubConnectionBuilder()
+            .withUrl("/userActivity")
+            .build();
 
         $.post(`/api/news/addComment?commentId=${commentId}&newsId=${newsId}&text=${userText}`)
             .then(function (data) {
@@ -45,7 +48,6 @@
                     $("trix-editor").html(' ');
                     $('.comment-head').text('Add comment');
                 }
-
             });
     });
 

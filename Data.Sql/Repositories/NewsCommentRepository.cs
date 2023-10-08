@@ -21,7 +21,13 @@ namespace Data.Sql.Repositories
 
         public List<LastComment> GetLastComments()
         {
-            var lastComments = _dbSet.Include(x => x.News).Include(x => x.User).OrderByDescending(x => x.Id).Take(10).ToList();
+            var lastComments = _dbSet
+                .Include(x => x.News)
+                .Include(x => x.User)
+                .OrderByDescending(x => x.Id)
+                .Take(10)
+                .ToList();
+
             var data = lastComments.Select(x => new LastComment
             {
                 Id = x.Id,

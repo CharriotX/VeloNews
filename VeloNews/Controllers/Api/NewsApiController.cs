@@ -7,7 +7,7 @@ namespace VeloNews.Controllers.Api
 {
     [ApiController]
     [Route("/api/news")]
-    public class NewsApiController: Controller
+    public class NewsApiController : Controller
     {
         private INewsCommentService _newsCommentService;
 
@@ -19,8 +19,8 @@ namespace VeloNews.Controllers.Api
         [Route("AddComment")]
         public JsonResult AddComment(int commentId, int newsId, string text)
         {
-            var model = _newsCommentService.SaveComment(commentId,newsId, text);
-           
+            var model = _newsCommentService.SaveComment(commentId, newsId, text);
+
             return Json(model);
         }
 

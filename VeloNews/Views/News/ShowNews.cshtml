@@ -82,14 +82,11 @@
                                     <div class="text-username-nick">@comment.UserName</div>
                                     <div class="text-username-date">@comment.CreatedTime.ToString("dd-MM-yyyy, HH:mm")</div>
                                 </div>
-                                
+
                                 <div class="comment-actions">
-                                    @if (authService.IsAdmin())
-                                    {
-                                        <a href="#comment-anchor" class="remove-comment">Удалить</a>
-                                    }
                                     @if (authService.IsAdmin() || authService.GetCurrentUser() == authService.GetUserByName(comment.UserName))
                                     {
+                                        <a href="#comment-anchor" class="remove-comment">Удалить</a>
                                         <a href="#comment-anchor" class="edit-comment">Редактировать</a>
                                     }
                                 </div>
