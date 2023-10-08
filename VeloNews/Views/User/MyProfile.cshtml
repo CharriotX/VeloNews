@@ -1,6 +1,7 @@
 ﻿@using Data.Interface.Models;
 @using VeloNews.Models.UserViewModels;
 @using VeloNews.Services;
+@using Data.Interface.Models.enums;
 @model ProfileViewModel
 
 @section Styles {
@@ -11,9 +12,9 @@
     <script src="~/js/user/myProfile.js"></script>
 }
 
-<div>
+<div class="my-profile">
     <h2>My account</h2>
-    <div class="profile-logout-text">You are logged in. Click <a href="/User/Logout">here</a> to logout.</div>
+    <div class="profile-logout-text">You are logged in. Click <a class="my-profile-logout" href="/User/Logout">here</a> to logout.</div>
 
     <div class="account-info">
         @Html.HiddenFor(x => x.Id)
@@ -34,7 +35,7 @@
         <ul class="profile-info-list">
             <li class="profile-info-item">
                 <div>Username</div>
-                <div>@Model.Name</div>
+                <div class="info-item-username">@Model.Name</div>
             </li>
             <li class="profile-info-item">
                 <div>Country</div>

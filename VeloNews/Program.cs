@@ -2,10 +2,12 @@ using Data.Interface.Repositories;
 using Data.Sql;
 using Data.Sql.Repositories;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.DependencyInjection;
 using VeloNews.Services;
 using VeloNews.Services.Helpers;
 using VeloNews.Services.IServices;
+using VeloNews.SignalRHubs;
 using VeloNews.Utilities;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -40,7 +42,9 @@ builder.Services.AddScoped<IAdminRepository>(x =>
 builder.Services.AddScoped<INewsCommentService>(x =>
     new NewsCommentService(
         x.GetService<INewsCommentRepository>(),
-        x.GetService<IAuthenticationService>()));
+        x.GetService<IAuthenticationService>(),
+        x.GetService<IUserActivityHubService>(),
+        x.GetService<IHubContext<AdminUserActivityHub>>()));
 
 builder.Services.AddScoped<IUserService>(x =>
     new UserService(
@@ -74,6 +78,13 @@ builder.Services.AddScoped<IAuthenticationService>(x =>
         x.GetService<IHttpContextAccessor>()
         ));
 
+
+builder.Services.AddScoped<IUserActivityHubService>(x =>
+    new UserActivityHubService(
+        x.GetService<IHubContext<AdminUserActivityHub>>(),
+        x.GetService<IUserActivityRepository>(),
+        x.GetService<IAuthenticationService>()));
+
 builder.Services.AddScoped<INewsImageService>(x =>
     new NewsImageService(
         x.GetService<INewsImageRepository>(),
@@ -90,6 +101,9 @@ builder.Services.AddScoped<INewsRepository>(x =>
         x.GetService<INewsCategoryRepository>(),
         x.GetService<IUserRepository>()
         ));
+
+builder.Services.AddScoped<IUserActivityRepository>(x =>
+    new UserActivityRepository(x.GetService<WebContext>()));
 
 builder.Services.AddScoped<INewsCategoryRepository>(x =>
     new NewsCategoryRepository(x.GetService<WebContext>()));
@@ -114,6 +128,11 @@ builder.Services.AddScoped<IUserRepository>(x =>
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddControllersWithViews();
 
+builder.Services.AddSignalR(options =>
+{
+    options.EnableDetailedErrors = true;
+});
+
 var app = builder.Build();
 
 app.Seed();
@@ -132,6 +151,8 @@ app.UseAuthentication();
 
 //Where could i go
 app.UseAuthorization();
+
+app.MapHub<AdminUserActivityHub>("/userActivity");
 
 app.MapControllerRoute(
     name: "default",

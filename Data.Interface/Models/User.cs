@@ -1,4 +1,6 @@
-﻿namespace Data.Interface.Models
+﻿using Data.Interface.Models.enums;
+
+namespace Data.Interface.Models
 {
     public class User : BaseModel
     {

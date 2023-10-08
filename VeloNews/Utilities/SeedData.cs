@@ -1,4 +1,5 @@
 ﻿using Data.Interface.Models;
+using Data.Interface.Models.enums;
 using Data.Interface.Repositories;
 
 namespace VeloNews.Utilities

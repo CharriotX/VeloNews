@@ -1,0 +1,27 @@
+﻿@using VeloNews.Models.UserActivityViewModels;
+@model List<UserActivityViewModel>;
+
+@{
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+@section Scripts {
+    <script src="/js/admin/userActions.js"></script>
+}
+
+
+@section Styles {
+    <link href="~/css/admin.css" rel="stylesheet" type="text/css" />
+}
+
+<div class="user-activity-container">
+    <h3>Last User Activity</h3>
+    <section class="user-activity-section">
+        <div class="user-activity-block">
+            @foreach (var item in Model)
+            {
+                <div class="user-activity-block-row">Пользователь @item.UserName @Html.Raw(@item.Description)</div>
+            }
+        </div>
+    </section>
+</div>

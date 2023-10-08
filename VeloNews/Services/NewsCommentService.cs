@@ -1,8 +1,11 @@
 ﻿using Data.Interface.DataModels;
 using Data.Interface.DataModels.NewsDataModels;
+using Data.Interface.Models.enums;
 using Data.Interface.Repositories;
+using Microsoft.AspNetCore.SignalR;
 using VeloNews.Models.NewsViewModels;
 using VeloNews.Services.IServices;
+using VeloNews.SignalRHubs;
 
 namespace VeloNews.Services
 {
@@ -10,17 +13,23 @@ namespace VeloNews.Services
     {
         private INewsCommentRepository _newsCommentRepository;
         private IAuthenticationService _authenticationService;
+        private IUserActivityHubService _activityHubService;
+        private IHubContext<AdminUserActivityHub> _hubContext;
 
-        public NewsCommentService(INewsCommentRepository newsCommentRepository, 
-            IAuthenticationService authenticationService)
+        public NewsCommentService(INewsCommentRepository newsCommentRepository,
+            IAuthenticationService authenticationService,
+            IUserActivityHubService activityHubService,
+            IHubContext<AdminUserActivityHub> hubContext)
         {
             _newsCommentRepository = newsCommentRepository;
             _authenticationService = authenticationService;
+            _activityHubService = activityHubService;
+            _hubContext = hubContext;
         }
 
         public SaveNewsCommentViewModel SaveComment(int commentId, int newsId, string text)
         {
-            if(commentId == 0)
+            if (commentId == 0)
             {
                 var user = _authenticationService.GetCurrentUser();
                 var data = new SaveNewsCommentData
@@ -52,13 +61,16 @@ namespace VeloNews.Services
                     Text = comment.Text
                 };
 
+                _activityHubService.SaveUserCommentActivityHistory(user.Name, newsId.ToString(), data.Text);
+
                 return model;
+
             }
             else
             {
-                var model = EditComment(commentId,text);
+                var model = EditComment(commentId, text);
                 return model;
-            }      
+            }
 
         }
 

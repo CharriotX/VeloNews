@@ -13,12 +13,15 @@ namespace VeloNews.Controllers
     {
         private IUserService _userService;
         private IAuthenticationService _authenticationService;
+        private IUserActivityHubService _userActivityHubService;
 
-        public UserController(IUserService userService, 
-            IAuthenticationService authenticationService)
+        public UserController(IUserService userService,
+            IAuthenticationService authenticationService,
+            IUserActivityHubService userActivityHubService)
         {
             _userService = userService;
             _authenticationService = authenticationService;
+            _userActivityHubService = userActivityHubService;
         }
 
         [Authorize]
@@ -88,11 +91,15 @@ namespace VeloNews.Controllers
 
             await HttpContext.SignInAsync(principal);
 
+            _userActivityHubService.UserLogin(user.Id, user.Name);
+
             return RedirectToAction("MyProfile");
         }
 
         public async Task<IActionResult> Logout()
         {
+            _userActivityHubService.UserLogout();
+
             await HttpContext.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }

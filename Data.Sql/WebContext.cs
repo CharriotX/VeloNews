@@ -11,6 +11,7 @@ namespace Data.Sql
         public DbSet<UserProfileImage> UserProfileImages { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<NewsCategory> NewsCategories { get; set; }
+        public DbSet<UserActivityHub> UserActivities { get; set; }
 
         public WebContext() { }
 
