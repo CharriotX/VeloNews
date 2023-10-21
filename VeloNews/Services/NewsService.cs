@@ -9,9 +9,11 @@ using VeloNews.Models.HomeViewModels;
 using VeloNews.Models.NewsViewModels;
 using VeloNews.Models.UserViewModels;
 using VeloNews.Services.IServices;
+using VeloNews.Services.ServiceAttributes;
 
 namespace VeloNews.Services
 {
+    [AutoDiServiceRegistration]
     public class NewsService : INewsService
     {
         private INewsRepository _newsRepository;

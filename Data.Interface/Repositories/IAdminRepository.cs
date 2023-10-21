@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Data.Interface.Repositories
 {
-    public interface IAdminRepository
+    public interface IAdminRepository : IBaseRepository<User>
     {
         MainAdminPageData GetDataFormAdminMainPage();
         List<NewsForAdminPageData> GetAllNewsForAdminPage();

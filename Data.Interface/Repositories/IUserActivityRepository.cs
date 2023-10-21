@@ -12,6 +12,6 @@ namespace Data.Interface.Repositories
     {
         void SaveCommentActivityHistory(string username,string newsId, string text);
         void SaveAutorizationActivityHistory(string username, string description);
-        List<UserActivityData> GetUserActivityHistory();
+        List<UserActivityData> GetLastUserActivityHistory();
     }
 }

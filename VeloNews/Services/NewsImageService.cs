@@ -1,9 +1,11 @@
 ﻿using Data.Interface.DataModels;
 using Data.Interface.Repositories;
 using VeloNews.Services.IServices;
+using VeloNews.Services.ServiceAttributes;
 
 namespace VeloNews.Services
 {
+    [AutoDiServiceRegistration]
     public class NewsImageService : INewsImageService
     {
         private INewsImageRepository _newsImageRepository;
