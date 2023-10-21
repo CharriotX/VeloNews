@@ -32,16 +32,17 @@ namespace Data.Sql.Repositories
             Save(dbModel);
         }
 
-        public List<UserActivityData> GetUserActivityHistory()
+        public List<UserActivityData> GetLastUserActivityHistory()
         {
             var dataModels = _dbSet
+                .OrderByDescending(x => x.Id)
                 .Take(30)
                 .Select(dbModel => new UserActivityData
-                {
-                    Id = dbModel.Id,
-                    Username = dbModel.Username,
-                    Description = dbModel.Description
-                })
+                    {
+                        Id = dbModel.Id,
+                        Username = dbModel.Username,
+                        Description = dbModel.Description
+                    })
                     .ToList();
 
             return dataModels;

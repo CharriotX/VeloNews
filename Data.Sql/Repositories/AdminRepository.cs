@@ -10,15 +10,16 @@ using System.Threading.Tasks;
 
 namespace Data.Sql.Repositories
 {
-    public class AdminRepository : IAdminRepository
+    public class AdminRepository : BaseRepository<User>, IAdminRepository
     {
         private IUserRepository _userRepository;
         private INewsRepository _newsRepository;
         private INewsCommentRepository _newsCommentRepository;
 
-        public AdminRepository(IUserRepository userRepository,
+        public AdminRepository(WebContext webContext,
+            IUserRepository userRepository,
             INewsRepository newsRepository,
-            INewsCommentRepository newsCommentRepository)
+            INewsCommentRepository newsCommentRepository) : base(webContext)
         {
             _userRepository = userRepository;
             _newsRepository = newsRepository;

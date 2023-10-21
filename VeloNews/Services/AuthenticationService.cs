@@ -1,9 +1,11 @@
 ﻿using Data.Interface.Models;
 using Data.Interface.Repositories;
 using VeloNews.Services.IServices;
+using VeloNews.Services.ServiceAttributes;
 
 namespace VeloNews.Services
 {
+    [AutoDiServiceRegistration]
     public class AuthenticationService : IAuthenticationService
     {
         private const string DEFAULT_ADMIN_NAME = "admin";

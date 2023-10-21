@@ -9,9 +9,11 @@ using VeloNews.Models.AdminViewModels;
 using VeloNews.Models.NewsViewModels;
 using VeloNews.Models.UserViewModels;
 using VeloNews.Services.IServices;
+using VeloNews.Services.ServiceAttributes;
 
 namespace VeloNews.Services
 {
+    [AutoDiServiceRegistration]
     public class UserProfileImageService : IUserProfileImageService
     {
         private IUserRepository _userRepository;

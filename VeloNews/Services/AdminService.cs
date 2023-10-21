@@ -6,9 +6,11 @@ using VeloNews.Models.NewsViewModels;
 using VeloNews.Models.UserViewModels;
 using VeloNews.Services.Helpers;
 using VeloNews.Services.IServices;
+using VeloNews.Services.ServiceAttributes;
 
 namespace VeloNews.Services
 {
+    [AutoDiServiceRegistration]
     public class AdminService : IAdminService
     {
         private IUserService _userService;

@@ -5,10 +5,12 @@ using Data.Interface.Repositories;
 using Microsoft.AspNetCore.SignalR;
 using VeloNews.Models.NewsViewModels;
 using VeloNews.Services.IServices;
+using VeloNews.Services.ServiceAttributes;
 using VeloNews.SignalRHubs;
 
 namespace VeloNews.Services
 {
+    [AutoDiServiceRegistration]
     public class NewsCommentService : INewsCommentService
     {
         private INewsCommentRepository _newsCommentRepository;

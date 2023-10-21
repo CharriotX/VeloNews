@@ -3,9 +3,11 @@ using Data.Interface.Repositories;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using VeloNews.Models.UserViewModels;
 using VeloNews.Services.IServices;
+using VeloNews.Services.ServiceAttributes;
 
 namespace VeloNews.Services
 {
+    [AutoDiServiceRegistration]
     public class UserService : IUserService
     {
         private IUserRepository _userRepository;

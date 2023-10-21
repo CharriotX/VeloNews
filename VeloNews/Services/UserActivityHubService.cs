@@ -2,10 +2,12 @@
 using Microsoft.AspNetCore.SignalR;
 using VeloNews.Models.UserActivityViewModels;
 using VeloNews.Services.IServices;
+using VeloNews.Services.ServiceAttributes;
 using VeloNews.SignalRHubs;
 
 namespace VeloNews.Services
 {
+    [AutoDiServiceRegistration]
     public class UserActivityHubService : IUserActivityHubService
     {
         private IHubContext<AdminUserActivityHub> _hubContext;
@@ -58,14 +60,16 @@ namespace VeloNews.Services
 
         public List<UserActivityViewModel> GetAllActions()
         {
-            var data = _userActivityRepository.GetUserActivityHistory();
+            var data = _userActivityRepository.GetLastUserActivityHistory();
 
             var viewModels = data.Select(x => new UserActivityViewModel()
             {
                 Id = x.Id,
                 UserName = x.Username,
                 Description = x.Description
-            }).ToList();
+            })
+                .OrderBy(x => x.Id)
+                .ToList();
 
             return viewModels;
         }

@@ -2,9 +2,11 @@
 using Data.Interface.Repositories;
 using VeloNews.Models;
 using VeloNews.Services.IServices;
+using VeloNews.Services.ServiceAttributes;
 
 namespace VeloNews.Services.Helpers
 {
+    [AutoDiServiceRegistration]
     public class PaginatorService : IPaginatorService
     {
         public PaginatorViewModel<TViewModel> GetPaginatorViewModel<TViewModel, TDbModel>(
