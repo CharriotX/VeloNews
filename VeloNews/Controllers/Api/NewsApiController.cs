@@ -9,25 +9,35 @@ namespace VeloNews.Controllers.Api
     [Route("/api/news")]
     public class NewsApiController : Controller
     {
-        private INewsCommentService _newsCommentService;
+        private INewsService _newsService;
 
-        public NewsApiController(INewsCommentService newsCommentService)
+        public NewsApiController(INewsService newsService)
         {
-            _newsCommentService = newsCommentService;
+            _newsService = newsService;
         }
 
-        [Route("AddComment")]
-        public JsonResult AddComment(int commentId, int newsId, string text)
+        [HttpGet]
+        public List<NewsCardViewModel> GetAll()
         {
-            var model = _newsCommentService.SaveComment(commentId, newsId, text);
+            var newsCardsViewModels = _newsService.GetAllNewsCards();
 
-            return Json(model);
+            return newsCardsViewModels; 
         }
 
-        [Route("RemoveComment")]
-        public void RemoveComment(int commentId)
+        [HttpGet("{id}")]
+        public ShowNewsViewModel GetFullNews(int id)
         {
-            _newsCommentService.RemoveComment(commentId);
+            var newsViewModels = _newsService.GetFullNews(id);
+
+            return newsViewModels;
+        }
+
+        [HttpPost]
+        public ActionResult<AddNewsViewModel> Create(AddNewsViewModel viewModel)
+        {
+            var newsViewModel = _newsService.SaveNews(viewModel);
+
+            return Ok(newsViewModel);
         }
     }
 }

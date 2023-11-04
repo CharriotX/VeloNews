@@ -8,7 +8,7 @@
             .withUrl("/userActivity")
             .build();
 
-        $.post(`/api/news/addComment?commentId=${commentId}&newsId=${newsId}&text=${userText}`)
+        $.post(`/api/newsComments/addComment?commentId=${commentId}&newsId=${newsId}&text=${userText}`)
             .then(function (data) {
 
                 if (commentId == 0) {
@@ -57,7 +57,7 @@
             .find("[name=commentId]")
             .val();
 
-        $.post(`/api/news/RemoveComment?commentId=${commentId}`);
+        $.post(`/api/newsComments/RemoveComment?commentId=${commentId}`);
 
         $(this)
             .closest(".comment-item")

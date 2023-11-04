@@ -91,6 +91,14 @@ diRepositoryRegisterHelper.RegisterAllServices(builder.Services);
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddControllersWithViews();
 
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(builder =>
+                      {
+                          builder.WithOrigins("*");
+                      });
+});
+
 builder.Services.AddSignalR(options =>
 {
     options.EnableDetailedErrors = true;
@@ -105,6 +113,8 @@ if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
 }
+app.UseCors();
+
 app.UseStaticFiles();
 
 app.UseRouting();
