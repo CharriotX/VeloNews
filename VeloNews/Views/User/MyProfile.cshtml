@@ -2,6 +2,7 @@
 @using VeloNews.Models.UserViewModels;
 @using VeloNews.Services;
 @using Data.Interface.Models.enums;
+@using VeloNews.Localization.Views.User;
 @model ProfileViewModel
 
 @section Styles {
@@ -13,12 +14,12 @@
 }
 
 <div class="my-profile">
-    <h2>My account</h2>
-    <div class="profile-logout-text">You are logged in. Click <a class="my-profile-logout" href="/User/Logout">here</a> to logout.</div>
+    <h2>@MyProfile.My_Profile_Title</h2>
+    <div class="profile-logout-text">@Html.Raw(MyProfile.Logout_String)</div>
 
     <div class="account-info">
         @Html.HiddenFor(x => x.Id)
-        Your account information.
+        @MyProfile.Account_Info
         @if (Model.Role == UserRole.Admin.ToString())
         {
             <div>
@@ -34,15 +35,15 @@
         </div>
         <ul class="profile-info-list">
             <li class="profile-info-item">
-                <div>Username</div>
+                <div>@MyProfile.Username</div>
                 <div class="info-item-username">@Model.Name</div>
             </li>
             <li class="profile-info-item">
-                <div>Country</div>
+                <div>@MyProfile.Country</div>
                 <div>@Model.Country</div>
             </li>
             <li class="profile-info-item">
-                <div>Date of Birth</div>
+                <div>@MyProfile.Date_Of_Birth</div>
                 <div>
                     @if (Model.DateOfBirth <= Model.DefaultDateOfBirth)
                     {
@@ -55,12 +56,18 @@
                 </div>
             </li>
             <li class="profile-info-item">
-                <div>Account creation date</div>
+                <div>@MyProfile.Account_Creation_Date</div>
                 <div>@Model.UserCreationDate.ToShortDateString()</div>
+            </li>
+            <li class="profile-info-item">
+                <div>@MyProfile.Language</div>
+                <div>@Model.Language</div>
             </li>
         </ul>
         <div>
-            <a href="/User/EditMyProfile?userId=@Model.Id">Редактировать профиль</a>
+            <a class="my-profile-logout" href="/User/EditMyProfile?userId=@Model.Id">
+                @MyProfile.Edit_Profile_Ref
+            </a>
         </div>
     </div>
 </div>

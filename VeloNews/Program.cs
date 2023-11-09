@@ -2,8 +2,13 @@ using Data.Interface.Repositories;
 using Data.Sql;
 using Data.Sql.Repositories;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Http.Headers;
+using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.DependencyInjection;
+using System.Globalization;
+using VeloNews.Localization;
 using VeloNews.Services;
 using VeloNews.Services.Helpers;
 using VeloNews.Services.IServices;
@@ -25,65 +30,6 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 var dataSqlStartup = new Startup();
 dataSqlStartup.RegisterDbContext(builder.Services);
 
-//builder.Services.AddScoped<IPaginatorService, PaginatorService>();
-
-//builder.Services.AddScoped<INewsCommentService>(x =>
-//    new NewsCommentService(
-//        x.GetService<INewsCommentRepository>(),
-//        x.GetService<IAuthenticationService>(),
-//        x.GetService<IUserActivityHubService>(),
-//        x.GetService<IHubContext<AdminUserActivityHub>>()));
-
-//builder.Services.AddScoped<IUserService>(x =>
-//    new UserService(
-//        x.GetService<IUserRepository>(),
-//        x.GetService<IHttpContextAccessor>(),
-//        x.GetService<IUserProfileImageRepository>(),
-//        x.GetService<IUserProfileImageService>(),
-//        x.GetService<IAuthenticationService>()
-//        ));
-
-//builder.Services.AddScoped<INewsService>(x =>
-//    new NewsService(
-//        x.GetService<INewsRepository>(),
-//        x.GetService<INewsImageRepository>(),
-//        x.GetService<INewsCategoryRepository>(),
-//        x.GetService<IPaginatorService>(),
-//        x.GetService<IAuthenticationService>(),
-//        x.GetService<INewsImageService>()
-//        ));
-
-//builder.Services.AddScoped<IUserProfileImageService>(x =>
-//    new UserProfileImageService(
-//        x.GetService<IUserRepository>(),
-//        x.GetService<IWebHostEnvironment>(),
-//        x.GetService<IUserProfileImageRepository>()
-//        ));
-
-//builder.Services.AddScoped<IAdminService>(x =>
-//    new AdminService(
-//        x.GetService<IUserService>(),
-//        x.GetService<IAdminRepository>()));
-
-//builder.Services.AddScoped<IAuthenticationService>(x =>
-//    new AuthenticationService(
-//        x.GetService<IUserRepository>(),
-//        x.GetService<IHttpContextAccessor>()
-//        ));
-
-
-//builder.Services.AddScoped<IUserActivityHubService>(x =>
-//    new UserActivityHubService(
-//        x.GetService<IHubContext<AdminUserActivityHub>>(),
-//        x.GetService<IUserActivityRepository>(),
-//        x.GetService<IAuthenticationService>()));
-
-//builder.Services.AddScoped<INewsImageService>(x =>
-//    new NewsImageService(
-//        x.GetService<INewsImageRepository>(),
-//        x.GetService<IWebHostEnvironment>()));
-
-
 var diRepositoryRegisterHelper = new DiRegistrationHelper();
 diRepositoryRegisterHelper.RegisterAllRepositories(builder.Services);
 diRepositoryRegisterHelper.RegisterAllServices(builder.Services);
@@ -103,6 +49,9 @@ builder.Services.AddSignalR(options =>
 {
     options.EnableDetailedErrors = true;
 });
+
+
+
 
 var app = builder.Build();
 
@@ -124,6 +73,8 @@ app.UseAuthentication();
 
 //Where could i go
 app.UseAuthorization();
+
+app.UseMiddleware<LocalizeMiddleware>();
 
 app.MapHub<AdminUserActivityHub>("/userActivity");
 

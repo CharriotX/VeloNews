@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Data.Interface.Models.enums;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.ComponentModel.DataAnnotations;
 using VeloNews.Models.ValidationAttributes;
@@ -16,5 +17,7 @@ namespace VeloNews.Models.UserViewModels
         public List<SelectListItem> Countries { get; set; } = new List<SelectListItem>();
         [IsCorrectDateOfBirthRange("01/01/1940", ErrorMessage ="Invalid date")]
         public DateTime DateOfBirth { get; set; }
+        public UserLanguage Language { get; set; }
+        public List<SelectListItem> Languages { get; set; } = new List<SelectListItem>();
     }
 }

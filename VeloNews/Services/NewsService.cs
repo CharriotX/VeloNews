@@ -43,6 +43,37 @@ namespace VeloNews.Services
             _newsRepository.EditNews(id, title, text, shorText);
         }
 
+        public PaginatorViewModel<NewsCardViewModel> GetNewsByCategoryWithPagination(string categoryName, int page)
+        {
+            var newsByCategory = _newsRepository.GetNewsByCategory(categoryName);
+
+            var perPage = 6f;
+            var pageCount = Math.Ceiling(newsByCategory.Count() / perPage);
+
+            var news = newsByCategory
+                .Skip((page - 1) * (int)perPage)
+                .Take((int)perPage)
+                .ToList();
+
+            var viewModel = new PaginatorViewModel<NewsCardViewModel>()
+            {
+                ActivePageNumber = page,
+                PagesListCount = (int)pageCount,
+                Items = news.Select(x => new NewsCardViewModel()
+                {
+                    Id = x.Id,
+                    Title = x.Title,
+                    Author = x.Author,
+                    Category = x.Category,
+                    CreatedTime = x.CreatedTime,
+                    PreviewImage = x.PreviewImage,
+                    ShortText = x.ShortText
+                }).ToList()
+            };
+
+            return viewModel;
+        }
+
         public HomeViewModel GetNewsForHomePage()
         {
             var lastNews = _newsRepository.GetNewsForHomePage();
@@ -164,24 +195,12 @@ namespace VeloNews.Services
             return data;
         }
 
-        public PaginatorViewModel<NewsForAdminPageViewModel> GetAllNewsForPagginator(int page, int perPage)
+        public PaginatorViewModel<NewsForAdminPageViewModel> GetAllNewsForAdminPagginator(int page, int perPage)
         {
             var viewModel = _paginatorService.GetPaginatorViewModel(
                 page,
                 perPage,
                 BuildAdminNewsViewModel,
-                _newsRepository
-                );
-
-            return viewModel;
-        }
-
-        public PaginatorViewModel<NewsCardViewModel> GetNewsCardForPaginator(int page, int perPage)
-        {
-            var viewModel = _paginatorService.GetPaginatorViewModel(
-                page,
-                perPage,
-                BuildNewsCardViewModel,
                 _newsRepository
                 );
 
@@ -201,22 +220,6 @@ namespace VeloNews.Services
                 TimeOfCreation = dbNews.CreatedTime,
                 Title = dbNews.Title
             };
-        }
-
-        public NewsCardViewModel BuildNewsCardViewModel(News model)
-        {
-            var viewModel = new NewsCardViewModel()
-            {
-                Id = model.Id,
-                Title = model.Title,
-                ShortText = model.ShorText,
-                CreatedTime = model.CreatedTime,
-                Author = model.Creator.Name,
-                Category = model.Category.Name,
-                PreviewImage = model.NewsImages.First().Url
-            };
-
-            return viewModel;
         }
     }
 }

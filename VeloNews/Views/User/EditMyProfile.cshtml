@@ -35,6 +35,13 @@
                     <div class ="block-item-input"><input asp-for="DateOfBirth" type="date" /></div>
                     <div>@Html.ValidationMessageFor(x => x.DateOfBirth)</div>
                 </li>
+                <div class="block-item-title">Language</div>
+                <div class="block-item-input">
+                    <select asp-for="Language"
+                            asp-items="@Model.Languages">
+                        <option>Не указан</option>
+                    </select>
+                </div>
                 <li class="edit-block_item">
                     <div class="block-item-title">Upload new image</div>
                     <div class="block-item-input"><input asp-for="@Model.NewProfileImage" type="file" /></div>

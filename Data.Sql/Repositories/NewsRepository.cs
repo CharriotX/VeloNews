@@ -43,6 +43,27 @@ namespace Data.Sql.Repositories
 
             return data;
         }
+
+        public List<NewsCardsData> GetNewsByCategory(string categoryName)
+        {
+            return _dbSet
+                .Include(x => x.NewsImages)
+                .Include(x => x.Category)
+                .Include(x => x.Creator)
+                .Where(x => x.Category.Name == categoryName)
+                .Select(x => new NewsCardsData
+                {
+                    Id = x.Id,
+                    Title = x.Title,
+                    ShortText = x.ShorText,
+                    CreatedTime = x.CreatedTime,
+                    Author = x.Creator.Name,
+                    Category = x.Category.Name,
+                    PreviewImage = x.NewsImages.FirstOrDefault().Url
+                })
+                    .ToList();
+        }
+
         public List<News> GetAllNewsWithCreator()
         {
             return _dbSet.Include(x => x.Creator).ToList();
@@ -121,16 +142,7 @@ namespace Data.Sql.Repositories
 
             return data;
         }
-        public override PaginatorData<News> GetPaginator(int page, int perPage)
-        {
-            var initialSource = _dbSet
-                .Include(x => x.Creator)
-                .Include(x => x.NewsImages)
-                .Include(x => x.Category)
-                .OrderByDescending(x => x.Id);
 
-            return base.GetPaginator(initialSource, page, perPage);
-        }
         public int SaveNews(AddNewsData data)
         {
             var user = _userRepository.Get(data.Author.Id);
@@ -151,6 +163,18 @@ namespace Data.Sql.Repositories
 
             return model.Id;
         }
+
+        public override PaginatorData<News> GetPaginator(int page, int perPage)
+        {
+            var initialSource = _dbSet
+                .Include(x => x.Creator)
+                .Include(x => x.NewsImages)
+                .Include(x => x.Category)
+                .OrderByDescending(x => x.Id);
+
+            return base.GetPaginator(initialSource, page, perPage);
+        }
+
         public List<HomePageLastNewsData> GetNewsForHomePage()
         {
             var news = _dbSet
