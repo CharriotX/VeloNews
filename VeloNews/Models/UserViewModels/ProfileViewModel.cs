@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Data.Interface.Models.enums;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using VeloNews.Models.ValidationAttributes;
 
 namespace VeloNews.Models.UserViewModels
@@ -15,5 +16,6 @@ namespace VeloNews.Models.UserViewModels
         public DateTime UserCreationDate { get; set; }
         public DateTime DateOfBirth { get; set; }
         public DateTime DefaultDateOfBirth { get; set; } = new DateTime(1500, 01, 01);
+        public UserLanguage Language { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Data.Interface.DataModels.UserDataModels;
+using Data.Interface.Models.enums;
 using Data.Interface.Repositories;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using VeloNews.Models.UserViewModels;
@@ -46,6 +47,7 @@ namespace VeloNews.Services
         {
             var user = _userRepository.GetUserWithProfileImage(userId);
             var countries = ISO3166.Country.List.OrderBy(x => x.Name).ToList();
+            var languages = Enum.GetValues(typeof(UserLanguage)).Cast<UserLanguage>();
 
             var viewModel = new EditMyProfileViewModel()
             {
@@ -57,6 +59,11 @@ namespace VeloNews.Services
                 {
                     Text = x.Name,
                     Value = x.Name
+                }).ToList(),
+                Languages = languages.Select(x => new SelectListItem()
+                {
+                    Text =  x.ToString(),
+                    Value = ((int)x).ToString()
                 }).ToList()
             };
 
@@ -70,7 +77,8 @@ namespace VeloNews.Services
                 Id = viewModel.UserId,
                 Name = viewModel.Name,
                 Country = viewModel.Country,
-                DateOfBirth = viewModel.DateOfBirth
+                DateOfBirth = viewModel.DateOfBirth,
+                Language = viewModel.Language
             };
 
             _userRepository.EditMyProfile(data);
@@ -95,7 +103,8 @@ namespace VeloNews.Services
                 ProfileImageUrl = userData.User.UserProfileImageUrl,
                 DateOfBirth = userData.User.DateOfBirth,
                 UserCreationDate = userData.User.UserCreationDate,
-                Country = userData.User.Country
+                Country = userData.User.Country,
+                Language = userData.User.Language
             };
 
             return model;

@@ -19,9 +19,9 @@ namespace VeloNews.Controllers
             _newsCommentService = newsCommentService;
         }
 
-        public IActionResult Index(int page = 1, int perPage = 6)
+        public IActionResult Index(string categoryName, int page = 1)
         {
-            var model = _newsService.GetNewsCardForPaginator(page, perPage);
+            var model = _newsService.GetNewsByCategoryWithPagination(categoryName, page);
 
             return View(model);
         }

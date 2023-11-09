@@ -5,7 +5,6 @@ using Data.Interface.Models;
 using Data.Interface.Models.enums;
 using Data.Interface.Repositories;
 using Microsoft.EntityFrameworkCore;
-using System.Security.Cryptography.X509Certificates;
 
 namespace Data.Sql.Repositories
 {
@@ -84,7 +83,8 @@ namespace Data.Sql.Repositories
                     Role = user.Role.ToString(),
                     Country = user.Country,
                     UserCreationDate = user.UserCreationDate,
-                    DateOfBirth = user.DateOfBirth
+                    DateOfBirth = user.DateOfBirth,
+                    Language = user.Language
                 }
             };
 
@@ -97,6 +97,7 @@ namespace Data.Sql.Repositories
             user.Name = data.Name;
             user.Country = data.Country;
             user.DateOfBirth = data.DateOfBirth;
+            user.Language = data.Language;
 
             _webContext.SaveChanges();
         }

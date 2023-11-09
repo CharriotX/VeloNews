@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using VeloNews.Localization.Views.Shared;
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -23,24 +25,23 @@
             <div class="container">
                 <div class="login-block">
                     <div class="title">
-                        <div>VELO NEWS</div>
+                        <div>@_Layout.Site_Title</div>
                     </div>
                     <div class="auth">
                         @if (!User.Identity.IsAuthenticated)
                         {
                             <span class="material-symbols-outlined">lock</span>
-                            <div><a href="/User/Login">Login</a></div>
+                            <div><a href="/User/Login">@_Layout.Login</a></div>
                             <div>/</div>
-                            <div><a href="/User/Registration">Registration</a></div>
+                            <div><a href="/User/Registration">@_Layout.Registration</a></div>
                         }
                         else
                         {
                             <span class="material-symbols-outlined">
                                 account_circle
                             </span>
-                            <div><a href="/User/MyProfile">My Profile</a></div>
+                            <div><a href="/User/MyProfile">@_Layout.Profile</a></div>
                         }
-
                     </div>
                 </div>
             </div>
@@ -49,16 +50,22 @@
             <div class="container">
                 <ul class="nav-list">
                     <li class="nav-item">
-                        <a href="/Home/Index">Home</a>
+                        <a href="/Home/Index">@_Layout.Home_Ref</a>
                     </li>
                     <li class="nav-item">
-                        <a href="/News/Index">News</a>
+                        <a asp-controller="News" asp-action="Index" asp-route-categoryName="News">
+                            @_Layout.News_Ref
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a>Races</a>
+                        <a asp-controller="News" asp-action="Index" asp-route-categoryName="Race">
+                            @_Layout.Races_Ref
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a>Results</a>
+                        <a asp-controller="News" asp-action="Index" asp-route-categoryName="Result">
+                            @_Layout.Result_Ref
+                        </a>
                     </li>
                 </ul>
             </div>

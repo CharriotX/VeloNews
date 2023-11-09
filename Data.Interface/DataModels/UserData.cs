@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Data.Interface.Models.enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,6 +15,7 @@ namespace Data.Interface.DataModels
         public string UserProfileImageUrl { get; set; }
         public DateTime UserCreationDate { get; set; }
         public DateTime DateOfBirth { get; set; }
+        public UserLanguage Language { get; set; }
         public string Country { get; set; }
     }
 }

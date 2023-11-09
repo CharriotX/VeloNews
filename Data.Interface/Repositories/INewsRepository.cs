@@ -10,6 +10,7 @@ namespace Data.Interface.Repositories
     {
         List<News> GetAllNewsWithCreator();
         NewsWithCommentsAndImagesData GetNewsWithCommentsAndImages(int newsId);
+        List<NewsCardsData> GetNewsByCategory(string categoryName);
         List<HomePageLastNewsData> GetNewsForHomePage();
         List<NewsCardsData> GetAllNewsCards();
         List<LastNews> GetLastNews();

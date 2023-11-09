@@ -12,14 +12,13 @@ namespace VeloNews.Services.IServices
     {
         ShowNewsViewModel GetFullNews(int newsId);
         List<NewsCardViewModel> GetAllNewsCards();
+        PaginatorViewModel<NewsCardViewModel> GetNewsByCategoryWithPagination(string categoryName, int page);
         EditNewsViewModel GetNewsForEdit(int newsId);
         AddNewsData SaveNews(AddNewsViewModel viewModel);
         AddNewsViewModel GetAllNewsCategories();
         HomeViewModel GetNewsForHomePage();
-        PaginatorViewModel<NewsForAdminPageViewModel> GetAllNewsForPagginator(int page, int perPage);
-        PaginatorViewModel<NewsCardViewModel> GetNewsCardForPaginator(int page, int perPage);
+        PaginatorViewModel<NewsForAdminPageViewModel> GetAllNewsForAdminPagginator(int page, int perPage);
         NewsForAdminPageViewModel BuildAdminNewsViewModel(News dbNews);
-        NewsCardViewModel BuildNewsCardViewModel(News model);
         void EditNews(int id, string title, string text, string shorText);
     }
 }

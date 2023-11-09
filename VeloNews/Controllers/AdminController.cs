@@ -28,7 +28,7 @@ namespace VeloNews.Controllers
 
         public IActionResult AllNews(int page = 1, int perPage = 8)
         {
-            var model = _newsService.GetAllNewsForPagginator(page, perPage);
+            var model = _newsService.GetAllNewsForAdminPagginator(page, perPage);
             return View(model);
         }
         public IActionResult UserActivity()
