@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.DependencyInjection;
+using Serilog;
 using System.Globalization;
 using VeloNews.Localization;
 using VeloNews.Services;
@@ -51,7 +52,18 @@ builder.Services.AddSignalR(options =>
 });
 
 
+Log.Logger = new LoggerConfiguration()
+    .MinimumLevel.Information()
+    .WriteTo.File("Logs/Info/INFO-LOG-.txt",
+        outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level}] {Message:lj}{NewLine}{Exception}",
+        rollingInterval: RollingInterval.Day)
+    .WriteTo.File("Logs/Error/ERROR-LOG-.txt",
+        outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level}] {Message:lj}{NewLine}{Exception}",
+        rollingInterval: RollingInterval.Day,
+        restrictedToMinimumLevel: Serilog.Events.LogEventLevel.Error)
+    .CreateLogger();
 
+builder.Host.UseSerilog();
 
 var app = builder.Build();
 
@@ -62,6 +74,9 @@ if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
 }
+
+app.UseSerilogRequestLogging();
+
 app.UseCors();
 
 app.UseStaticFiles();

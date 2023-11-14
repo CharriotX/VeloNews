@@ -9,5 +9,6 @@ namespace VeloNews.Services.IServices
         User GetUserByNameAndPass(string userName, string userPass);
         User GetUserByName(string username);
         bool IsAdmin();
+        public bool IsUserAuthorized();
     }
 }

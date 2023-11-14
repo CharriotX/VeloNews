@@ -57,7 +57,7 @@ namespace Data.Sql.Repositories
 
             var data = new MainAdminPageData
             {
-                LastPublishedNews = lastNews.Select(x => new LastNews
+                LastPublishedNews = lastNews.Select(x => new LastNewsData
                 {
                     Title = x.Title,
                     Id = x.Id,
@@ -67,7 +67,7 @@ namespace Data.Sql.Repositories
                         AuthorName = x.Creator.AuthorName
                     }
                 }).ToList(),
-                LastComments = lastComments.Select(x => new LastComment
+                LastComments = lastComments.Select(x => new LastCommentData
                 {
                     Id = x.Id,
                     NewsId = x.NewsId,
@@ -78,12 +78,12 @@ namespace Data.Sql.Repositories
                         AuthorName = x.Creator.AuthorName
                     }
                 }).ToList(),
-                LastRegisteredUsers = lastRegisterUsers.Select(x => new LastRegisteredUser
+                LastRegisteredUsers = lastRegisterUsers.Select(x => new LastRegisteredUserData
                 {
                     Id = x.Id,
                     UserName = x.UserName
                 }).ToList(),
-                SiteStats = new SiteStats
+                SiteStats = new SiteStatsData
                 {
                     UsersCount = usersCount,
                     NewsCommentsCount = newsCommentCount,

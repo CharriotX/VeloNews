@@ -8,20 +8,20 @@ namespace Data.Interface.DataModels.AdminDataModels
 {
     public class MainAdminPageData
     {
-        public List<LastNews> LastPublishedNews { get; set; }
-        public List<LastComment> LastComments { get; set; }
-        public List<LastRegisteredUser> LastRegisteredUsers { get; set; }
-        public SiteStats SiteStats { get; set; } 
+        public List<LastNewsData> LastPublishedNews { get; set; }
+        public List<LastCommentData> LastComments { get; set; }
+        public List<LastRegisteredUserData> LastRegisteredUsers { get; set; }
+        public SiteStatsData SiteStats { get; set; } 
     }
 
-    public class LastNews
+    public class LastNewsData
     {
         public int Id { get; set; }
         public string Title { get; set; }
         public CommentAuthorData Creator { get; set; }
     }
 
-    public class LastComment
+    public class LastCommentData
     {
         public int Id { get; set; }
         public CommentAuthorData Creator { get; set; }
@@ -29,13 +29,13 @@ namespace Data.Interface.DataModels.AdminDataModels
         public int NewsId { get; set; }
     }
 
-    public class LastRegisteredUser
+    public class LastRegisteredUserData
     {
         public int Id { get; set; }
         public string UserName { get; set; }
     }
 
-    public class SiteStats
+    public class SiteStatsData
     {
         public int NewsCount { get; set; }
         public int NewsCommentsCount { get; set; }

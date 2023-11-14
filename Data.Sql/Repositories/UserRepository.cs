@@ -15,10 +15,10 @@ namespace Data.Sql.Repositories
 
         }
 
-        public List<LastRegisteredUser> GetLastRegisteredUsers()
+        public List<LastRegisteredUserData> GetLastRegisteredUsers()
         {
             var lastRegisterUser = _dbSet.OrderByDescending(x => x.Id).Take(10).ToList();
-            var data = lastRegisterUser.Select(x => new LastRegisteredUser
+            var data = lastRegisterUser.Select(x => new LastRegisteredUserData
             {
                 Id = x.Id,
                 UserName = x.Name

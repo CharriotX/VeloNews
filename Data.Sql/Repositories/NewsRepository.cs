@@ -85,10 +85,10 @@ namespace Data.Sql.Repositories
                     PreviewImage = dbNews.NewsImages.FirstOrDefault().Url
                 }).ToList();
         }
-        public List<LastNews> GetLastNews()
+        public List<LastNewsData> GetLastNews()
         {
             var lastNews = _dbSet.Include(x => x.Creator).OrderByDescending(x => x.Id).Take(10).ToList();
-            var data = lastNews.Select(x => new LastNews
+            var data = lastNews.Select(x => new LastNewsData
             {
                 Id = x.Id,
                 Title = x.Title,

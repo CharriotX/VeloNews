@@ -27,7 +27,7 @@ namespace VeloNews.Controllers
         [Authorize]
         public IActionResult MyProfile()
         {
-            var user = _authenticationService.GetCurrentUser();
+            var user = _authenticationService.IsUserAuthorized();
 
             if (user == null)
             {
