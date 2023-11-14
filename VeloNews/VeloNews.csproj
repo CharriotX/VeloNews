@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="Logs\Error\" />
     <Folder Include="wwwroot\css\froala\" />
     <Folder Include="wwwroot\images\uploads\news\" />
     <Folder Include="wwwroot\images\uploads\pictures\" />
@@ -16,6 +17,7 @@
 
   <ItemGroup>
     <PackageReference Include="ISO3166" Version="1.0.4" />
+    <PackageReference Include="Serilog.AspNetCore" Version="7.0.0" />
   </ItemGroup>
 
   <ItemGroup>

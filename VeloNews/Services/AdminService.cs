@@ -1,10 +1,7 @@
-﻿using Data.Interface.Models;
-using Data.Interface.Repositories;
-using VeloNews.Models;
+﻿using Data.Interface.Repositories;
 using VeloNews.Models.AdminViewModels;
 using VeloNews.Models.NewsViewModels;
 using VeloNews.Models.UserViewModels;
-using VeloNews.Services.Helpers;
 using VeloNews.Services.IServices;
 using VeloNews.Services.ServiceAttributes;
 
@@ -13,12 +10,10 @@ namespace VeloNews.Services
     [AutoDiServiceRegistration]
     public class AdminService : IAdminService
     {
-        private IUserService _userService;
         private IAdminRepository _adminRepository;
         
-        public AdminService(IUserService userService, IAdminRepository adminRepository)
+        public AdminService(IAdminRepository adminRepository)
         {
-            _userService = userService;
             _adminRepository = adminRepository;
         }
 

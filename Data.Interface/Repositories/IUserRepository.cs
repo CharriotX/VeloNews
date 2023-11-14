@@ -8,7 +8,7 @@ namespace Data.Interface.Repositories
     {
         User GetUserByNameAndPass(string name, string pass);
         bool IsUserExist(string userName);
-        List<LastRegisteredUser> GetLastRegisteredUsers();
+        List<LastRegisteredUserData> GetLastRegisteredUsers();
         User UserRegistration(UserRegistrationData data);
         User GetUserByUsername(string userName);
         bool IsUserNameExist(string userName);

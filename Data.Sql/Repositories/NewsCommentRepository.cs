@@ -19,7 +19,7 @@ namespace Data.Sql.Repositories
             _userRepository = userRepository;
         }
 
-        public List<LastComment> GetLastComments()
+        public List<LastCommentData> GetLastComments()
         {
             var lastComments = _dbSet
                 .Include(x => x.News)
@@ -28,7 +28,7 @@ namespace Data.Sql.Repositories
                 .Take(10)
                 .ToList();
 
-            var data = lastComments.Select(x => new LastComment
+            var data = lastComments.Select(x => new LastCommentData
             {
                 Id = x.Id,
                 NewsId = x.News.Id,

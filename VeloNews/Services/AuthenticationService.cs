@@ -70,5 +70,12 @@ namespace VeloNews.Services
 
             return false;
         }
+
+        public bool IsUserAuthorized()
+        {
+            var user = GetCurrentUser();
+
+            return user == null ? false : true;
+        }
     }
 }

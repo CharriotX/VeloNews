@@ -13,7 +13,7 @@ namespace Data.Interface.Repositories
         List<NewsCardsData> GetNewsByCategory(string categoryName);
         List<HomePageLastNewsData> GetNewsForHomePage();
         List<NewsCardsData> GetAllNewsCards();
-        List<LastNews> GetLastNews();
+        List<LastNewsData> GetLastNews();
         EditNewsData GetNewsForEdit(int newsId);
         void EditNews(int id, string title, string text, string shorText);
         int SaveNews(AddNewsData data);
