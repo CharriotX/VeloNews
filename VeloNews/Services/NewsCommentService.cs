@@ -1,12 +1,8 @@
-﻿using Data.Interface.DataModels;
-using Data.Interface.DataModels.NewsDataModels;
-using Data.Interface.Models.enums;
+﻿using Data.Interface.DataModels.NewsDataModels;
 using Data.Interface.Repositories;
-using Microsoft.AspNetCore.SignalR;
 using VeloNews.Models.NewsViewModels;
 using VeloNews.Services.IServices;
 using VeloNews.Services.ServiceAttributes;
-using VeloNews.SignalRHubs;
 
 namespace VeloNews.Services
 {
@@ -16,71 +12,52 @@ namespace VeloNews.Services
         private INewsCommentRepository _newsCommentRepository;
         private IAuthenticationService _authenticationService;
         private IUserActivityHubService _activityHubService;
-        private IHubContext<AdminUserActivityHub> _hubContext;
 
         public NewsCommentService(INewsCommentRepository newsCommentRepository,
             IAuthenticationService authenticationService,
-            IUserActivityHubService activityHubService,
-            IHubContext<AdminUserActivityHub> hubContext)
+            IUserActivityHubService activityHubService)
         {
             _newsCommentRepository = newsCommentRepository;
             _authenticationService = authenticationService;
             _activityHubService = activityHubService;
-            _hubContext = hubContext;
         }
 
-        public SaveNewsCommentViewModel SaveComment(int commentId, int newsId, string text)
+        public SaveNewsCommentViewModel SaveComment(SaveNewsCommentApiData dataApi)
         {
-            if (commentId == 0)
+            var user = _authenticationService.GetCurrentUser();
+
+            var data = new SaveNewsCommentData
             {
-                var user = _authenticationService.GetCurrentUser();
-                var data = new SaveNewsCommentData
-                {
-                    NewsId = new NewsId
-                    {
-                        Id = newsId
-                    },
-                    Text = text,
-                    CreatedTime = DateTime.Now,
-                    Author = new CommentAuthorData
-                    {
-                        Id = user.Id,
-                        AuthorName = user.Name,
-                        AuthorProfileImageUrl = user.UserProfileImage.Url
-                    }
-                };
+                NewsId = dataApi.NewsId,
+                Text = dataApi.Text,
+                CreatedTime = DateTime.Now,
+                AuthorName = user.Name
+            };
 
-                var id = _newsCommentRepository.SaveComment(data);
+            var id = _newsCommentRepository.SaveComment(data);
 
-                var comment = _newsCommentRepository.Get(id);
+            var comment = _newsCommentRepository.Get(id);
 
-                var model = new SaveNewsCommentViewModel()
-                {
-                    Author = user.Name,
-                    CreatedTime = comment.CreatedTime.ToString("dd-MM-yyyy, HH:mm"),
-                    NewsId = newsId,
-                    AuthorProfileImageUrl = user.UserProfileImage.Url,
-                    Text = comment.Text
-                };
-
-                _activityHubService.SaveUserCommentActivityHistory(user.Name, newsId.ToString(), data.Text);
-
-                return model;
-
-            }
-            else
+            var model = new SaveNewsCommentViewModel()
             {
-                var model = EditComment(commentId, text);
-                return model;
-            }
+                Id = comment.Id,
+                Author = user.Name,
+                CreatedTime = comment.CreatedTime.ToString("dd-MM-yyyy, HH:mm"),
+                NewsId = dataApi.NewsId,
+                AuthorProfileImageUrl = user.UserProfileImageUrl,
+                Text = comment.Text
+            };
 
+            _activityHubService.SaveUserCommentActivityHistory(user.Name, comment.News.Id.ToString(), comment.Text);
+
+            return model;
         }
 
-        public SaveNewsCommentViewModel EditComment(int commentId, string text)
+        public SaveNewsCommentViewModel EditComment(SaveNewsCommentApiData data)
         {
-            var comment = _newsCommentRepository.Get(commentId);
+            var comment = _newsCommentRepository.Get(data.Id);
 
-            comment.Text = text;
+            comment.Text = data.Text;
             comment.CreatedTime = DateTime.Now;
 
             _newsCommentRepository.Save(comment);

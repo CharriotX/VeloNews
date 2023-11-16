@@ -12,19 +12,16 @@ namespace VeloNews.Services
     public class UserService : IUserService
     {
         private IUserRepository _userRepository;
-        private IHttpContextAccessor _httpContextAccessor;
         private IUserProfileImageRepository _userProfileImageRepository;
         private IUserProfileImageService _userProfileImageService;
         private IAuthenticationService _authenticationService;
 
         public UserService(IUserRepository userRepository,
-            IHttpContextAccessor httpContextAccessor,
             IUserProfileImageRepository userProfileImageRepository,
             IUserProfileImageService userProfileImageService,
             IAuthenticationService authenticationService)
         {
             _userRepository = userRepository;
-            _httpContextAccessor = httpContextAccessor;
             _userProfileImageRepository = userProfileImageRepository;
             _userProfileImageService = userProfileImageService;
             _authenticationService = authenticationService;
@@ -45,7 +42,7 @@ namespace VeloNews.Services
 
         public EditMyProfileViewModel GetViewModelForEditProfilePage(int userId)
         {
-            var user = _userRepository.GetUserWithProfileImage(userId);
+            var user = _userRepository.GetUserById(userId);
             var countries = ISO3166.Country.List.OrderBy(x => x.Name).ToList();
             var languages = Enum.GetValues(typeof(UserLanguage)).Cast<UserLanguage>();
 
@@ -62,7 +59,7 @@ namespace VeloNews.Services
                 }).ToList(),
                 Languages = languages.Select(x => new SelectListItem()
                 {
-                    Text =  x.ToString(),
+                    Text = x.ToString(),
                     Value = ((int)x).ToString()
                 }).ToList()
             };
@@ -98,7 +95,7 @@ namespace VeloNews.Services
             var model = new ProfileViewModel()
             {
                 Id = userData.User.Id,
-                Name = userData.User.UserName,
+                Name = userData.User.Name,
                 Role = userData.User.Role,
                 ProfileImageUrl = userData.User.UserProfileImageUrl,
                 DateOfBirth = userData.User.DateOfBirth,

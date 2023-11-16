@@ -1,13 +1,5 @@
-﻿using Data.Interface.DataModels;
+﻿using Data.Interface.DataModels.UserDataModels;
 using Data.Interface.Repositories;
-using Data.Sql.Repositories;
-using Data.Sql;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
-using VeloNews.Models;
-using VeloNews.Models.AdminViewModels;
-using VeloNews.Models.NewsViewModels;
-using VeloNews.Models.UserViewModels;
 using VeloNews.Services.IServices;
 using VeloNews.Services.ServiceAttributes;
 
@@ -28,7 +20,7 @@ namespace VeloNews.Services
 
         public void UploadNewProfileImage(IFormFile profileImage, int userId)
         {
-            var user = _userRepository.GetUserWithProfileImage(userId);
+            var user = _userRepository.GetUserById(userId);
             var newImage = profileImage;
 
             var extention = Path.GetExtension(newImage.FileName);

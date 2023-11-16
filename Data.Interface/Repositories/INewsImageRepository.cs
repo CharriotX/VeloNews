@@ -1,4 +1,4 @@
-﻿using Data.Interface.DataModels;
+﻿using Data.Interface.DataModels.NewsDataModels;
 using Data.Interface.Models;
 
 namespace Data.Interface.Repositories

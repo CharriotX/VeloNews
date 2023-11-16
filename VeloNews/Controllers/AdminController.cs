@@ -1,6 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using VeloNews.Models;
-using VeloNews.Models.AdminViewModels;
 using VeloNews.Services.IServices;
 
 namespace VeloNews.Controllers

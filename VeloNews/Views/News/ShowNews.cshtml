@@ -72,7 +72,7 @@
                 @foreach (var comment in Model.NewsComments)
                 {
                     <div class="comment-item" data="@comment.Id">
-                        <input name="commentId" hidden value="@comment.Id" />
+                        <input name="id" hidden value="@comment.Id" />
                         <div class="comment-item-avatar">
                             <img src="@comment.AuthorAvatarUrl">
                         </div>

@@ -1,5 +1,4 @@
-﻿using Data.Interface.DataModels.NewsDataModels;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using VeloNews.Models.NewsViewModels;
 using VeloNews.Services.IServices;
 
@@ -17,27 +16,55 @@ namespace VeloNews.Controllers.Api
         }
 
         [HttpGet]
-        public List<NewsCardViewModel> GetAll()
+        public ActionResult<NewsCardViewModel> GetAllNews()
         {
             var newsCardsViewModels = _newsService.GetAllNewsCards();
 
-            return newsCardsViewModels; 
+            return Ok(newsCardsViewModels);
         }
 
         [HttpGet("{id}")]
-        public ShowNewsViewModel GetFullNews(int id)
+        public ActionResult<ShowNewsViewModel> GetFullNews(int id)
         {
+            if (id == 0)
+            {
+                return BadRequest();
+            }
+
             var newsViewModels = _newsService.GetFullNews(id);
 
-            return newsViewModels;
+            if (newsViewModels == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(newsViewModels);
         }
 
-        [HttpPost]
-        public ActionResult<AddNewsViewModel> Create(AddNewsViewModel viewModel)
+        [HttpPut]
+        public ActionResult EditNews([FromForm] EditNewsViewModel viewModel)
         {
-            var newsViewModel = _newsService.SaveNews(viewModel);
+            if (viewModel == null)
+            {
+                return BadRequest();
+            }
 
-            return Ok(newsViewModel);
+            _newsService.EditNews(viewModel);
+
+            return Ok();
+        }
+
+        [HttpDelete("{id}")]
+        public ActionResult DeleteNews(int id)
+        {
+            if (id == 0)
+            {
+                return BadRequest();
+            }
+
+            _newsService.DeleteNews(id);
+
+            return Ok();
         }
     }
 }

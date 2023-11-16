@@ -11,7 +11,7 @@ namespace VeloNews.Services
     public class AdminService : IAdminService
     {
         private IAdminRepository _adminRepository;
-        
+
         public AdminService(IAdminRepository adminRepository)
         {
             _adminRepository = adminRepository;

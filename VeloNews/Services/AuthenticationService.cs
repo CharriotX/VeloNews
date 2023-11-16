@@ -1,4 +1,4 @@
-﻿using Data.Interface.Models;
+﻿using Data.Interface.DataModels.UserDataModels;
 using Data.Interface.Repositories;
 using VeloNews.Services.IServices;
 using VeloNews.Services.ServiceAttributes;
@@ -20,12 +20,22 @@ namespace VeloNews.Services
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public List<User> GetAllUsers()
+        public List<UserApiData> GetAllUsersForApi()
         {
-            return _userRepository.GetAll();
+            var users = _userRepository.GetAllUsers();
+
+            var data = users.Select(x => new UserApiData
+            {
+                Name = x.Name,
+                Country = x.Country,
+                DateOfBirth = x.DateOfBirth,
+                Language = x.Language.ToString()
+            }).ToList();
+
+            return data;
         }
 
-        public User GetCurrentUser()
+        public UserData GetCurrentUser()
         {
             var idStr = _httpContextAccessor
                 .HttpContext
@@ -40,18 +50,57 @@ namespace VeloNews.Services
             }
 
             var id = int.Parse(idStr);
-            var user = _userRepository.GetUserWithProfileImage(id);
+            var user = _userRepository.GetUserById(id);
 
-            return user;
+            var data = new UserData
+            {
+                Id = user.Id,
+                Name = user.Name,
+                Country = user.Country,
+                DateOfBirth = user.DateOfBirth,
+                Language = user.Language,
+                Role = user.Role.ToString(),
+                UserCreationDate = user.UserCreationDate,
+                UserProfileImageUrl = user.UserProfileImage.Url
+            };
+
+            return data;
         }
 
-        public User GetUserByNameAndPass(string userName, string userPass)
+        public UserData GetUserByNameAndPass(string userName, string userPass)
         {
-            return _userRepository.GetUserByNameAndPass(userName, userPass);
+            var user = _userRepository.GetUserByNameAndPass(userName, userPass);
+
+            var data = new UserData
+            {
+                Id = user.Id,
+                Name = user.Name,
+                Country = user.Country,
+                DateOfBirth = user.DateOfBirth,
+                Language = user.Language,
+                Role = user.Role.ToString(),
+                UserCreationDate = user.UserCreationDate,
+                UserProfileImageUrl = user.UserProfileImage.Url
+            };
+            return data;
         }
-        public User GetUserByName(string username)
+        public UserData GetUserByName(string username)
         {
-            return _userRepository.GetUserByUsername(username);
+            var user = _userRepository.GetUserByUsername(username);
+
+            var data = new UserData
+            {
+                Id = user.Id,
+                Name = user.Name,
+                Country = user.Country,
+                DateOfBirth = user.DateOfBirth,
+                Language = user.Language,
+                Role = user.Role.ToString(),
+                UserCreationDate = user.UserCreationDate,
+                UserProfileImageUrl = user.UserProfileImage.Url
+            };
+
+            return data;
         }
 
         public bool IsAdmin()
@@ -76,6 +125,21 @@ namespace VeloNews.Services
             var user = GetCurrentUser();
 
             return user == null ? false : true;
+        }
+
+        public UserApiData GetUserForApi(int id)
+        {
+            var user = _userRepository.Get(id);
+
+            var data = new UserApiData
+            {
+                Name = user.Name,
+                Country = user.Country,
+                DateOfBirth = user.DateOfBirth,
+                Language = user.Language.ToString()
+            };
+
+            return data;
         }
     }
 }

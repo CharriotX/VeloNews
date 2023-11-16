@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Data.Interface.DataModels.NewsDataModels;
 
 namespace Data.Interface.DataModels.AdminDataModels
 {
@@ -18,13 +14,13 @@ namespace Data.Interface.DataModels.AdminDataModels
     {
         public int Id { get; set; }
         public string Title { get; set; }
-        public CommentAuthorData Creator { get; set; }
+        public NewsCommentAuthorData Creator { get; set; }
     }
 
     public class LastCommentData
     {
         public int Id { get; set; }
-        public CommentAuthorData Creator { get; set; }
+        public NewsCommentAuthorData Creator { get; set; }
         public string Text { get; set; }
         public int NewsId { get; set; }
     }

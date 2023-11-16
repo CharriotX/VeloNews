@@ -1,7 +1,6 @@
-﻿using Data.Interface.DataModels;
+﻿using Data.Interface.DataModels.UserDataModels;
 using Data.Interface.Models;
 using Data.Interface.Repositories;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Data.Sql.Repositories
 {
@@ -27,9 +26,9 @@ namespace Data.Sql.Repositories
 
         public void EditProfileImage(ProfileImageData data)
         {
-            var user = _userRepository.GetUserWithProfileImage(data.UserId);
+            var user = _userRepository.GetUserById(data.UserId);
 
-            user.UserProfileImage.Name = data.Name;
+            user.Name = data.Name;
             user.UserProfileImage.Url = data.Url;
 
             _webContext.SaveChanges();

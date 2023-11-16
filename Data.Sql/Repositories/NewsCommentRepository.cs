@@ -1,5 +1,4 @@
-﻿using Data.Interface.DataModels;
-using Data.Interface.DataModels.AdminDataModels;
+﻿using Data.Interface.DataModels.AdminDataModels;
 using Data.Interface.DataModels.NewsDataModels;
 using Data.Interface.Models;
 using Data.Interface.Repositories;
@@ -33,7 +32,7 @@ namespace Data.Sql.Repositories
                 Id = x.Id,
                 NewsId = x.News.Id,
                 Text = x.Text,
-                Creator = new CommentAuthorData
+                Creator = new NewsCommentAuthorData
                 {
                     Id = x.User.Id,
                     AuthorName = x.User.Name
@@ -45,12 +44,15 @@ namespace Data.Sql.Repositories
 
         public int SaveComment(SaveNewsCommentData data)
         {
+            var user = _userRepository.GetUserByUsername(data.AuthorName);
+            var news = _newsRepository.Get(data.NewsId);
+
             var comment = new Comment()
             {
-                News = _newsRepository.Get(data.NewsId.Id),
+                News = news,
                 Text = data.Text,
                 CreatedTime = data.CreatedTime,
-                User = _userRepository.Get(data.Author.Id)
+                User = user
             };
 
             _dbSet.Add(comment);

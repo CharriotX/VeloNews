@@ -8,10 +8,14 @@
             .withUrl("/userActivity")
             .build();
 
-        $.post(`/api/newsComments/addComment?commentId=${commentId}&newsId=${newsId}&text=${userText}`)
-            .then(function (data) {
+        var commentData = {
+            "newsId": parseInt(newsId),
+            "text": userText
+        }
 
-                if (commentId == 0) {
+        if (commentId == 0) {
+            $.post(`/api/newsComments/`, commentData)
+                .then(function (data) {
                     const copyCommentBlock = $(".comment-item.template").clone();
                     copyCommentBlock.removeClass("template");
 
@@ -29,54 +33,69 @@
 
                     copyCommentBlock
                         .find(".item-text-field")
-                        .html(userText);
+                        .html(data.text);
 
                     $('.comment-list').prepend(copyCommentBlock);
                     $("trix-editor").html(' ');
-                }
-                else {
-                    let comment = $(`.comment-item[data='${commentId}']`);
 
-                    comment
+                });
+        }
+        else {
+            const userText = $("[name=Text]").val();
+            var commentData = {
+                "id": parseInt(commentId),
+                "text": userText
+            }
+            $.ajax({
+                url: `/api/newsComments/${commentId}`,
+                type: 'PUT',
+                data: commentData,
+                success: function () {
+                    $('trix-editor').text("");
+                    $('.comment-id-form').attr('value', 0);
+                    $('.comment-head').text("Add comment: ");
+
+                    $('.comment-item[data=' + commentId + ']')
                         .find(".item-text-field")
                         .html(userText);
-
-                    comment
-                        .find(".text-username-date")
-                        .text('Изменено ' + data.createdTime);
-
-                    $("trix-editor").html(' ');
-                    $('.comment-head').text('Add comment');
+                    commentId = 0;
                 }
-            });
+            })
+        }
     });
 
     $(".remove-comment").click(function () {
-        const commentId = $(this)
+        const removeBtn = $(this);
+        const id = $(this)
             .closest(".comment-item")
-            .find("[name=commentId]")
+            .find("[name=id]")
             .val();
 
-        $.post(`/api/newsComments/RemoveComment?commentId=${commentId}`);
-
-        $(this)
-            .closest(".comment-item")
-            .remove();
+        $.ajax({
+            url: `/api/newsComments/${id}`,
+            type: 'DELETE',
+            success: function () {
+                removeBtn
+                    .closest(".comment-item")
+                    .remove();
+            }
+        });
     });
 
     $(".edit-comment").click(function () {
-        const thisComment = $(this);
-        const commentId = thisComment
-            .closest(".comment-item")
-            .find("[name=commentId]")
-            .val();
         $('.comment-head').text("Edit your comment");
+        const thisComment = $(this);
+        const id = thisComment
+            .closest(".comment-item")
+            .find("[name=id]")
+            .val();
+        $('.comment-id-form').attr('value', id);
+
         const oldText = $(this)
             .closest('.comment-item-text')
             .find('.item-text-field div')
             .text();
 
         $('trix-editor').text(oldText);
-        $('.comment-id-form').attr('value', commentId);
     })
 })

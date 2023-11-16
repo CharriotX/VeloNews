@@ -1,5 +1,4 @@
-﻿using Data.Interface.DataModels;
-using Data.Interface.DataModels.NewsDataModels;
+﻿using Data.Interface.DataModels.NewsDataModels;
 using Data.Interface.Models;
 using Data.Interface.Repositories;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -38,9 +37,18 @@ namespace VeloNews.Services
             _newsImageService = newsImageService;
         }
 
-        public void EditNews(int id, string title, string text, string shorText)
+        public void EditNews(EditNewsViewModel viewModel)
         {
-            _newsRepository.EditNews(id, title, text, shorText);
+            var data = new EditNewsData
+            {
+                Id = viewModel.Id,
+                Title = viewModel.Title,
+                Text = viewModel.Text,
+                ShortText = viewModel.ShortText,
+                CreatedTime = DateTime.Now
+            };
+
+            _newsRepository.EditNews(data);
         }
 
         public PaginatorViewModel<NewsCardViewModel> GetNewsByCategoryWithPagination(string categoryName, int page)
@@ -130,6 +138,11 @@ namespace VeloNews.Services
         {
             var news = _newsRepository.GetNewsWithCommentsAndImages(newsId);
 
+            if (news == null)
+            {
+                return null;
+            }
+
             var model = new ShowNewsViewModel()
             {
                 Id = news.Id,
@@ -145,7 +158,7 @@ namespace VeloNews.Services
                 NewsComments = news.NewsComments.Select(x => new NewsCommentViewModel()
                 {
                     Id = x.Id,
-                    UserName = x.Author.UserName,
+                    UserName = x.Author.Name,
                     AuthorAvatarUrl = x.Author.UserProfileImageUrl,
                     CreatedTime = x.CreatedTime,
                     Text = x.Text
@@ -181,7 +194,7 @@ namespace VeloNews.Services
                 Text = viewModel.Text,
                 CreatedDate = DateTime.Now,
                 CategoryId = viewModel.SelectedCategoryId,
-                Author = new CommentAuthorData
+                Author = new NewsCommentAuthorData
                 {
                     Id = user.Id,
                     AuthorName = user.Name
@@ -220,6 +233,11 @@ namespace VeloNews.Services
                 TimeOfCreation = dbNews.CreatedTime,
                 Title = dbNews.Title
             };
+        }
+
+        public void DeleteNews(int id)
+        {
+            _newsRepository.Remove(id);
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Data.Interface.DataModels;
 using Data.Interface.DataModels.AdminDataModels;
 using Data.Interface.DataModels.NewsDataModels;
+using Data.Interface.DataModels.UserDataModels;
 using Data.Interface.Models;
 using Data.Interface.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -21,12 +22,13 @@ namespace Data.Sql.Repositories
             _userRepository = userRepository;
         }
 
-        public void EditNews(int id, string title, string text, string shorText)
+        public void EditNews(EditNewsData data)
         {
-            var news = Get(id);
-            news.Title = title;
-            news.ShorText = shorText;
-            news.Text = text;
+            var news = Get(data.Id);
+            news.Title = data.Title;
+            news.ShorText = data.ShortText;
+            news.Text = data.Text;
+            news.CreatedTime = data.CreatedTime;
 
             _webContext.SaveChanges();
         }
@@ -92,7 +94,7 @@ namespace Data.Sql.Repositories
             {
                 Id = x.Id,
                 Title = x.Title,
-                Creator = new CommentAuthorData
+                Creator = new NewsCommentAuthorData
                 {
                     Id = x.Creator.Id,
                     AuthorName = x.Creator.Name
@@ -109,7 +111,12 @@ namespace Data.Sql.Repositories
                 .Include(c => c.NewsComments)
                 .ThenInclude(u => u.User)
                 .ThenInclude(i => i.UserProfileImage)
-                .Single(x => x.Id == newsId);
+                .SingleOrDefault(x => x.Id == newsId);
+
+            if (dbNews == null)
+            {
+                return null;
+            }
 
             var data = new NewsWithCommentsAndImagesData
             {
@@ -134,7 +141,7 @@ namespace Data.Sql.Repositories
                         CreatedTime = x.CreatedTime,
                         Author = new UserData
                         {
-                            UserName = x.User.Name,
+                            Name = x.User.Name,
                             UserProfileImageUrl = x.User.UserProfileImage.Url
                         }
                     }).ToList()

@@ -1,6 +1,4 @@
-﻿using Data.Interface.Models;
-using Data.Interface.Repositories;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using VeloNews.Models.NewsViewModels;
 using VeloNews.Services.IServices;
@@ -64,11 +62,7 @@ namespace VeloNews.Controllers
         [HttpPost]
         public IActionResult EditNews(EditNewsViewModel viewModel)
         {
-            _newsService.EditNews(
-                viewModel.Id,
-                viewModel.Title,
-                viewModel.Text,
-                viewModel.ShortText);
+            _newsService.EditNews(viewModel);
 
             return RedirectToAction("ShowNews", "News", new { newsId = viewModel.Id });
         }

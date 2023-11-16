@@ -1,4 +1,4 @@
-﻿using Data.Interface.DataModels;
+﻿using Data.Interface.DataModels.NewsDataModels;
 using Data.Interface.Repositories;
 using VeloNews.Services.IServices;
 using VeloNews.Services.ServiceAttributes;

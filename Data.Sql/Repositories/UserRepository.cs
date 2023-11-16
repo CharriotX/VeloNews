@@ -1,5 +1,4 @@
-﻿using Data.Interface.DataModels;
-using Data.Interface.DataModels.AdminDataModels;
+﻿using Data.Interface.DataModels.AdminDataModels;
 using Data.Interface.DataModels.UserDataModels;
 using Data.Interface.Models;
 using Data.Interface.Models.enums;
@@ -18,6 +17,7 @@ namespace Data.Sql.Repositories
         public List<LastRegisteredUserData> GetLastRegisteredUsers()
         {
             var lastRegisterUser = _dbSet.OrderByDescending(x => x.Id).Take(10).ToList();
+
             var data = lastRegisterUser.Select(x => new LastRegisteredUserData
             {
                 Id = x.Id,
@@ -27,13 +27,24 @@ namespace Data.Sql.Repositories
             return data;
         }
 
+        public List<User> GetAllUsers()
+        {
+            return _dbSet
+                .Include(x => x.UserProfileImage)
+                .ToList();
+        }
+
         public User GetUserByNameAndPass(string name, string pass)
         {
-            return _dbSet.SingleOrDefault(x => x.Name == name && x.Password == pass);
+            return _dbSet
+                .Include(x => x.UserProfileImage)
+                .SingleOrDefault(x => x.Name == name && x.Password == pass);
         }
         public User GetUserByUsername(string userName)
         {
-            return _dbSet.FirstOrDefault(x => x.Name == userName);
+            return _dbSet
+                .Include(x => x.UserProfileImage)
+                .SingleOrDefault(x => x.Name == userName);
         }
         public bool IsUserExist(string userName)
         {
@@ -45,10 +56,11 @@ namespace Data.Sql.Repositories
             return _dbSet.Any(x => x.Name == userName);
         }
 
-        public User GetUserWithProfileImage(int userId)
+        public User GetUserById(int userId)
         {
-            var user = _dbSet.Include(x => x.UserProfileImage).SingleOrDefault(x => x.Id == userId);
-            return user;
+            return _dbSet
+                .Include(x => x.UserProfileImage)
+                .SingleOrDefault(x => x.Id == userId);
         }
 
         public User UserRegistration(UserRegistrationData data)
@@ -71,7 +83,7 @@ namespace Data.Sql.Repositories
 
         public ShowUserProfileData GetUserProfileData(int userId)
         {
-            var user = GetUserWithProfileImage(userId);
+            var user = GetUserById(userId);
 
             var data = new ShowUserProfileData
             {
@@ -79,7 +91,7 @@ namespace Data.Sql.Repositories
                 {
                     Id = user.Id,
                     UserProfileImageUrl = user.UserProfileImage.Url,
-                    UserName = user.Name,
+                    Name = user.Name,
                     Role = user.Role.ToString(),
                     Country = user.Country,
                     UserCreationDate = user.UserCreationDate,

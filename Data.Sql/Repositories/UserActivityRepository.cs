@@ -38,11 +38,11 @@ namespace Data.Sql.Repositories
                 .OrderByDescending(x => x.Id)
                 .Take(30)
                 .Select(dbModel => new UserActivityData
-                    {
-                        Id = dbModel.Id,
-                        Username = dbModel.Username,
-                        Description = dbModel.Description
-                    })
+                {
+                    Id = dbModel.Id,
+                    Username = dbModel.Username,
+                    Description = dbModel.Description
+                })
                     .ToList();
 
             return dataModels;

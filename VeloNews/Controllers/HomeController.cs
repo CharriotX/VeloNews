@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Serilog;
 using VeloNews.Services.IServices;
 
 namespace VeloNews.Controllers
@@ -15,7 +14,7 @@ namespace VeloNews.Controllers
         public IActionResult Index()
         {
             var model = _newsService.GetNewsForHomePage();
-            
+
             return View(model);
         }
     }

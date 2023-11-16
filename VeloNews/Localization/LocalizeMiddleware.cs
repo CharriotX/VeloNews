@@ -1,6 +1,4 @@
 ﻿using Data.Interface.Models.enums;
-using Microsoft.AspNetCore.Localization;
-using Microsoft.Extensions.Options;
 using System.Globalization;
 using VeloNews.Services;
 using VeloNews.Services.IServices;
@@ -20,26 +18,9 @@ namespace VeloNews.Localization
             var userService = context.RequestServices
                 .GetService(typeof(IAuthenticationService)) as AuthenticationService;
 
-            var localization = context
-                .Request
-                .GetTypedHeaders()
-                .AcceptLanguage
-                ?.OrderByDescending(x => x.Quality ?? 1)
-                .Select(x => x.Value.ToString())
-                .First();
-
-            var isLangAvailable = Enum.IsDefined(typeof(UserLanguage), localization);
-
-            if(userService.GetCurrentUser() == null)
+            if (userService.GetCurrentUser() == null)
             {
-                if (isLangAvailable)
-                {
-                    CultureInfo.DefaultThreadCurrentUICulture = new CultureInfo(localization);
-                }
-                else
-                {
-                    CultureInfo.DefaultThreadCurrentUICulture = new CultureInfo("en-EN");
-                }
+                CultureInfo.DefaultThreadCurrentUICulture = new CultureInfo("en-EN");
             }
             else
             {

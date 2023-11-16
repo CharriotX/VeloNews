@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Data.Interface.DataModels.NewsDataModels;
+using Microsoft.AspNetCore.Mvc;
 using VeloNews.Services.IServices;
 
 namespace VeloNews.Controllers.Api
@@ -14,18 +15,29 @@ namespace VeloNews.Controllers.Api
             _newsCommentService = newsCommentService;
         }
 
-        [Route("AddComment")]
-        public JsonResult AddComment(int commentId, int newsId, string text)
+        [HttpPost]
+        public ActionResult AddComment([FromForm] SaveNewsCommentApiData commentData)
         {
-            var model = _newsCommentService.SaveComment(commentId, newsId, text);
+            var model = _newsCommentService.SaveComment(commentData);
 
-            return  Json(model);
+            return Ok(model);
         }
 
-        [Route("RemoveComment")]
-        public void RemoveComment(int commentId)
+        [HttpDelete("{id}")]
+        public ActionResult RemoveComment(int id)
         {
-            _newsCommentService.RemoveComment(commentId);
+            _newsCommentService.RemoveComment(id);
+
+            return Ok();
         }
+
+        [HttpPut("{id}")]
+        public ActionResult EditComment([FromForm] SaveNewsCommentApiData commentData)
+        {
+            var model = _newsCommentService.EditComment(commentData);
+
+            return Ok(model);
+        }
+
     }
 }

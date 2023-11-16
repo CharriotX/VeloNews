@@ -19,6 +19,7 @@ namespace VeloNews.Services.IServices
         HomeViewModel GetNewsForHomePage();
         PaginatorViewModel<NewsForAdminPageViewModel> GetAllNewsForAdminPagginator(int page, int perPage);
         NewsForAdminPageViewModel BuildAdminNewsViewModel(News dbNews);
-        void EditNews(int id, string title, string text, string shorText);
+        void EditNews(EditNewsViewModel viewModel);
+        void DeleteNews(int id);
     }
 }

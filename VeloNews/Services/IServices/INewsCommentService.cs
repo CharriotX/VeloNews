@@ -5,8 +5,8 @@ namespace VeloNews.Services.IServices
 {
     public interface INewsCommentService
     {
-        SaveNewsCommentViewModel SaveComment(int commentId, int newsId, string text);
-        SaveNewsCommentViewModel EditComment(int commentId, string text);
+        SaveNewsCommentViewModel SaveComment(SaveNewsCommentApiData dataComment);
+        SaveNewsCommentViewModel EditComment(SaveNewsCommentApiData data);
         void RemoveComment(int commentId);
     }
 }
