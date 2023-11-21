@@ -122,6 +122,5 @@ namespace VeloNews.Controllers
 
             return RedirectToAction("Index", "Home");
         }
-
     }
 }
