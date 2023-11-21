@@ -12,6 +12,10 @@
 }
 
 <div class="wrapper">
+    <div class="create-news">
+        <a href="/News/AddNews">Create news</a>
+    </div>
+
     <div class="all-news-table">
         <div class="news-header-list">
             <div class="news-header-item">
@@ -53,7 +57,9 @@
                         <a href="/News/EditNews?newsId=@news.Id" target="_blank">
                             <div class="item-action-edit">Edit</div>
                         </a>
-                        <a><div class="item-action-remove">Remove</div></a>
+                        <a href="/News/RemoveNews?newsId=@news.Id">
+                            <div class="item-action-remove">Remove</div>
+                        </a>
                     </div>
                 </div>
             }

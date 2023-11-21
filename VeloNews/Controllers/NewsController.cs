@@ -66,5 +66,17 @@ namespace VeloNews.Controllers
 
             return RedirectToAction("ShowNews", "News", new { newsId = viewModel.Id });
         }
+
+        public IActionResult RemoveNews(int newsId)
+        {
+            if (newsId == 0)
+            {
+                return BadRequest();
+            }
+
+            _newsService.DeleteNews(newsId);
+
+            return RedirectToAction("AllNews", "Admin");
+        }
     }
 }

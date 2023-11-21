@@ -8,27 +8,6 @@
     display: flex;
 }
 
-.left-menu {
-    width: 200px;
-    text-align: center;
-    height: 80vh;
-}
-
-.left-menu-list {
-}
-
-.left-menu-item {
-    padding: 15px 5px;
-    border-bottom: 1px solid grey;
-}
-
-    .left-menu-item a {
-        color: blue;
-        font-size: 18px;
-    }
-
-
-
 
 .content {
     padding: 15px 15px;
@@ -202,7 +181,12 @@ a .news-row:hover {
 
 
 .all-news-table {
-    margin-top: 40px;
+    margin-top: 20px;
+}
+
+.create-news {
+    font-size: 20px;
+    color: green;
 }
 
 .news-header-item {
