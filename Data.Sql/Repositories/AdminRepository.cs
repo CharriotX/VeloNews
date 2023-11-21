@@ -1,5 +1,6 @@
 ﻿using Data.Interface.DataModels;
 using Data.Interface.DataModels.AdminDataModels;
+using Data.Interface.DataModels.NewsDataModels;
 using Data.Interface.Models;
 using Data.Interface.Repositories;
 
@@ -30,7 +31,7 @@ namespace Data.Sql.Repositories
                 Id = x.Id,
                 Title = x.Title,
                 TimeOfCreation = x.CreatedTime,
-                Creator = new CommentAuthorData
+                Creator = new NewsCommentAuthorData
                 {
                     Id = x.Creator.Id,
                     AuthorName = x.Creator.Name
@@ -56,7 +57,7 @@ namespace Data.Sql.Repositories
                 {
                     Title = x.Title,
                     Id = x.Id,
-                    Creator = new CommentAuthorData
+                    Creator = new NewsCommentAuthorData
                     {
                         Id = x.Creator.Id,
                         AuthorName = x.Creator.AuthorName
@@ -67,7 +68,7 @@ namespace Data.Sql.Repositories
                     Id = x.Id,
                     NewsId = x.NewsId,
                     Text = x.Text,
-                    Creator = new CommentAuthorData
+                    Creator = new NewsCommentAuthorData
                     {
                         Id = x.Creator.Id,
                         AuthorName = x.Creator.AuthorName

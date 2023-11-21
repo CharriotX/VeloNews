@@ -55,7 +55,7 @@ namespace VeloNews.Controllers.Api
         }
 
         [HttpDelete("{id}")]
-        public ActionResult DeleteNews(int id)
+        public ActionResult RemoveNews(int id)
         {
             if (id == 0)
             {
