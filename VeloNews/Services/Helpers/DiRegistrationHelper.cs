@@ -88,8 +88,6 @@ namespace VeloNews.Services.Helpers
                     return serviceObj;
                 });
             });
-
-            var z = 6;
         }
     }
 }

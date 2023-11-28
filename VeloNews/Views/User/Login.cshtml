@@ -18,7 +18,7 @@
             </li>
             <li class="login-input-item">
                 <div class="login-item-text">Password</div>
-                <div>@Html.TextBoxFor(x => x.Password)</div>
+                <div>@Html.TextBoxFor(x => x.Password, htmlAttributes: new {@type = "password"})</div>
             </li>
             <li class="login-input-item">
                 <input type="submit" value="Log In" />
