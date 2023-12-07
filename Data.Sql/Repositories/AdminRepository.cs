@@ -90,9 +90,9 @@ namespace Data.Sql.Repositories
             return data;
         }
 
-        public PaginatorData<News> GetAllNewsPaginator(int page, int perPage)
+        public PaginatorData<News> GetAllNewsPaginator(int page, int perPage, string sortField)
         {
-            var data = _newsRepository.GetPaginator(page, perPage);
+            var data = _newsRepository.GetPaginator(page, perPage, sortField);
 
             return data;
         }

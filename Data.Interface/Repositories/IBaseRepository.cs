@@ -12,6 +12,6 @@ namespace Data.Interface.Repositories
         void Save(T model);
         int Count();
         bool Any();
-        PaginatorData<T> GetPaginator(int page, int perPage);
+        PaginatorData<T> GetPaginator(int page, int perPage, string sortField);
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace Data.Interface.DataModels.UserDataModels
 {
-    public class ShowUserProfileData
+    public class ShowMyProfileData
     {
         public UserData User { get; set; }
     }

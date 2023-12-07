@@ -55,7 +55,7 @@ namespace VeloNews.Services
         {
             var newsByCategory = _newsRepository.GetNewsByCategory(categoryName);
 
-            var perPage = 6f;
+            var perPage = 3f;
             var pageCount = Math.Ceiling(newsByCategory.Count() / perPage);
 
             var news = newsByCategory
@@ -158,8 +158,9 @@ namespace VeloNews.Services
                 NewsComments = news.NewsComments.Select(x => new NewsCommentViewModel()
                 {
                     Id = x.Id,
-                    UserName = x.Author.Name,
-                    AuthorAvatarUrl = x.Author.UserProfileImageUrl,
+                    UserId = x.User.Id,
+                    UserName = x.User.Name,
+                    UserAvatarUrl = x.User.UserProfileImageUrl,
                     CreatedTime = x.CreatedTime,
                     Text = x.Text
                 }).Reverse().ToList()
@@ -208,13 +209,14 @@ namespace VeloNews.Services
             return data;
         }
 
-        public PaginatorViewModel<NewsForAdminPageViewModel> GetAllNewsForAdminPagginator(int page, int perPage)
+        public PaginatorViewModel<NewsForAdminPageViewModel> GetAllNewsForAdminPagginator(int page, int perPage, string sortField)
         {
             var viewModel = _paginatorService.GetPaginatorViewModel(
                 page,
                 perPage,
                 BuildAdminNewsViewModel,
-                _newsRepository
+                _newsRepository,
+                sortField
                 );
 
             return viewModel;
@@ -225,11 +227,7 @@ namespace VeloNews.Services
             return new NewsForAdminPageViewModel()
             {
                 Id = dbNews.Id,
-                Creator = new UserInfoViewModel()
-                {
-                    Id = dbNews.Creator.Id,
-                    Name = dbNews.Creator.Name
-                },
+                CreatorName = dbNews.Creator.Name,
                 TimeOfCreation = dbNews.CreatedTime,
                 Title = dbNews.Title
             };

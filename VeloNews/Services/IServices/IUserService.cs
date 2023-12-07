@@ -8,8 +8,11 @@ namespace VeloNews.Services.IServices
     public interface IUserService
     {
         void RegistrationUser(RegistrationUserViewModel viewModel);
-        ProfileViewModel ShowProfile();
+        MyProfileViewModel ShowMyProfile();
+        UserProfileViewModel ShowUserProfile(int userId);
         EditMyProfileViewModel GetViewModelForEditProfilePage(int userId);
         EditMyProfileData EditMyProfile(EditMyProfileViewModel viewModel);
+        PaginatorViewModel<UserInfoViewModel> UsersForAdminPage(int page, int perPage, string sortField);
+        UserInfoViewModel BuildUserInfoViewModel(User dbUser);
     }
 }

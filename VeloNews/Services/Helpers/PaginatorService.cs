@@ -13,11 +13,12 @@ namespace VeloNews.Services.Helpers
             int page,
             int perPage,
             Func<TDbModel, TViewModel> buildViewModelFunc,
-            IBaseRepository<TDbModel> repository)
+            IBaseRepository<TDbModel> repository,
+            string sortField)
             where TViewModel : class
             where TDbModel : BaseModel
         {
-            var dbPaginator = repository.GetPaginator(page, perPage);
+            var dbPaginator = repository.GetPaginator(page, perPage, sortField);
 
             var viewModel = new PaginatorViewModel<TViewModel>();
             viewModel.Items = dbPaginator

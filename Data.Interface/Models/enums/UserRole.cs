@@ -8,9 +8,10 @@ namespace Data.Interface.Models.enums
 {
     public enum UserRole
     {
-        User = 1,
-        Admin = 2,
-        NewsModerator = 3,
-        CommentModerator = 4
+
+        Admin = 1,
+        NewsModerator = 2,
+        CommentModerator = 3,
+        User = 4
     }
 }

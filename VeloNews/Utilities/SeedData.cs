@@ -9,6 +9,9 @@ namespace VeloNews.Utilities
         private const string ADMIN_DEFAULT_NAME_AND_PASSWORD = "admin";
         private const string DEFAULT_USER_PROFILE_IMAGE_NAME = "defaultUserImage";
 
+        private const string SEED_USER_NAME = "SeedUser";
+        private const string SEED_USER_PASSWORD = "1234";
+
         private const string RACE_CATEGORY_NAME = "Race";
         private const string NEWS_CATEGORY_NAME = "News";
         private const string RESULT_CATEGORY_NAME = "Result";
@@ -18,6 +21,7 @@ namespace VeloNews.Utilities
             using (var scope = webApplication.Services.CreateScope())
             {
                 SeedAdmin(scope);
+                SeedUsers(scope);
                 SeedNewsCategory(scope);
                 SeedNews(scope);
                 SeedUserProfileImage(scope);
@@ -42,6 +46,30 @@ namespace VeloNews.Utilities
                 };
 
                 userRepository.Save(admin);
+            }
+        }
+
+        private static void SeedUsers(IServiceScope scope)
+        {
+            var userRepository = scope.ServiceProvider.GetRequiredService<IUserRepository>();
+            
+            if (userRepository.Count() < 2)
+            {
+
+                for (var i = 0; i < 20; i++)
+                {
+                    var user = new User()
+                    {
+                        Name = SEED_USER_NAME + i,
+                        Password = SEED_USER_PASSWORD,
+                        Role = UserRole.User,
+                        Country = "Не указан",
+                        DateOfBirth = DateTime.Now,
+                        UserCreationDate = DateTime.Now
+                    };
+
+                    userRepository.Save(user);
+                }
             }
         }
 
@@ -137,7 +165,7 @@ namespace VeloNews.Utilities
                     var thisNews = newsRepository.Get(seedNews.Id);
 
                     var imageNum = 0;
-                    for(int x = 0; x < 2; x++)
+                    for (int x = 0; x < 2; x++)
                     {
                         imageRepository.Save(new NewsImage()
                         {
@@ -147,7 +175,7 @@ namespace VeloNews.Utilities
                         });
                         imageNum++;
                     }
-                    
+
 
                     for (int x = 0; x < 3; x++)
                     {

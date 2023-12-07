@@ -61,11 +61,7 @@ namespace VeloNews.Services
                 Id = x.Id,
                 Title = x.Title,
                 TimeOfCreation = x.TimeOfCreation,
-                Creator = new UserInfoViewModel
-                {
-                    Id = x.Creator.Id,
-                    Name = x.Creator.AuthorName
-                }
+                CreatorName = x.Creator.AuthorName
             }).ToList();
 
             return model;

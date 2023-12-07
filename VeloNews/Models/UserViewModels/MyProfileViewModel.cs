@@ -4,7 +4,7 @@ using VeloNews.Models.ValidationAttributes;
 
 namespace VeloNews.Models.UserViewModels
 {
-    public class ProfileViewModel
+    public class MyProfileViewModel
     {
         public int Id { get; set; }
         [IsUniqueUserName]

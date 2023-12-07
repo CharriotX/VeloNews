@@ -17,7 +17,7 @@
         @foreach (var item in Model.Items)
         {
             <div class="news-item">
-                <div class="news-item-title"><a href="/News/ShowNews?newsId=@item.Id">@item.Title</a></div>
+                <div class="news-item-title"><a href="/News/ShowNews?newsId=    @item.Id">@item.Title</a></div>
                 <div class="news-item-body">
                     <div class="body-image-block">
                         <img src="@item.PreviewImage" />
@@ -39,19 +39,33 @@
     <div class="paginator">
         <ul>
             <li class="page-item @(!Model.ShowFirst ? "disabled":"")">
-                <a href="/News/Index?page=1"><< </a>
+                <a asp-controller="News"
+                   asp-action="Index"
+                   asp-route-categoryName="@ViewData["CategoryName"]"
+                   asp-route-page="@Model.ActivePageNumber = 1"> First </a>
             </li>
             <li class="page-item @(!Model.ShowPrevious ? "disabled":"")">
-                <a href="/News/Index?page=@(Model.ActivePageNumber - 1)"> < </a>
+                <a asp-controller="News"
+                   asp-action="Index"
+                   asp-route-categoryName="@ViewData["CategoryName"]"
+                   asp-route-page="@(Model.ActivePageNumber - 1)"> Previous </a>
             </li>
             <li class="active">
                 @Model.ActivePageNumber
             </li>
             <li class="page-item @(!Model.ShowNext ? "disabled":"")">
-                <a href="/News/Index?page=@(Model.ActivePageNumber + 1)">></a>
+                <a asp-controller="News"
+                   asp-action="Index"
+                   asp-route-categoryName="@ViewData["CategoryName"]"
+                   asp-route-page="@(Model.ActivePageNumber + 1)">Next</a>
             </li>
             <li class="page-item @(!Model.ShowLast ? "disabled":"")">
-                <a href="/News/Index?page=@Model.PagesListCount"> >></a>
+                <a asp-controller="News"
+                   asp-action="Index"
+                   asp-route-categoryName="@ViewData["CategoryName"]"
+                   asp-route-page="@Model.PagesListCount">
+                    Last
+                </a>
             </li>
         </ul>
     </div>

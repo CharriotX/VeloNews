@@ -6,6 +6,6 @@ namespace Data.Interface.Repositories
     public interface IUserProfileImageRepository : IBaseRepository<UserProfileImage>
     {
         void SaveDefaultUserProfileImage(User user);
-        void EditProfileImage(ProfileImageData data);
+        void EditProfileImage(MyProfileImageData data);
     }
 }

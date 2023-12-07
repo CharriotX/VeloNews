@@ -19,6 +19,7 @@ namespace VeloNews.Controllers
 
         public IActionResult Index(string categoryName, int page = 1)
         {
+            ViewData["CategoryName"] = categoryName;
             var model = _newsService.GetNewsByCategoryWithPagination(categoryName, page);
 
             return View(model);

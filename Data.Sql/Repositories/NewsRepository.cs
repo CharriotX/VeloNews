@@ -5,6 +5,7 @@ using Data.Interface.DataModels.UserDataModels;
 using Data.Interface.Models;
 using Data.Interface.Repositories;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 using static Data.Interface.DataModels.HomeDateModels.HomePageData;
 
 namespace Data.Sql.Repositories
@@ -139,8 +140,9 @@ namespace Data.Sql.Repositories
                         Id = x.Id,
                         Text = x.Text,
                         CreatedTime = x.CreatedTime,
-                        Author = new UserData
+                        User = new UserData
                         {
+                            Id = x.User.Id,
                             Name = x.User.Name,
                             UserProfileImageUrl = x.User.UserProfileImage.Url
                         }
@@ -171,15 +173,14 @@ namespace Data.Sql.Repositories
             return model.Id;
         }
 
-        public override PaginatorData<News> GetPaginator(int page, int perPage)
+        public override PaginatorData<News> GetPaginator(int page, int perPage, string sortField)
         {
             var initialSource = _dbSet
                 .Include(x => x.Creator)
                 .Include(x => x.NewsImages)
-                .Include(x => x.Category)
-                .OrderByDescending(x => x.Id);
+                .Include(x => x.Category);
 
-            return base.GetPaginator(initialSource, page, perPage);
+            return base.GetPaginator(initialSource, page, perPage, sortField);
         }
 
         public List<HomePageLastNewsData> GetNewsForHomePage()

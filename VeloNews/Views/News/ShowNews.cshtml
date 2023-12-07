@@ -5,7 +5,7 @@
 @inject IAuthenticationService authService;
 
 @section Styles {
-    <link href="~/css/news.css?v=2" rel="stylesheet" type="text/css" />
+    <link href="~/css/news.css?v=3" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" type="text/css" href="https://unpkg.com/trix@2.0.0/dist/trix.css">
 
 }
@@ -74,12 +74,14 @@
                     <div class="comment-item" data="@comment.Id">
                         <input name="id" hidden value="@comment.Id" />
                         <div class="comment-item-avatar">
-                            <img src="@comment.AuthorAvatarUrl">
+                            <img src="@comment.UserAvatarUrl">
                         </div>
                         <div class="comment-item-text">
                             <div class="item-text-username">
                                 <div class="username-info">
-                                    <div class="text-username-nick">@comment.UserName</div>
+                                    <div class="text-username-nick">
+                                        <a href="/User/Profile?userId=@comment.UserId">@comment.UserName</a>
+                                    </div>
                                     <div class="text-username-date">@comment.CreatedTime.ToString("dd-MM-yyyy, HH:mm")</div>
                                 </div>
 

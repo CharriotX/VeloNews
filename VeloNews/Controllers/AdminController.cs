@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using VeloNews.Models.enums;
 using VeloNews.Services.IServices;
 
 namespace VeloNews.Controllers
@@ -24,11 +25,21 @@ namespace VeloNews.Controllers
             return View(viewModel);
         }
 
-        public IActionResult AllNews(int page = 1, int perPage = 8)
+        public IActionResult AllNews(string sortField = "Id", int page = 1, int perPage = 8)
         {
-            var model = _newsService.GetAllNewsForAdminPagginator(page, perPage);
+            ViewData["CurrentSort"] = sortField;
+
+            var model = _newsService.GetAllNewsForAdminPagginator(page, perPage, sortField);
             return View(model);
         }
+        public IActionResult AllUsers(string sortField = "Id", int page = 1, int perPage = 20)
+        {
+            ViewData["CurrentSort"] = sortField;
+
+            var model = _userService.UsersForAdminPage(page, perPage, sortField);
+            return View(model);
+        }
+
         public IActionResult UserActivity()
         {
             var model = _userActivityHubService.GetAllActions();

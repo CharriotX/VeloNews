@@ -34,17 +34,27 @@ namespace VeloNews.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            var model = _userService.ShowProfile();
+            var model = _userService.ShowMyProfile();
 
             return View(model);
         }
 
+        public IActionResult Profile(int userId)
+        {
+            var model = _userService.ShowUserProfile(userId);
+
+            return View(model);
+        }
+
+        [Authorize]
         [HttpGet]
         public IActionResult EditMyProfile(int userId)
         {
             var model = _userService.GetViewModelForEditProfilePage(userId);
             return View(model);
         }
+
+        [Authorize]
         [HttpPost]
         public IActionResult EditMyProfile(EditMyProfileViewModel viewModel)
         {

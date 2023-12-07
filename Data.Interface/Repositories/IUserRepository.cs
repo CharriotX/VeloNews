@@ -15,7 +15,7 @@ namespace Data.Interface.Repositories
         User GetUserByUsername(string userName);
         bool IsUserNameExist(string userName);
         User GetUserById(int userId);
-        ShowUserProfileData GetUserProfileData(int userId);
+        ShowMyProfileData GetUserProfileData(int userId);
         void EditMyProfile(EditMyProfileData data);
     }
 }

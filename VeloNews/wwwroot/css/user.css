@@ -92,7 +92,7 @@
     }
 
 
-/*-------PROFILE---------*/
+/*------MY-PROFILE---------*/
 
 .profile-logout-text {
     margin: 20px 0 40px 0;
@@ -150,16 +150,51 @@
     padding: 5px 20px;
 }
 
+/*----------USER-PROFILE-------*/
+
+.user-profile-info {
+    margin: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.user-profile-avatar {
+    width: 250px;
+    text-align: center;
+}
+
+.user-profile-image {
+}
+
+    .user-profile-image img {
+        width: 500px;
+    }
+
+.user-profile-info-list {
+    width: 400px;
+}
+
+.user-profile-info-item {
+    border-bottom: 1px dotted grey;
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 20px;
+}
+
+
 
 /*-------EDIT_PROFILE_________*/
 
 .field-validation-error {
     margin: 0 20px;
 }
+
 .edit-block {
     margin-top: 50px;
     width: 800px;
 }
+
 .edit-block_list {
     display: flex;
     flex-direction: column;
@@ -167,7 +202,6 @@
 
 .edit-block_item {
     display: flex;
-    
     margin: 5px;
 }
 
@@ -175,16 +209,17 @@
     padding: 3px;
     width: 200px;
 }
-.block-item-input input, select{
+
+.block-item-input input, select {
     padding: 2px;
     border-radius: 3px;
     border-color: black;
 }
 
-.edit-block-submit input{
+.edit-block-submit input {
     margin-top: 50px;
     padding: 5px 15px;
     background: green;
     border-radius: 3px;
-    color:white;
+    color: white;
 }

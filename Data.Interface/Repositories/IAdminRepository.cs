@@ -8,6 +8,6 @@ namespace Data.Interface.Repositories
     {
         MainAdminPageData GetDataFormAdminMainPage();
         List<NewsForAdminPageData> GetAllNewsForAdminPage();
-        PaginatorData<News> GetAllNewsPaginator(int page, int perPage);
+        PaginatorData<News> GetAllNewsPaginator(int page, int perPage, string sortField);
     }
 }

@@ -26,6 +26,6 @@ namespace Data.Interface.DataModels.NewsDataModels
         public int Id { get; set; }
         public DateTime CreatedTime { get; set; }
         public string Text { get; set; }
-        public UserData Author { get; set; }
+        public UserData User { get; set; }
     }
 }
