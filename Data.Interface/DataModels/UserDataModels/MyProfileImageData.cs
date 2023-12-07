@@ -1,6 +1,6 @@
 ﻿namespace Data.Interface.DataModels.UserDataModels
 {
-    public class ProfileImageData
+    public class MyProfileImageData
     {
         public int UserId { get; set; }
         public string Name { get; set; }

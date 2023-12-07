@@ -1,0 +1,34 @@
+﻿@using VeloNews.Models.UserViewModels;
+@model UserProfileViewModel
+
+@section Styles {
+    <link href="~/css/user.css" rel="stylesheet" type="text/css" />
+}
+
+<div class="user-profile-info">
+    <div class="user-profile-avatar">
+        <div class="user-profile-image">
+            <img src="@Model.ProfileImageUrl" />
+        </div>
+    </div>
+    <ul class="user-profile-info-list">
+        <li class="user-profile-info-item">
+            <div>Username</div>
+            <div class="info-item-username">@Model.Name</div>
+        </li>
+        <li class="user-profile-info-item">
+            <div>Country</div>
+            <div>@Model.Country</div>
+        </li>
+        <li class="user-profile-info-item">
+            <div>DateOfBirth</div>
+            <div>
+                @Model.DateOfBirth.ToShortDateString()
+            </div>
+        </li>
+        <li class="user-profile-info-item">
+            <div>Account Creation Date</div>
+            <div>@Model.UserCreationDate.ToShortDateString()</div>
+        </li>
+    </ul>
+</div>

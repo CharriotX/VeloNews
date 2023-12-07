@@ -1,7 +1,9 @@
 ﻿using Data.Interface.DataModels.UserDataModels;
+using Data.Interface.Models;
 using Data.Interface.Models.enums;
 using Data.Interface.Repositories;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using VeloNews.Models;
 using VeloNews.Models.UserViewModels;
 using VeloNews.Services.IServices;
 using VeloNews.Services.ServiceAttributes;
@@ -14,17 +16,20 @@ namespace VeloNews.Services
         private IUserRepository _userRepository;
         private IUserProfileImageRepository _userProfileImageRepository;
         private IUserProfileImageService _userProfileImageService;
+        private IPaginatorService _paginatorService;
         private IAuthenticationService _authenticationService;
 
         public UserService(IUserRepository userRepository,
             IUserProfileImageRepository userProfileImageRepository,
             IUserProfileImageService userProfileImageService,
-            IAuthenticationService authenticationService)
+            IAuthenticationService authenticationService,
+            IPaginatorService paginatorService)
         {
             _userRepository = userRepository;
             _userProfileImageRepository = userProfileImageRepository;
             _userProfileImageService = userProfileImageService;
             _authenticationService = authenticationService;
+            _paginatorService = paginatorService;
         }
 
         public void RegistrationUser(RegistrationUserViewModel viewModel)
@@ -87,12 +92,12 @@ namespace VeloNews.Services
             return data;
         }
 
-        public ProfileViewModel ShowProfile()
+        public MyProfileViewModel ShowMyProfile()
         {
             var currentUser = _authenticationService.GetCurrentUser();
             var userData = _userRepository.GetUserProfileData(currentUser.Id);
 
-            var model = new ProfileViewModel()
+            var model = new MyProfileViewModel()
             {
                 Id = userData.User.Id,
                 Name = userData.User.Name,
@@ -105,6 +110,47 @@ namespace VeloNews.Services
             };
 
             return model;
+        }
+
+        public UserProfileViewModel ShowUserProfile(int userId)
+        {
+            var userData = _userRepository.GetUserProfileData(userId);
+
+            var model = new UserProfileViewModel()
+            {
+                Id = userData.User.Id,
+                Name = userData.User.Name,
+                ProfileImageUrl = userData.User.UserProfileImageUrl,
+                DateOfBirth = userData.User.DateOfBirth,
+                UserCreationDate = userData.User.UserCreationDate,
+                Country = userData.User.Country
+            };
+
+            return model;
+        }
+
+        public PaginatorViewModel<UserInfoViewModel> UsersForAdminPage(int page, int perPage, string sortField)
+        {
+            var viewModel = _paginatorService.GetPaginatorViewModel(
+                page,
+                perPage,
+                BuildUserInfoViewModel,
+                _userRepository,
+                sortField);
+
+            return viewModel;
+        }
+
+        public UserInfoViewModel BuildUserInfoViewModel(User dbUser)
+        {
+            return new UserInfoViewModel()
+            {
+                Id = dbUser.Id,
+                Name = dbUser.Name,
+                UserCreationDate = dbUser.UserCreationDate,
+                Country = dbUser.Country,
+                Role = dbUser.Role.ToString()
+            };
         }
     }
 }

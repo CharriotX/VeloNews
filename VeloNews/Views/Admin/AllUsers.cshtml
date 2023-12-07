@@ -1,11 +1,10 @@
-﻿@using VeloNews.Models.AdminViewModels;
+﻿@using VeloNews.Models.UserViewModels;
 @using VeloNews.Models.enums;
+@model PaginatorViewModel<UserInfoViewModel>
 
 @{
     Layout = "~/Views/Shared/AdminLayout.cshtml";
 }
-
-@model PaginatorViewModel<NewsForAdminPageViewModel>
 
 @section Styles {
     <link href="~/css/admin.css" rel="stylesheet" type="text/css" />
@@ -13,52 +12,54 @@
 }
 
 <div class="wrapper">
-    <div class="create-news">
-        <a href="/News/AddNews">Create news</a>
-    </div>
-
-    <div class="all-news-table">
-        <div class="news-header-list">
-            <div class="news-header-item">
-                <div class="news-header-cell">
-                    <a href="/Admin/AllNews?sortField=@SortFieldAdminNews.Id">Id</a>
+    <div class="all-user-table">
+        <div class="user-header-list">
+            <div class="user-header-item">
+                <div class="user-header-cell">
+                    <a href="/Admin/AllUsers?sortField=@SortFieldAdminUser.Id">Id</a>
                 </div>
-                <div class="news-header-cell">
-                    <a href="/Admin/AllNews?sortField=@SortFieldAdminNews.Title">Title</a>
+                <div class="user-header-cell">
+                    <a href="/Admin/AllUsers?sortField=@SortFieldAdminUser.Name">Name</a>
                 </div>
-                <div class="news-header-cell">
-                    <a href="/Admin/AllNews?sortField=@SortFieldAdminNews.CreatedTime">Date of creation</a>
+                <div class="user-header-cell">
+                    <a href="/Admin/AllUsers?sortField=@SortFieldAdminUser.UserCreationDate">Account created time</a>
                 </div>
-                <div class="news-header-cell">
-                    Creator
+                <div class="user-header-cell">
+                    <a href="/Admin/AllUsers?sortField=@SortFieldAdminUser.Role">Role</a>
                 </div>
-                <div class="news-header-cell">
+                <div class="user-header-cell">
+                    <a href="/Admin/AllUsers?sortField=@SortFieldAdminUser.Country">Country</a>
+                </div>
+                <div class="user-header-cell">
                     Actions
                 </div>
             </div>
 
         </div>
-        <div class="all-news-list">
-            @foreach (var news in Model.Items)
+        <div class="all-user-list">
+            @foreach (var user in Model.Items)
             {
-                <div class="news-list-item">
+                <div class="user-list-item">
                     <div>
-                        @news.Id
+                        @user.Id
                     </div>
-                    <div class="news-item-title">
-                       @news.Title
-                    </div>
-                    <div>
-                        @news.TimeOfCreation
+                    <div class="user-item-title">
+                        @user.Name
                     </div>
                     <div>
-                        @news.CreatorName
+                        @user.UserCreationDate.ToShortDateString()
                     </div>
-                    <div class="news-item-actions">
-                        <a href="/News/EditNews?newsId=@news.Id" target="_blank">
-                            <div class="item-action-edit">Edit</div>
+                    <div>
+                        @user.Role
+                    </div>
+                    <div>
+                        @user.Country
+                    </div>
+                    <div class="user-item-actions">
+                        <a href="/News/EditNews?newsId=@user.Id" target="_blank">
+                            <div class="item-action-edit">Profile</div>
                         </a>
-                        <a href="/News/RemoveNews?newsId=@news.Id">
+                        <a href="/News/RemoveNews?newsId=@user.Id">
                             <div class="item-action-remove">Remove</div>
                         </a>
                     </div>
@@ -70,13 +71,13 @@
         <ul>
             <li class="page-item @(!Model.ShowFirst ? "disabled":"")">
                 <a asp-controller="Admin"
-                   asp-action="AllNews"
+                   asp-action="AllUsers"
                    asp-route-page="@Model.ActivePageNumber = 1"
                    asp-route-sortField="@ViewData["CurrentSort"]"> << </a>
             </li>
             <li class="page-item @(!Model.ShowPrevious ? "disabled":"")">
                 <a asp-controller="Admin"
-                   asp-action="AllNews"
+                   asp-action="AllUsers"
                    asp-route-page="@(Model.ActivePageNumber - 1)"
                    asp-route-sortField="@ViewData["CurrentSort"]"> < </a>
             </li>
@@ -85,13 +86,13 @@
             </li>
             <li class="page-item @(!Model.ShowNext ? "disabled":"")">
                 <a asp-controller="Admin"
-                   asp-action="AllNews"
+                   asp-action="AllUsers"
                    asp-route-page="@(Model.ActivePageNumber + 1)"
                    asp-route-sortField="@ViewData["CurrentSort"]">></a>
             </li>
             <li class="page-item @(!Model.ShowLast ? "disabled":"")">
                 <a asp-controller="Admin"
-                   asp-action="AllNews"
+                   asp-action="AllUsers"
                    asp-route-page="@Model.PagesListCount"
                    asp-route-sortField="@ViewData["CurrentSort"]">
                     >>
@@ -100,5 +101,3 @@
         </ul>
     </div>
 </div>
-
-

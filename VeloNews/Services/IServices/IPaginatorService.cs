@@ -6,8 +6,13 @@ namespace VeloNews.Services.IServices
 {
     public interface IPaginatorService
     {
-        PaginatorViewModel<TViewModel> GetPaginatorViewModel<TViewModel, DbModel>(int page, int perPage, Func<DbModel, TViewModel> buildViewModelFunc, IBaseRepository<DbModel> repository)
-            where TViewModel : class
-            where DbModel : BaseModel;
+        PaginatorViewModel<TViewModel> GetPaginatorViewModel<TViewModel, DbModel>(
+            int page,
+            int perPage,
+            Func<DbModel, TViewModel> buildViewModelFunc,
+            IBaseRepository<DbModel> repository,
+            string sortField)
+                where TViewModel : class
+                where DbModel : BaseModel;
     }
 }

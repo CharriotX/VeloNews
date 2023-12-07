@@ -52,7 +52,7 @@ namespace VeloNews.Services
                 newImage.CopyTo(fs);
             }
 
-            var imageData = new ProfileImageData
+            var imageData = new MyProfileImageData
             {
                 Name = fileName,
                 Url = $"/images/userProfileImages/{folderNameWord}/{folderName}/{fileName}",

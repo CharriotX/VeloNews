@@ -17,7 +17,7 @@ namespace VeloNews.Services.IServices
         AddNewsData SaveNews(AddNewsViewModel viewModel);
         AddNewsViewModel GetAllNewsCategories();
         HomeViewModel GetNewsForHomePage();
-        PaginatorViewModel<NewsForAdminPageViewModel> GetAllNewsForAdminPagginator(int page, int perPage);
+        PaginatorViewModel<NewsForAdminPageViewModel> GetAllNewsForAdminPagginator(int page, int perPage, string sortField);
         NewsForAdminPageViewModel BuildAdminNewsViewModel(News dbNews);
         void EditNews(EditNewsViewModel viewModel);
         void DeleteNews(int id);

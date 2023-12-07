@@ -2,6 +2,7 @@
 using Data.Interface.Models;
 using Data.Interface.Repositories;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace Data.Sql.Repositories
 {
@@ -59,16 +60,28 @@ namespace Data.Sql.Repositories
             return _dbSet.Count();
         }
 
-        public virtual PaginatorData<T> GetPaginator(int page, int perPage)
+        public virtual PaginatorData<T> GetPaginator(int page, int perPage, string sortField)
         {
-            return GetPaginator(_dbSet, page, perPage);
+            return GetPaginator(_dbSet, page, perPage, sortField);
         }
 
-        public virtual PaginatorData<T> GetPaginator(IQueryable<T> initialSource, int page, int perPage)
+        public virtual PaginatorData<T> GetPaginator(IQueryable<T> initialSource, int page, int perPage, string sortField)
         {
             var dataModel = new PaginatorData<T>();
 
-            var items = initialSource
+            if (sortField == null)
+            {
+                sortField = "Id";
+            }
+
+            var table = Expression.Parameter(typeof(T), "x");
+            var propertyExpression = Expression.Property(table, sortField);
+            var orderBy = Expression.Lambda<Func<T, object>>
+                (Expression.Convert(propertyExpression, typeof(object)), table);
+
+            var sortedDbSet = initialSource.OrderBy(orderBy).AsQueryable<T>();
+
+            var items = sortedDbSet
                 .Skip((page - 1) * perPage)
                 .Take(perPage)
                 .ToList();

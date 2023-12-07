@@ -81,11 +81,11 @@ namespace Data.Sql.Repositories
             return model;
         }
 
-        public ShowUserProfileData GetUserProfileData(int userId)
+        public ShowMyProfileData GetUserProfileData(int userId)
         {
             var user = GetUserById(userId);
 
-            var data = new ShowUserProfileData
+            var data = new ShowMyProfileData
             {
                 User = new UserData
                 {

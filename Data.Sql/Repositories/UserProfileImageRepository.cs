@@ -24,7 +24,7 @@ namespace Data.Sql.Repositories
             _webContext.SaveChanges();
         }
 
-        public void EditProfileImage(ProfileImageData data)
+        public void EditProfileImage(MyProfileImageData data)
         {
             var user = _userRepository.GetUserById(data.UserId);
 
