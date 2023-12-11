@@ -47,7 +47,7 @@ namespace VeloNews.Services
 
         public void UserLogout()
         {
-            var user = _authenticationService.GetCurrentUser();
+            var user = _authenticationService.GetCurrentUserData();
 
             _hubContext
                 .Clients

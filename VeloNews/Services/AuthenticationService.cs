@@ -1,4 +1,6 @@
 ﻿using Data.Interface.DataModels.UserDataModels;
+using Data.Interface.Models;
+using Data.Interface.Models.enums;
 using Data.Interface.Repositories;
 using VeloNews.Services.IServices;
 using VeloNews.Services.ServiceAttributes;
@@ -35,7 +37,7 @@ namespace VeloNews.Services
             return data;
         }
 
-        public UserData GetCurrentUser()
+        public UserData GetCurrentUserData()
         {
             var idStr = _httpContextAccessor
                 .HttpContext
@@ -67,7 +69,27 @@ namespace VeloNews.Services
             return data;
         }
 
-        public UserData GetUserByNameAndPass(string userName, string userPass)
+        public User GetCurrentUser()
+        {
+            var idStr = _httpContextAccessor
+                .HttpContext
+                .User
+                .Claims
+                .FirstOrDefault(x => x.Type == "Id")
+                ?.Value;
+
+            if (idStr == null)
+            {
+                return null;
+            }
+
+            var id = int.Parse(idStr);
+            var user = _userRepository.GetUserById(id);
+
+            return user;
+        }
+
+        public UserData GetUserDataByNameAndPass(string userName, string userPass)
         {
             var user = _userRepository.GetUserByNameAndPass(userName, userPass);
 
@@ -105,14 +127,31 @@ namespace VeloNews.Services
 
         public bool IsAdmin()
         {
-            var user = GetCurrentUser();
+            var user = GetCurrentUserData();
 
             if (user == null)
             {
                 return false;
             }
 
-            if (user.Name == DEFAULT_ADMIN_NAME)
+            if (user.Role == UserRole.Admin.ToString())
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        public bool IsNewsModerator()
+        {
+            var user = GetCurrentUserData();
+
+            if (user == null)
+            {
+                return false;
+            }
+
+            if (user.Role == UserRole.NewsModerator.ToString())
             {
                 return true;
             }
@@ -122,7 +161,7 @@ namespace VeloNews.Services
 
         public bool IsUserAuthorized()
         {
-            var user = GetCurrentUser();
+            var user = GetCurrentUserData();
 
             return user == null ? false : true;
         }

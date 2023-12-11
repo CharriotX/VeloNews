@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using VeloNews.Controllers.Filters;
 using VeloNews.Models.enums;
 using VeloNews.Services.IServices;
 
 namespace VeloNews.Controllers
 {
+    [IsAdmin]
     public class AdminController : Controller
     {
         private IUserService _userService;

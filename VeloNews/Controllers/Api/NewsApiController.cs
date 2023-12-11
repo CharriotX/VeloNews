@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using VeloNews.Controllers.Filters;
 using VeloNews.Models.NewsViewModels;
 using VeloNews.Services.IServices;
 
@@ -41,6 +42,7 @@ namespace VeloNews.Controllers.Api
             return Ok(newsViewModels);
         }
 
+        [DeleteAndEditNewsPermission]
         [HttpPut]
         public ActionResult EditNews([FromForm] EditNewsViewModel viewModel)
         {
@@ -54,6 +56,7 @@ namespace VeloNews.Controllers.Api
             return Ok();
         }
 
+        [DeleteAndEditNewsPermission]
         [HttpDelete("{id}")]
         public ActionResult RemoveNews(int id)
         {

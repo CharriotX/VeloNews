@@ -223,3 +223,16 @@
     border-radius: 3px;
     color: white;
 }
+
+/*-----ACCESS-DENIED------*/
+.access-denied {
+    margin: 30px 10px;
+    font-size: 25px;
+    display: flex;
+    justify-content: center;
+}
+
+.access-denied a{
+    color: blue;
+    text-decoration: dashed;
+}

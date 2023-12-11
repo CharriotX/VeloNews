@@ -9,6 +9,7 @@ using VeloNews.Models.NewsViewModels;
 using VeloNews.Models.UserViewModels;
 using VeloNews.Services.IServices;
 using VeloNews.Services.ServiceAttributes;
+using Data.Interface.Models.enums;
 
 namespace VeloNews.Services
 {
@@ -185,7 +186,7 @@ namespace VeloNews.Services
 
         public AddNewsData SaveNews(AddNewsViewModel viewModel)
         {
-            var user = _authenticationService.GetCurrentUser();
+            var user = _authenticationService.GetCurrentUserData();
 
             var data = new AddNewsData
             {

@@ -1,9 +1,11 @@
 ﻿@using VeloNews.Models.UserViewModels;
-@model MyProfileViewModel
 
-
+@section Styles {
+    <link href="~/css/user.css" rel="stylesheet" type="text/css" />
+}
 
 <div>
-    <h2>My account</h2>
-    <div>@Model.Name</div>
+    <div class="access-denied">
+        Oops. You can't come here.<a href="/Home/Index"> Go Home</a>
+    </div>
 </div>

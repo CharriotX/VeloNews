@@ -94,7 +94,7 @@ namespace VeloNews.Services
 
         public MyProfileViewModel ShowMyProfile()
         {
-            var currentUser = _authenticationService.GetCurrentUser();
+            var currentUser = _authenticationService.GetCurrentUserData();
             var userData = _userRepository.GetUserProfileData(currentUser.Id);
 
             var model = new MyProfileViewModel()
