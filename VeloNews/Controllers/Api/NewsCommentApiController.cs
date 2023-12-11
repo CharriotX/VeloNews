@@ -1,5 +1,7 @@
 ﻿using Data.Interface.DataModels.NewsDataModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using VeloNews.Controllers.Filters;
 using VeloNews.Services.IServices;
 
 namespace VeloNews.Controllers.Api
@@ -15,6 +17,7 @@ namespace VeloNews.Controllers.Api
             _newsCommentService = newsCommentService;
         }
 
+        [Authorize]
         [HttpPost]
         public ActionResult AddComment([FromForm] SaveNewsCommentApiData commentData)
         {
@@ -23,6 +26,7 @@ namespace VeloNews.Controllers.Api
             return Ok(model);
         }
 
+        [DeleteCommentPermission]
         [HttpDelete("{id}")]
         public ActionResult RemoveComment(int id)
         {
@@ -31,6 +35,7 @@ namespace VeloNews.Controllers.Api
             return Ok();
         }
 
+        [EditCommentPermission]
         [HttpPut("{id}")]
         public ActionResult EditComment([FromForm] SaveNewsCommentApiData commentData)
         {

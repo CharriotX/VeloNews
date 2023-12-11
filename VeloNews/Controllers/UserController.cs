@@ -39,6 +39,7 @@ namespace VeloNews.Controllers
             return View(model);
         }
 
+        [Authorize]
         public IActionResult Profile(int userId)
         {
             var model = _userService.ShowUserProfile(userId);
@@ -82,7 +83,7 @@ namespace VeloNews.Controllers
                 return View();
             }
 
-            var user = _authenticationService.GetUserByNameAndPass(viewModel.Name, viewModel.Password);
+            var user = _authenticationService.GetUserDataByNameAndPass(viewModel.Name, viewModel.Password);
 
             if (user == null)
             {
@@ -131,6 +132,11 @@ namespace VeloNews.Controllers
             _userService.RegistrationUser(viewModel);
 
             return RedirectToAction("Index", "Home");
+        }
+
+        public IActionResult AccessDenied()
+        {
+            return View();
         }
     }
 }

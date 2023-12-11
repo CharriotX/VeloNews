@@ -24,7 +24,7 @@ namespace VeloNews.Services
 
         public SaveNewsCommentViewModel SaveComment(SaveNewsCommentApiData dataApi)
         {
-            var user = _authenticationService.GetCurrentUser();
+            var user = _authenticationService.GetCurrentUserData();
 
             var data = new SaveNewsCommentData
             {
@@ -67,6 +67,14 @@ namespace VeloNews.Services
                 Text = comment.Text,
                 CreatedTime = comment.CreatedTime.ToString("dd-MM-yyyy, HH:mm")
             };
+        }
+
+        public bool UserIsAuthor(int commentId)
+        {
+            var author = _authenticationService.GetCurrentUserData();
+            var comment = _newsCommentRepository.GetCommentAuthor(commentId);
+
+            return author.Name == comment.AuthorName ? true : false;
         }
 
         public void RemoveComment(int commentId)

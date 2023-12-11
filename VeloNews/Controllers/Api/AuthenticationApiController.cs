@@ -31,7 +31,7 @@ namespace VeloNews.Controllers.Api
                 return BadRequest("Incorrect data");
             }
 
-            var user = _authenticationService.GetUserByNameAndPass(viewModel.Name, viewModel.Password);
+            var user = _authenticationService.GetUserDataByNameAndPass(viewModel.Name, viewModel.Password);
 
             if (user == null)
             {

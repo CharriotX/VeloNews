@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using VeloNews.Controllers.Filters;
 using VeloNews.Models.NewsViewModels;
 using VeloNews.Services.IServices;
 
@@ -8,13 +8,9 @@ namespace VeloNews.Controllers
     public class NewsController : Controller
     {
         private INewsService _newsService;
-        private INewsCommentService _newsCommentService;
-
-        public NewsController(INewsService newsService,
-            INewsCommentService newsCommentService)
+        public NewsController(INewsService newsService)
         {
             _newsService = newsService;
-            _newsCommentService = newsCommentService;
         }
 
         public IActionResult Index(string categoryName, int page = 1)
@@ -31,7 +27,7 @@ namespace VeloNews.Controllers
             return View(model);
         }
 
-        [Authorize]
+        [IsNewsModerator]
         [HttpGet]
         public IActionResult AddNews()
         {
@@ -39,7 +35,7 @@ namespace VeloNews.Controllers
             return View(modelWithCategoryList);
         }
 
-        [Authorize]
+        [IsNewsModerator]
         [HttpPost]
         public IActionResult AddNews(AddNewsViewModel viewModel)
         {
@@ -53,6 +49,7 @@ namespace VeloNews.Controllers
             return RedirectToAction("Index");
         }
 
+        [IsNewsModerator]
         [HttpGet]
         public IActionResult EditNews(int newsId)
         {
@@ -60,6 +57,7 @@ namespace VeloNews.Controllers
             return View(model);
         }
 
+        [IsNewsModerator]
         [HttpPost]
         public IActionResult EditNews(EditNewsViewModel viewModel)
         {
@@ -68,6 +66,7 @@ namespace VeloNews.Controllers
             return RedirectToAction("ShowNews", "News", new { newsId = viewModel.Id });
         }
 
+        [IsNewsModerator]
         public IActionResult RemoveNews(int newsId)
         {
             if (newsId == 0)

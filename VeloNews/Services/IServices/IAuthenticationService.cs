@@ -7,10 +7,12 @@ namespace VeloNews.Services.IServices
     {
         List<UserApiData> GetAllUsersForApi();
         UserApiData GetUserForApi(int id);
-        UserData GetCurrentUser();
-        UserData GetUserByNameAndPass(string userName, string userPass);
+        UserData GetCurrentUserData();
+        User GetCurrentUser();
+        UserData GetUserDataByNameAndPass(string userName, string userPass);
         UserData GetUserByName(string username);
         bool IsAdmin();
-        public bool IsUserAuthorized();
+        public bool IsNewsModerator();
+        bool IsUserAuthorized();
     }
 }

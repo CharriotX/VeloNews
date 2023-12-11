@@ -11,7 +11,7 @@ namespace VeloNews.Models.ValidationAttributes
         {
             var authService = validationContext.GetService<IAuthenticationService>();
             var userName = value == null ? String.Empty : value.ToString().ToLower();
-            var currentUser = authService.GetCurrentUser();
+            var currentUser = authService.GetCurrentUserData();
 
             var incorrectUserName = banWords.Contains(userName);
             var isCurrentUserAdmin = banWords.Contains(currentUser.Name);

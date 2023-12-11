@@ -22,6 +22,11 @@ namespace VeloNews.Controllers.Api
         {
             var usersData = _authenticationService.GetAllUsersForApi();
 
+            if (usersData == null)
+            {
+                return NotFound();
+            }
+
             return Ok(usersData);
         }
 

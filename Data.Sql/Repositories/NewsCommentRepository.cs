@@ -18,6 +18,18 @@ namespace Data.Sql.Repositories
             _userRepository = userRepository;
         }
 
+        public NewsCommentAuthorData GetCommentAuthor(int id)
+        {
+            var comment = _dbSet
+                .Include(x => x.User)
+                .FirstOrDefault(x => x.Id == id);
+
+            return new NewsCommentAuthorData
+            {
+                AuthorName = comment.User.Name
+            };
+        }
+
         public List<LastCommentData> GetLastComments()
         {
             var lastComments = _dbSet

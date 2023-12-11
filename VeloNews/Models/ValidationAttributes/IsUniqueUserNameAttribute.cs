@@ -23,7 +23,7 @@ namespace VeloNews.Models.ValidationAttributes
 
             var userName = value?.ToString();
 
-            var currentUser = authService.GetCurrentUser();
+            var currentUser = authService.GetCurrentUserData();
 
             var isDuplicate = userRepository.IsUserNameExist(userName);
 

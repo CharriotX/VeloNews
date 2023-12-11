@@ -18,13 +18,13 @@ namespace VeloNews.Localization
             var userService = context.RequestServices
                 .GetService(typeof(IAuthenticationService)) as AuthenticationService;
 
-            if (userService.GetCurrentUser() == null)
+            if (userService.GetCurrentUserData() == null)
             {
                 CultureInfo.DefaultThreadCurrentUICulture = new CultureInfo("en-EN");
             }
             else
             {
-                switch (userService.GetCurrentUser()?.Language)
+                switch (userService.GetCurrentUserData()?.Language)
                 {
                     case UserLanguage.Rus:
                         CultureInfo.DefaultThreadCurrentUICulture = new CultureInfo("ru-RU");
