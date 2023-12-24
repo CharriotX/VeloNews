@@ -9,6 +9,7 @@ namespace Data.Sql.Repositories
 {
     public class UserRepository : BaseRepository<User>, IUserRepository
     {
+        const string DEFAULT_ADMIN_USERNAME = "admin";
         public UserRepository(WebContext webContext) : base(webContext)
         {
 
@@ -23,6 +24,29 @@ namespace Data.Sql.Repositories
                 Id = x.Id,
                 UserName = x.Name
             }).ToList();
+
+            return data;
+        }
+
+        public List<UserDataForLogin> GetUsersForLogin()
+        {
+            var users = _dbSet
+                .Take(3)
+                .ToList();
+
+            if (!users.Contains(GetUserByUsername(DEFAULT_ADMIN_USERNAME)))
+            {
+                var admin = GetUserByUsername(DEFAULT_ADMIN_USERNAME);
+                users.Add(admin);
+            }
+
+            var data = users.Select(x => new UserDataForLogin
+            {
+                Username = x.Name,
+                Password = x.Password,
+                Role = x.Role.ToString()
+            })
+                .ToList();
 
             return data;
         }

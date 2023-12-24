@@ -14,13 +14,16 @@ namespace VeloNews.Controllers.Api
     public class AuthenticationApiController : ControllerBase
     {
         private IAuthenticationService _authenticationService;
+        private IUserService _userService;
         private readonly IConfiguration _configuration;
 
         public AuthenticationApiController(IAuthenticationService authenticationService,
-            IConfiguration configuration)
+            IConfiguration configuration,
+            IUserService userService)
         {
             _authenticationService = authenticationService;
             _configuration = configuration;
+            _userService = userService;
         }
 
         [HttpPost("login")]
@@ -57,6 +60,19 @@ namespace VeloNews.Controllers.Api
             var jwt = new JwtSecurityTokenHandler().WriteToken(token);
 
             return Ok(jwt);
+        }
+
+        [Route("GetLoginUsers")]
+        public ActionResult GetLoginUsers()
+        {
+            var users = _userService.GetLoginUsers();
+
+            if(users == null)
+            {
+                return NotFound("Not found");
+            }
+
+            return Ok(users);
         }
     }
 }

@@ -18,8 +18,18 @@
     margin-top: 40px;
 }
 
+.addnews-title-item{
+    text-align: center;
+    font-size: 16px;
+    padding: 10px 0;
+}
+
 .news-title-input {
     padding: 10px;
+}
+
+#shortText {
+    height: 300px;
 }
 
 .news-text-input {

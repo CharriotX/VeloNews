@@ -17,5 +17,6 @@ namespace Data.Interface.Repositories
         User GetUserById(int userId);
         ShowMyProfileData GetUserProfileData(int userId);
         void EditMyProfile(EditMyProfileData data);
+        List<UserDataForLogin> GetUsersForLogin();
     }
 }

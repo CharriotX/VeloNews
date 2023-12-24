@@ -7,7 +7,6 @@
     <script type="text/javascript" src="https://unpkg.com/trix@2.0.0/dist/trix.umd.min.js"></script>
 }
 
-
 <div>
 
     <form action="/News/EditNews" method="post">
@@ -15,13 +14,16 @@
 
         <div>
             Title: @Html.TextBoxFor(x =>x.Title)
+            @Html.ValidationMessageFor(x => x.Title)
         </div>
         <div class="trix-editor">
+            @Html.ValidationMessageFor(x => x.ShortText)
             Shor text:
             @Html.HiddenFor(x => x.ShortText, new {@id = "short-text"})
             <trix-editor input="short-text" trix-file-accept="preventDefault"></trix-editor>
         </div>
         <div class="trix-editor">
+            @Html.ValidationMessageFor(x => x.Text)
             Text:
             @Html.HiddenFor(x => x.Text, new {@id = "text"})
             <trix-editor input="text" trix-file-accept="preventDefault"></trix-editor>

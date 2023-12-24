@@ -17,7 +17,7 @@ namespace VeloNews.Controllers.Api
         }
 
         [HttpGet]
-        public ActionResult<NewsCardViewModel> GetAllNews()
+        public ActionResult<NewsCardViewModel> GetAllNewsCards()
         {
             var newsCardsViewModels = _newsService.GetAllNewsCards();
 

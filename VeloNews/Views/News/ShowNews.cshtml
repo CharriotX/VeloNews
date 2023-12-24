@@ -28,7 +28,7 @@
             </div>
             <div class="show-news-text">@Html.Raw(Model.Text)</div>
         </div>
-        <div id="comment-anchor" class="back-btn"><a href="/News/Index">Back to news</a></div>
+        <div id="comment-anchor" class="back-btn"><a href="@ViewData["Reffer"]">Back to news</a></div>
         <div class="comment-block">
             @if (authService.GetCurrentUserData() == null)
             {
@@ -86,10 +86,13 @@
                                 </div>
 
                                 <div class="comment-actions">
-                                    @if (authService.IsAdmin() || authService.GetCurrentUserData().Name == authService.GetUserByName(comment.UserName).Name)
+                                    @if(authService.GetCurrentUser() != null)
                                     {
-                                        <a href="#comment-anchor" class="remove-comment">Удалить</a>
-                                        <a href="#comment-anchor" class="edit-comment">Редактировать</a>
+                                        @if (authService.IsAdmin() || authService.GetCurrentUserData().Name == authService.GetUserByName(comment.UserName).Name)
+                                        {
+                                            <a href="#comment-anchor" class="remove-comment">Удалить</a>
+                                            <a href="#comment-anchor" class="edit-comment">Редактировать</a>
+                                        }
                                     }
                                 </div>
                             </div>

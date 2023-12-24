@@ -75,6 +75,7 @@ namespace VeloNews.Controllers
         {
             return View();
         }
+
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel viewModel)
         {

@@ -166,13 +166,17 @@ a .news-row:hover {
 }
 
 .comment-table-cell {
-    width: 15%;
+    width: 10%;
     text-align: center;
     padding: 5px;
 }
 
     .comment-table-cell.text {
         width: 65%;
+        display: inline;
+    }
+    .comment-table-cell.author {
+        width: 20%;
         display: inline;
     }
 

@@ -23,6 +23,11 @@ namespace VeloNews.Controllers
 
         public IActionResult ShowNews(int newsId)
         {
+            if (Request.Headers["Referer"].ToString() != null)
+            {
+                ViewData["Reffer"] = Request.Headers["Referer"].ToString();
+            }
+
             var model = _newsService.GetFullNews(newsId);
             return View(model);
         }
@@ -46,7 +51,7 @@ namespace VeloNews.Controllers
 
             _newsService.SaveNews(viewModel);
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", new {categoryName = viewModel.Category.ToString()});
         }
 
         [IsNewsModerator]
@@ -61,6 +66,11 @@ namespace VeloNews.Controllers
         [HttpPost]
         public IActionResult EditNews(EditNewsViewModel viewModel)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(viewModel);
+            }
+
             _newsService.EditNews(viewModel);
 
             return RedirectToAction("ShowNews", "News", new { newsId = viewModel.Id });

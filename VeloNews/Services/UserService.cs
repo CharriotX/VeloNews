@@ -1,4 +1,5 @@
-﻿using Data.Interface.DataModels.UserDataModels;
+﻿using Data.Interface.DataModels.AdminDataModels;
+using Data.Interface.DataModels.UserDataModels;
 using Data.Interface.Models;
 using Data.Interface.Models.enums;
 using Data.Interface.Repositories;
@@ -43,6 +44,13 @@ namespace VeloNews.Services
             var savedUser = _userRepository.UserRegistration(data);
 
             _userProfileImageRepository.SaveDefaultUserProfileImage(savedUser);
+        }
+
+        public List<UserDataForLogin> GetLoginUsers()
+        {
+            var users = _userRepository.GetUsersForLogin();
+
+            return users;
         }
 
         public EditMyProfileViewModel GetViewModelForEditProfilePage(int userId)

@@ -1,4 +1,5 @@
-﻿using Data.Interface.DataModels.UserDataModels;
+﻿using Data.Interface.DataModels.AdminDataModels;
+using Data.Interface.DataModels.UserDataModels;
 using Data.Interface.Models;
 using VeloNews.Models;
 using VeloNews.Models.UserViewModels;
@@ -14,5 +15,6 @@ namespace VeloNews.Services.IServices
         EditMyProfileData EditMyProfile(EditMyProfileViewModel viewModel);
         PaginatorViewModel<UserInfoViewModel> UsersForAdminPage(int page, int perPage, string sortField);
         UserInfoViewModel BuildUserInfoViewModel(User dbUser);
+        List<UserDataForLogin> GetLoginUsers();
     }
 }

@@ -8,11 +8,9 @@
 
   <ItemGroup>
     <Folder Include="Logs\Error\" />
-    <Folder Include="wwwroot\css\froala\" />
     <Folder Include="wwwroot\images\uploads\news\" />
     <Folder Include="wwwroot\images\uploads\pictures\" />
     <Folder Include="wwwroot\images\userProfileImages\" />
-    <Folder Include="wwwroot\js\froala\" />
   </ItemGroup>
 
   <ItemGroup>

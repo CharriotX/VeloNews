@@ -19,11 +19,18 @@
 
     <div class="account-info">
         @Html.HiddenFor(x => x.Id)
-        @MyProfile.Account_Info
+        <div>
+            @MyProfile.Account_Info
+        </div>
         @if (Model.Role == UserRole.Admin.ToString())
         {
-            <div>
-                <a href="/Admin/Index">AdminPage</a>
+            <div class="admin-references">
+                <div class="admin-page">
+                    <a href="/Admin/Index">AdminPage</a>
+                </div>
+                <div class="admin-page">
+                    <a href="/News/AddNews">Create news</a>
+                </div>
             </div>
         }
     </div>

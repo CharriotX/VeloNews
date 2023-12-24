@@ -15,7 +15,7 @@ namespace VeloNews.Controllers.Filters
                 context.Result = new UnauthorizedResult();
             }
 
-            if (!authService.IsAdmin() || !authService.IsNewsModerator())
+            if (!authService.IsAdmin() && !authService.IsNewsModerator())
             {
                 context.Result = new ForbidResult() ;
                 return;

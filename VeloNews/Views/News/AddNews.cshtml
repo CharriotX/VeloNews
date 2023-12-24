@@ -2,32 +2,98 @@
 
 @model AddNewsViewModel
 
+@section Scripts{
+    <script src="https://cdn.tiny.cloud/1/ce9dcf9ind3ruysmn4vr3wuynheixj9jcb2rjizwykab18f6/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+}
+
 
 
 <div class="add-news">
     <form action="AddNews" method="post" enctype="multipart/form-data">
         @Html.HiddenFor(x => x.Id)
         <div class="news-title-input">
-            Заголовок: @Html.TextAreaFor(x => x.Title, new {@class="title", cols="150", rows="2"})
+            <div class="addnews-title-item">
+                Заголовок:
+            </div>
+            @Html.TextAreaFor(x => x.Title, new {id="news-title"})
+            <script>
+                tinymce.init({
+                    selector: '#news-title',
+                    menubar: false,
+                    statusbar: false,
+                    toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist | preview code',
+                    height: 120,
+                    ai_request: (request, respondWith) => respondWith.string(() => Promise.reject("See docs to implement AI Assistant")),
+                });
+            </script>
         </div>
 
         <div>
-            Короткий текст для превью: @Html.TextAreaFor(x=>x.ShorText, new {id="shortText"})
+            <div class="addnews-title-item">
+                Короткий текст для превью:
+            </div>
+             @Html.TextAreaFor(x=>x.ShorText, new {id="shortText"})
             <script>
-                var editor = new FroalaEditor('#shortText')
+                tinymce.init({
+                    selector: '#shortText',
+                    menubar: false,
+                    statusbar: false,
+                    toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist | preview code',
+                    height: 200,
+                    ai_request: (request, respondWith) => respondWith.string(() => Promise.reject("See docs to implement AI Assistant")),
+                });
             </script>
-
             <div class="image-preview">
-                Картинки:  <input asp-for="Images" multiple />
+                <div class="addnews-title-item">
+                    Картинки:
+                </div>  <input asp-for="Images" multiple />
             </div>
         </div>
 
 
         <div class="news-text-input">
-            Текст новости: @Html.TextAreaFor(x => x.Text, new{id="newsEditor"})
+            <div class="addnews-title-item">
+                Текст новости:
+            </div>
+            @Html.TextAreaFor(x => x.Text, new{id="newsEditor"})
+            <script>
+                tinymce.init({
+                    selector: '#newsEditor',
+                    images_upload_url: '/PropositionArticle/uploadImg',
+
+                    plugins: 'ai tinycomments mentions anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed permanentpen footnotes advtemplate advtable advcode editimage tableofcontents mergetags powerpaste tinymcespellchecker autocorrect a11ychecker typography inlinecss',
+                    toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist | link image | preview code',
+                    ai_request: (request, respondWith) => respondWith.string(() => Promise.reject("See docs to implement AI Assistant")),
+                    file_picker_types: 'image',
+                    file_picker_callback: function (cb, value, meta) {
+
+                        var input = document.createElement('input');
+                        input.setAttribute('type', 'file');
+                        input.setAttribute('accept', 'image/*');
+
+                        input.onchange = function () {
+                            var file = this.files[0];
+
+                            var reader = new FileReader();
+                            reader.readAsDataURL(file);
+                            reader.onload = function () {
+                                var id = 'blobid' + (new Date()).getTime();
+                                var blobCache = tinymce.activeEditor.editorUpload.blobCache;
+                                var base64 = reader.result.split(',')[1];
+                                var blobInfo = blobCache.create(id, file, base64);
+                                blobCache.add(blobInfo);
+                                cb(blobInfo.blobUri(), { title: file.name });
+                            };
+                        };
+                    input.click();
+                });
+            </script>
         </div>
 
         <div>
+            <div class="addnews-title-item">
+                Категория новости:
+            </div>
             <select asp-for="@Model.SelectedCategoryId"
                     asp-items="@Model.Categories">
                 <option>Select one</option>
@@ -36,10 +102,6 @@
 
         <button class="btn btn-submit">Create news</button>
     </form>
-
-    <script>
-        var editor = new FroalaEditor('#newsEditor');
-    </script>
 </div>
 
 
