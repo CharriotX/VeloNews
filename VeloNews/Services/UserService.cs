@@ -65,6 +65,7 @@ namespace VeloNews.Services
                 Name = user.Name,
                 Country = user.Country,
                 DateOfBirth = user.DateOfBirth,
+                Language = user.Language,
                 Countries = countries.Select(x => new SelectListItem()
                 {
                     Text = x.Name,

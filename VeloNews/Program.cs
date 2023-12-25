@@ -1,18 +1,9 @@
-using Data.Interface.Repositories;
 using Data.Sql;
-using Data.Sql.Repositories;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Http.Headers;
-using Microsoft.AspNetCore.Localization;
-using Microsoft.AspNetCore.Mvc.Razor;
-using Microsoft.AspNetCore.SignalR;
-using Microsoft.Extensions.DependencyInjection;
+using Microsoft.EntityFrameworkCore;
 using Serilog;
-using System.Globalization;
 using VeloNews.Localization;
-using VeloNews.Services;
 using VeloNews.Services.Helpers;
-using VeloNews.Services.IServices;
 using VeloNews.SignalRHubs;
 using VeloNews.Utilities;
 
@@ -66,6 +57,12 @@ Log.Logger = new LoggerConfiguration()
 builder.Host.UseSerilog();
 
 var app = builder.Build();
+
+using (var serviceScope = app.Services.GetService<IServiceScopeFactory>().CreateScope())
+{
+    var context = serviceScope.ServiceProvider.GetRequiredService<WebContext>();
+    context.Database.Migrate();
+}
 
 app.Seed();
 

@@ -28,7 +28,7 @@ namespace Data.Sql.Repositories
         {
             var user = _userRepository.GetUserById(data.UserId);
 
-            user.Name = data.Name;
+            user.UserProfileImage.Name = data.Name;
             user.UserProfileImage.Url = data.Url;
 
             _webContext.SaveChanges();

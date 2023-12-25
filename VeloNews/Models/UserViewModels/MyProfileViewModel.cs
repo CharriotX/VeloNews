@@ -7,8 +7,8 @@ namespace VeloNews.Models.UserViewModels
     public class MyProfileViewModel
     {
         public int Id { get; set; }
-        [IsUniqueUserName]
-        [IsCorrectUserName]
+        [IsUniqueRegisterUserName]
+        [IsCorrectRegisterUserName]
         public string Name { get; set; }
         public string Role { get; set; }
         public string ProfileImageUrl { get; set; }

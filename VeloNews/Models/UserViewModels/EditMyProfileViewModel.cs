@@ -1,5 +1,4 @@
 ﻿using Data.Interface.Models.enums;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.ComponentModel.DataAnnotations;
 using VeloNews.Models.ValidationAttributes;
@@ -9,8 +8,9 @@ namespace VeloNews.Models.UserViewModels
     public class EditMyProfileViewModel
     {
         public int UserId { get; set; }
-        [IsCorrectUserName]
-        [IsUniqueUserName]
+
+        [MinLength(4, ErrorMessage = "Minimum username length 4 characters")]
+        [EditProfileUsername]
         public string Name { get; set; }
         public string Country { get; set; }
         public IFormFile? NewProfileImage { get; set; }

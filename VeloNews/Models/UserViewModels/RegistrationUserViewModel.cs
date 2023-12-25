@@ -6,10 +6,12 @@ namespace VeloNews.Models.UserViewModels
     public class RegistrationUserViewModel
     {
         [EnglishWordsFormInputs]
-        [IsCorrectUserName]
-        [IsUniqueUserName]
+        [IsCorrectRegisterUserName]
+        [IsUniqueRegisterUserName]
+        [MinLength(4, ErrorMessage = "Minimum username length 4 characters")]
         public string UserName { get; set; }
 
+        [MinLength(4, ErrorMessage = "Minimum password length 4 characters")]
         [EnglishWordsFormInputs]
         public string Password { get; set; }
 
