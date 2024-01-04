@@ -55,7 +55,6 @@ namespace VeloNews.Utilities
             
             if (userRepository.Count() < 2)
             {
-
                 for (var i = 0; i < 20; i++)
                 {
                     var user = new User()
@@ -63,7 +62,7 @@ namespace VeloNews.Utilities
                         Name = SEED_USER_NAME + i,
                         Password = SEED_USER_PASSWORD,
                         Role = UserRole.User,
-                        Country = "Не указан",
+                        Country = UserLanguage.Eng.ToString(),
                         DateOfBirth = DateTime.Now,
                         UserCreationDate = DateTime.Now
                     };

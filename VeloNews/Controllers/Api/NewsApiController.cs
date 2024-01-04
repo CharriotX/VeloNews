@@ -24,6 +24,14 @@ namespace VeloNews.Controllers.Api
             return Ok(newsCardsViewModels);
         }
 
+        [Route("homeNewsCards")]
+        public ActionResult<NewsCardViewModel> GetNewsForHomePage()
+        {
+            var homeNewsCards = _newsService.GetNewsForHomePage();
+
+            return Ok(homeNewsCards);
+        }
+
         [HttpGet("{id}")]
         public ActionResult<ShowNewsViewModel> GetFullNews(int id)
         {
